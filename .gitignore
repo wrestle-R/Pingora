@@ -1,0 +1,12 @@
+/local-docs/
+
+# Environment files
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Local files
+.DS_Store
+Thumbs.db
+*.log
