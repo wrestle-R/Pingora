@@ -2,9 +2,9 @@
 
 **What to build:** Existing sidebar identified; notification observation/replacement/actions/lock privacy demonstrated on all three desktops.
 
-**Blocked by:** P01
+**Blocked by:** None (P01 completed)
 
-**Status:** blocked
+**Status:** ready-for-agent
 
 **Spec:** [Product plan](../../plan.md)
 
@@ -15,7 +15,7 @@
 
 ## Verification
 
-Not started. Record actual commands, observed behavior and limitations here when work begins.
+P01 identified Quickshell, verified synthetic replacement/close and sender-restricted passive observation without reading existing content. Actual clicked actions/dismissals, lock/unlock privacy and Plasma/GNOME evidence remain.
 
 ## Comments
 

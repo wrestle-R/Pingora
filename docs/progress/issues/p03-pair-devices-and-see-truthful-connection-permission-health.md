@@ -2,9 +2,9 @@
 
 **What to build:** Phone/laptop approve pairing; unauthorized connection rejected; revoke works; missing permission has a useful fix.
 
-**Blocked by:** P01
+**Blocked by:** None (P01 completed)
 
-**Status:** blocked
+**Status:** ready-for-agent
 
 **Spec:** [Product plan](../../plan.md)
 

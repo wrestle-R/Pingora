@@ -1,0 +1,7 @@
+{
+  "repository": "https://github.com/KDE/kdeconnect-kde",
+  "revision": "da07df7399128810f19ce4acc853c54a405f8e62",
+  "archive_url": "https://codeload.github.com/KDE/kdeconnect-kde/tar.gz/da07df7399128810f19ce4acc853c54a405f8e62",
+  "archive_sha256": "3f958f8e8cc1b157d490d0175b759e66c74dc28116e518f8a598f5977dc06ed4",
+  "status": "isolated LAN-only service build probe; not a packaged service or verified paired endpoint"
+}

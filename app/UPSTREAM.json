@@ -1,0 +1,16 @@
+{
+  "repository": "https://github.com/KDE/kdeconnect-android",
+  "revision": "207dcdb17681557f738c5b16642baa6b9fa076c0",
+  "modifications": [
+    "distinct applicationId/version/label",
+    "default Android debug signing, upstream public debug key excluded",
+    "no loadable device plugins in build probe",
+    "no Bluetooth feature transport",
+    "plugin manifest components and broad permissions removed",
+    "distinct Pingora vector icon",
+    "no public-debug-key ignore exception",
+    "upstream CI and store publishing metadata excluded",
+    "reported trailing whitespace and blank EOF normalized"
+  ],
+  "status": "build-path probe; no pairing/feature acceptance claimed"
+}

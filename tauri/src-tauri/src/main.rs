@@ -6,6 +6,7 @@ use std::process::Command;
 #[derive(Serialize)]
 struct Health {
     paired: bool,
+    native_service: bool,
     transport: &'static str,
     notifications: &'static str,
     slumber: Slumber,
@@ -68,14 +69,53 @@ fn slumber_status() -> Slumber {
     }
 }
 
-#[tauri::command]
-fn health() -> Health {
+fn paired_count() -> Option<usize> {
+    let output = Command::new("/usr/bin/busctl")
+        .args([
+            "--user",
+            "--json=short",
+            "--timeout=3",
+            "call",
+            "io.github.wrestle_r.pingora",
+            "/modules/kdeconnect",
+            "org.kde.kdeconnect.daemon",
+            "devices",
+            "bb",
+            "false",
+            "true",
+        ])
+        .output()
+        .ok()?;
+    if !output.status.success() || output.stdout.len() > 65536 {
+        return None;
+    }
+    let value: serde_json::Value = serde_json::from_slice(&output.stdout).ok()?;
+    if value["type"].as_str()? != "as" {
+        return None;
+    }
+    Some(value["data"][0].as_array()?.len())
+}
+
+fn read_health() -> Health {
+    let count = paired_count();
     Health {
-        paired: false,
-        transport: "Not implemented",
+        paired: count.is_some_and(|count| count > 0),
+        native_service: count.is_some(),
+        transport: if count.is_some() {
+            "LAN service available · pairing checks pending"
+        } else {
+            "Native LAN service not running"
+        },
         notifications: "Adapter verification pending",
         slumber: slumber_status(),
     }
+}
+
+#[tauri::command]
+async fn health() -> Result<Health, String> {
+    tauri::async_runtime::spawn_blocking(read_health)
+        .await
+        .map_err(|_| "Could not read connection health".into())
 }
 
 fn main() {
@@ -84,7 +124,7 @@ fn main() {
     if std::env::args().nth(1).as_deref() == Some("--probe-health") {
         println!(
             "{}",
-            serde_json::to_string(&health()).expect("health is serializable")
+            serde_json::to_string(&read_health()).expect("health is serializable")
         );
         return;
     }

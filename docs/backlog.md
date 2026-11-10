@@ -1,6 +1,6 @@
 # Implementation backlog
 
-The user approved the original P01–P17 breakdown and six core test boundaries. Website work P18–P19 extends it for the latest request. Individual local tickets under [progress](progress/README.md) are the status authority; this document records scope/dependencies, not a second progress tracker. No work is claimed implemented. Each product slice includes Android/desktop/UI/protocol changes only as needed to demonstrate its named behavior. Research/build probes are explicitly labeled preparation.
+The user approved the original P01–P17 breakdown and six core test boundaries. Website work P18–P19 extends it for the latest request. Individual local tickets under [progress](progress/README.md) are the status authority; this document records scope/dependencies, not a second progress tracker. Use each ticket’s verification evidence to distinguish implemented work from preparation. Each product slice includes Android/desktop/UI/protocol changes only as needed to demonstrate its named behavior. Research/build probes are explicitly labeled preparation.
 
 | ID | Work | Blocked by | Demo / acceptance |
 | --- | --- | --- | --- |
@@ -23,6 +23,7 @@ The user approved the original P01–P17 breakdown and six core test boundaries.
 | P17 | Friends beta qualification | P06, P07, P09, P10, P11, P12, P13, P14, P16, P19 | All required core behavior tested across three desktops; calls explicitly verified or unavailable; documented resource baseline; recovery/install/update runbook |
 | P18 | Website marketing, docs and issue-report navigation | None | Responsive home/docs/support pages; clear unreleased/private states; GitHub-hosted bug/feature links; no internal progress exposed |
 | P19 | GitHub-backed website downloads/releases/issues | P18, P15 | Only permitted metadata displayed; correct real release assets; loading/empty/rate-limit states; private data never exposed; public downloads agree with published versions |
+| P20 | Native Slumber phone controls | P03, P08 | Real status and explicit activation through owner’s existing lock-safe IPC; narrow lid setter after review; local opt-in, paired authorization and no remote unlock |
 
 P14 is optional in capability availability: P17 requires evaluation and an honest supported/unsupported result, not a claim that every device supports calls. P15 can start early so packaging feedback reaches feature work; do not defer all release checks until the end.
 
