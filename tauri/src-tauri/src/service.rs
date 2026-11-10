@@ -50,13 +50,21 @@ impl NativeService {
             .0
             .lock()
             .map_err(|_| "Could not access service state")?;
-        if let Some(mut process) = child.take() {
-            process
-                .kill()
-                .map_err(|_| "Could not stop the owned LAN service")?;
-            process
-                .wait()
-                .map_err(|_| "Could not wait for the owned LAN service")?;
+        if let Some(process) = child.as_mut() {
+            match process.try_wait() {
+                Ok(Some(_)) => {}
+                Ok(None) => {
+                    // Retain ownership if stopping fails, so it can be retried.
+                    process
+                        .kill()
+                        .map_err(|_| "Could not stop the owned LAN service")?;
+                    process
+                        .wait()
+                        .map_err(|_| "Could not wait for the owned LAN service")?;
+                }
+                Err(_) => return Err("Could not inspect the owned LAN service".into()),
+            }
+            *child = None;
         }
         Ok(())
     }

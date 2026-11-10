@@ -259,6 +259,20 @@ class DeviceTest {
     }
 
     @Test
+    fun revokedDeviceCannotDeliverFeaturePayload() {
+        val device = Device(context, "testDevice")
+        device.unpair()
+        val payload = mockk<NetworkPacket.Payload>(relaxed = true)
+        val packet = NetworkPacket("pingora.notification").apply { this.payload = payload }
+
+        device.onPacketReceived(packet)
+
+        Assert.assertFalse(device.isPaired)
+        Assert.assertTrue(packet.isCanceled)
+        verify(exactly = 1) { payload.close() }
+    }
+
+    @Test
     @Throws(CertificateException::class)
     fun testUnpair() {
         val pairingCallback = mockk<PairingCallback>(relaxed = true)

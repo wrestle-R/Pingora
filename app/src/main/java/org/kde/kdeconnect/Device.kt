@@ -447,17 +447,14 @@ class Device : PacketReceiver {
         }
 
         if (!isPaired) {
-            // If it is pair packet, it should be captured by "if" at start
-            // If not and device is paired, it should be captured by isPaired
-            // Else unpair, this handles the situation when one device unpairs,
-            // but other don't know like unpairing when wi-fi is off.
-
+            // Pingora never dispatches feature traffic to untrusted devices.
+            // Cancel before cleanup so retained packet references cannot execute later.
+            np.cancel()
+            np.payload?.close()
             unpair()
+            return
         }
 
-        // The following code when `isPaired == false` is NOT USED.
-        // It adds support for receiving packets from not trusted devices,
-        // but as of March 2023 no plugin implements "onUnpairedDevicePacketReceived".
         notifyPluginPacketReceived(np)
     }
 

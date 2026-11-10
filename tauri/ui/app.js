@@ -14,9 +14,14 @@ async function act(command, args, message) {
   if (busy) return;
   busy = true;
   for (const control of document.querySelectorAll("button")) control.disabled = true;
-  try { await invoke(command, args); set("device-status", message); }
-  catch (error) { set("device-status", typeof error === "string" ? error : "The device state changed. Refresh and try again."); }
-  finally { busy = false; await refresh(); }
+  let result = message;
+  try { await invoke(command, args); }
+  catch (error) { result = typeof error === "string" ? error : "The device state changed. Refresh and try again."; }
+  finally {
+    busy = false;
+    await refresh();
+    set("device-status", result);
+  }
 }
 function renderDevices(peers) {
   const container = document.getElementById("devices"); container.replaceChildren();
