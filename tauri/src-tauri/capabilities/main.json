@@ -1,0 +1,6 @@
+{
+  "identifier": "main-local",
+  "description": "Local health window only. No remote origins or shell plugin.",
+  "windows": ["main"],
+  "permissions": ["core:default"]
+}

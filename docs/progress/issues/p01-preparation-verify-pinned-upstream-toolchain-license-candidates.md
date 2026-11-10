@@ -4,7 +4,7 @@
 
 **Blocked by:** None
 
-**Status:** ready-for-agent
+**Status:** in-progress
 
 **Spec:** [Product plan](../../plan.md)
 
@@ -16,7 +16,7 @@
 
 ## Verification
 
-Not started. Record actual commands, observed behavior and limitations here when work begins.
+Native health shell build/IPC milestone implemented; Foner build and 4 upstream tests pass. KDE desktop build and Android SDK provisioning continue. Source-file notice inventory recorded with review exceptions. See [native verification](../native-build-verification.md).
 
 ## Comments
 

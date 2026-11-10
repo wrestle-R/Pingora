@@ -1,0 +1,3493 @@
+{
+  "scope": "Pinned code/build source headers only; no dependency resolution or distribution clearance.",
+  "sources": [
+    {
+      "repository": "KDE/kdeconnect-android",
+      "revision": "207dcdb17681557f738c5b16642baa6b9fa076c0",
+      "purpose": "native Android derivative",
+      "code_file_count": 239,
+      "notice_counts": {
+        "no detected header: manual review": 23,
+        "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL": 216
+      },
+      "files": [
+        {
+          "path": "build.gradle.kts",
+          "sha256": "d41bc25c3c93dcc97cf9ce6375b1666ee9346a89b38af6fb37319bab0e9632d6",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "settings.gradle.kts",
+          "sha256": "f1b5429175449cc6a564b1905f16fc7ee0e2bfd66094cb3ab416807ce40fa709",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "src/debug/java/org/kde/kdeconnect/QuitActivity.kt",
+          "sha256": "be374766eef5091d3a3152bd051277e44a39bdc2ee6e974bfd62de4eda8fcbdf",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/BackgroundService.kt",
+          "sha256": "8611f0caf4643d1c15973f4f4b8d1f59f9a810494ad39127a5d3709b9524fde8",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/Device.kt",
+          "sha256": "5885f5b2c96acc50d2294343334523ceb40432afb049729764ab7c42cd51732b",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/DeviceHost.kt",
+          "sha256": "162b961549f3e6749ad94fe50c7c318aebf7c5857564ffdee96270497355029f",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/DeviceInfo.kt",
+          "sha256": "df011f1b8a9ef8f5b4435efb165910799210a377deb8c7b01fd4ea8f981bb2e6",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/DeviceStats.kt",
+          "sha256": "9a723d4d1eac3b1158c5170e9a302bd4e4f9c16d4e2da4afebcb0547708afa77",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/KdeConnect.kt",
+          "sha256": "80775c19fd158dd682c56eea69defa12fcb29877d0a81bf0c5ddc497d634a98e",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/KdeConnectAccessibilityService.kt",
+          "sha256": "c6738f48899c58df0ae0b530e3317bde6c728717511b3e5e8daa17a5864ba13d",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/KdeConnectBroadcastReceiver.kt",
+          "sha256": "39f6b67d056f1e9dc2dfc4361d5e3627f1c19cdc807a335a23f348224f72eb44",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/NetworkPacket.kt",
+          "sha256": "946bb3e1c4897fad81cc325a5de52fec86efa686fb793576aade06e801d90e38",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/PairingHandler.kt",
+          "sha256": "4eb23c5d752b94ba3466f3d14f36381bf4497003c10736cb5c1458eabcd5ec79",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/backends/BaseLink.kt",
+          "sha256": "08d94e4e60e940ac7a95979705140c67212442c9ef464feada3ba68aa5a5e1c8",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/backends/BaseLinkProvider.kt",
+          "sha256": "dd077e4397c04d8fdd5860f8145bfeb051495f2950c6969d2481eeef15900511",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/backends/bluetooth/BluetoothLink.kt",
+          "sha256": "d61add3b08f1d85fbafacd8e8b431f99e5429188af5eec28bcc3d7d365bcdb2b",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/backends/bluetooth/BluetoothLinkProvider.kt",
+          "sha256": "dddd443e1e4d5fa1e9bffd30bd22fe7870095aa8df81aee41061da04de81975d",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/backends/bluetooth/ConnectionMultiplexer.kt",
+          "sha256": "dd2922c4a42ae60ce699516311e8573bc45084813b7c64c83c1c26fb174fc165",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/backends/lan/LanLink.kt",
+          "sha256": "b91c22b5aa357d36f99a060f58ec6e31aa3899aedece2fdb5f47b93ff2ae7118",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/backends/lan/LanLinkProvider.kt",
+          "sha256": "00d2cc00416ac379705910c085d7866fe7c822f68b622eb01ccebdbeeae74f7f",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/backends/lan/MdnsDiscovery.kt",
+          "sha256": "dc110f28f3a490df78c689bdacce00dd083b7a26598e84b52fcab8868a3f9c2e",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/backends/lan/NsdResolveQueue.kt",
+          "sha256": "bcdef329874792a1a9fc59cb855be30efb89511f233ac42970d392e4e8fd306e",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/backends/loopback/LoopbackLink.kt",
+          "sha256": "10d94237fce819f030cb20238a557a5ebeb964973a983c9512699f44f4f19872",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/backends/loopback/LoopbackLinkProvider.kt",
+          "sha256": "cf249b2896cf276c3bb8fe3c663d535d708884ea7e7255a23e9ecf03ecc4aad8",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/base/BaseActivity.kt",
+          "sha256": "7ff1c3abbf8b00718758f725858150906e0639cf673e0da6a7d1fdfd40b64f59",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/base/BaseFragment.kt",
+          "sha256": "d7a35ec4f3bde0eb93b202c92eabf04db5c2fb7f0acbce334465ecf7e8853658",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/extensions/Bundle.kt",
+          "sha256": "846f8f8ffe49b288c49931212c932cea4c29e14ca1865e2c7ade6ad6563087dd",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/extensions/Closeable.kt",
+          "sha256": "ffac0fe172344430691313af523addb20747fc2c4cf91e2dbf73e82c4edbe8cf",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/extensions/Intent.kt",
+          "sha256": "5955a316a030413d0da57f568231d4a1276c003b8aec0431b5243549333a1885",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/extensions/ViewBinding.kt",
+          "sha256": "ed2a8ec8f96633f2d175f2331934f7b2574c2779d70c3b4f9c9d7c575f9653c7",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/extensions/Window.kt",
+          "sha256": "3cd03b6aceecddf536363385898fcf04f83841cd74f9cc1150ddf0d72d56e054",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/helpers/AppsHelper.kt",
+          "sha256": "743250bdcc73e3d53ccdbded4c531b7718dc1c3a8193ce5c1c233a57aa317c02",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/helpers/BoundedLineReader.kt",
+          "sha256": "deed4a5c68a0b788743ab2cf932243547c8bfb7c57380dd73616086813242b4b",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/helpers/CollectionsBackport.java",
+          "sha256": "d813a10744e6d63d51ea700edd23577fbd0cb7fc40b816d2d83965c0d9a40106",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/helpers/ContactsHelper.kt",
+          "sha256": "d61679f5548a0016530b9945ea3548c9e7bcf163e936e39f69516d902c97835f",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/helpers/CreateFileResultContract.kt",
+          "sha256": "b0255e7557c0ab3dfb593090236a009365999241a8ef5d69cabe090fb9a794e1",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/helpers/DeviceHelper.kt",
+          "sha256": "578eeaf36903d128bd847446187eab7579cc059e59922b9b79be6a9be7b974ee",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/helpers/FilesHelper.kt",
+          "sha256": "99ac9031ecf06094022dafba18bc1b59562aaf39bb3bb7462c2ac963d2e326cc",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/helpers/IntentHelper.kt",
+          "sha256": "878f94f89da2ab7302ae3b9bea85292ba145948201331db8e8edae4b60e3250a",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/helpers/JsonHelper.kt",
+          "sha256": "5dc7408e1c32cf0e89339225ed2f2bd4eaf29a0424e0e4cce71442cf3c334c72",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/helpers/LifecycleHelper.kt",
+          "sha256": "73176bc47fa9206c48565005a0570efbf50716fa3d3cd373797c4a4cf8e95e6a",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/helpers/LongSummaryPreferenceCategory.kt",
+          "sha256": "deb8762c73e6403bf0ecd4a1af346b9c6a22aa16d74c112b78fac3ea9c44c808",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/helpers/MediaStoreHelper.kt",
+          "sha256": "144b6bad0407fd005c9d119e4168a6053af6fd9c0d3b517f88fc0159719a404c",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/helpers/NetworkHelper.kt",
+          "sha256": "4b5159d5e13b1b8a478db5e42cd8d0fc369c247602c78684e3092a35a40a013b",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/helpers/NotificationHelper.kt",
+          "sha256": "639eb7f7e503686a3ae211fc2b88daa7941c1e010a9f44e91384a1d0f3229158",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/helpers/RandomHelper.kt",
+          "sha256": "419524f7081103de0be2a189e474d6bc2221fe1c14de4a341d72839e6f038391",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/helpers/SMSHelper.kt",
+          "sha256": "4dbfd51beb02f24171cbe8ae6c98ecffcb728ee76695a47b319072df124be62b",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/helpers/SafeTextChecker.kt",
+          "sha256": "d26d5926c11cda78bfc6b3ca0e2b81f1703bc28687e5db5371bcb93d0a598c32",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/helpers/StorageHelper.kt",
+          "sha256": "0939be2cc181e2ded4a9113bae6e6266c609341177c3571b378812cab28b7680",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/helpers/TelephonyHelper.kt",
+          "sha256": "036c6cc05918faf86a342f7d62ea5dcd8dddbbb8bfbffbbaa12083796e45cd63",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/helpers/ThreadHelper.kt",
+          "sha256": "602e3af8d92f6112501104c2d420cf302da560d232f6ee5cda939b0de290ffc1",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/helpers/TrustedDevices.kt",
+          "sha256": "09cac87ffa0f60582b60dff4e69314a5f7184dfdc82454818d184d187e0f8603",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/helpers/TrustedNetworkHelper.kt",
+          "sha256": "084e578d99648a67410e73deb17b951f4853c3103ec73ceeb6c09b4e5d6e9646",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/helpers/VideoUrlsHelper.kt",
+          "sha256": "deb5359fca7611184a946d0c5cb504c9fb60bf66bf2a20f5d089bbfd218b635d",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/helpers/VolumeHelper.kt",
+          "sha256": "8ce46fb26d28f312839ddf09bb4dd8d0f66c410a28a3c0fd12d94d4001b55eeb",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/helpers/security/ConstantTimeCompare.kt",
+          "sha256": "fd9e80ca4ad7f79ae5bb605eae5d0e733fe61ed0ba387565613b638f33d46808",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/helpers/security/RsaHelper.kt",
+          "sha256": "20c0a2bbe81f61c07c5e6da30bfdc737dad84e7806433c5055673e7e9443bed2",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/helpers/security/SslHelper.kt",
+          "sha256": "4103e4492a920cb3ba74eccbfdce383aa06536c965284662ed2f83145f00c9a5",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/Plugin.kt",
+          "sha256": "81fd6d83ce9471128838905792890030d98de675386891aa1677622962a806da",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/PluginFactory.kt",
+          "sha256": "c3b87724c2a83021b9499da01c0ccbd0ae8178f7f943ee94ed8d940ae6a9df34",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/battery/BatteryPlugin.kt",
+          "sha256": "7814f08d13e978e3d4061e2ce79a3ad28b1645855c0abd1b908ffb4645378c68",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/battery/DeviceBatteryInfo.kt",
+          "sha256": "74d152f2e24116406f4c63ee161014b21660ab59f3d06239628beda9410e527e",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/clipboard/ClipboardFloatingActivity.kt",
+          "sha256": "c03f6bd0fda48f3e3625040785312b578038a18925d851fc6d731ae7adc4b343",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/clipboard/ClipboardListener.kt",
+          "sha256": "a5cbd036a02322111edf0ef88a6040d5d8add178e24049de1c60b62b1efeb9f7",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/clipboard/ClipboardPlugin.kt",
+          "sha256": "5d45b007262b08d18c595e8d155a11631d0da202f97ce8aa816581bdfe2687b6",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/clipboard/ClipboardTileService.kt",
+          "sha256": "451c00825791066eea4145d90c5864417a6bb58d33208f6d15ecd61f9f2fae52",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/connectivityreport/ASUUtils.kt",
+          "sha256": "e77357f236cf84a6319b9035a461af640152b9ee0c27b57f47fd59f514952ef7",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/connectivityreport/ConnectivityListener.kt",
+          "sha256": "a7f0cec34a0f39c007b9dff4b82d1da2fbf21a15c1b16a8138dfcb2f91215c8a",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/connectivityreport/ConnectivityReportPlugin.kt",
+          "sha256": "961f7240042db72186db3ea8ea7da87db96d583465d23da0b9c837e162e3993c",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/connectivityreport/DeviceConnectivityInfo.kt",
+          "sha256": "5a332c3820a541f69bc89c8656d7c35ab839bd5cb22ebb343fbc641beb5bec39",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/contacts/ContactsPlugin.kt",
+          "sha256": "dc5bb5d4b8a7a8cebcb77e9cda64b4d9a636798ed3c2c68421f1b11a4fa3caa8",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/digitizer/DigitizerActivity.kt",
+          "sha256": "c2305c40518c2615c57c4bd1aa01f9be7062e5b8e941be462d0ed673954ba088",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/digitizer/DigitizerPlugin.kt",
+          "sha256": "c202af11ee6e2586b0398672176dc46135334f38baed8698a183343c72f105e4",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/digitizer/DrawingPadView.kt",
+          "sha256": "24431a5d751ae5cb6cf23080bc197084938ad66a831ebd3993f1603355d219f8",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/digitizer/ToolEvent.kt",
+          "sha256": "8624880b2c3ee80c85f75b2b4b232034f6f0f755b87fa791c68ec306072a2cbe",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/findmyphone/FindMyPhoneActivity.kt",
+          "sha256": "312427d55f596bb0596fb1d51c8863e37b09431525863947d8bf265b575b1840",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/findmyphone/FindMyPhonePlugin.kt",
+          "sha256": "e443eae09bd90916fa8b9c337e4447e9a75f84167e8551aca3ac6df814bbef09",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/findmyphone/FindMyPhoneReceiver.kt",
+          "sha256": "75f3c8b4009c93a40fcafdaa13335a77427b6bc9faed14ff3c7d6cb868150eb6",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/findmyphone/FindMyPhoneSettingsFragment.kt",
+          "sha256": "9bf7c6793927c702abb74f4516de79129afd60d964a14406640357aab6eb8976",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/findmyphone/FlashlightManager.kt",
+          "sha256": "17f471d4f1bc0334f90dbb27e843328b3c28dfddd6b886cb82232f620875a1c5",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/findremotedevice/FindRemoteDevicePlugin.kt",
+          "sha256": "99e2e3e32ed0c0919ddc68132263ea1124f9a8126cdf5815b8c14f17dd5e901d",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/inputdevicesreceiver/InputDevicesReceiver.kt",
+          "sha256": "47b00a2b5adb2ac52c07acbd685129c0971f0935e9e10945fc5786c577dc1a58",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/mousepad/BigscreenActivity.kt",
+          "sha256": "e1ef152432fb9b8496d375738bb8746fa6faea415331816f9ec936f4f61e4665",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/mousepad/ComposeSendActivity.kt",
+          "sha256": "356614f1e301b64c78716b42be5f19e02b7a70886ec05a55f32bc1962da91704",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/mousepad/KeyInputConnection.kt",
+          "sha256": "8bc32982e4894af3b9e5ce3ea39f7a7ed6e56bfa1f7fdf23ee01b886778b2f11",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/mousepad/KeyListenerView.kt",
+          "sha256": "e3d14dffe23e4a20e952684bf0605b90cdf54559f9fe878597ffe9687c7175a0",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/mousepad/MousePadActivity.kt",
+          "sha256": "5ba3948094168048d8376d40e6e8f2e423e05d179fa4c677dbbf8152fb525c83",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/mousepad/MousePadGestureDetector.kt",
+          "sha256": "d60e9ec824cc98208b897f23da5b8c9e84023aa9cea2dc4d2e0a8c1118db0ea8",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/mousepad/MousePadPlugin.kt",
+          "sha256": "0a5887cb3d4f136d433d6cc5376cc5b58e05a05f4c1244026d7780be593630a8",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/mousepad/PointerAccelerationProfile.kt",
+          "sha256": "5a3708d844acf4e0f5737b2a5d1a94515bf5335a9240820a4558048dc2255033",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/mousepad/PointerAccelerationProfileFactory.kt",
+          "sha256": "83ecfeaa1044e4185414ee96708e20a0e81a9043129d540a8afcccf4c9c033a6",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/mousepad/SendKeystrokesToHostActivity.kt",
+          "sha256": "98d0a8afeeae1fddbde11886a126ec966794084a9b9d8ad5cce8c5739b6fe40f",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/mousereceiver/MouseReceiverPlugin.kt",
+          "sha256": "c0af6c9530dc6a847dcebc5c66fe5df1ead694e81702370a5b8418d35dad55b7",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/mpris/AlbumArtCache.kt",
+          "sha256": "dea0672a9e00c73c5fa04232a7f158b8d68f3a05c17aa0ed44b50c3c8b392a59",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/mpris/ExtendedFragmentAdapter.kt",
+          "sha256": "c9c5fed280b55dd40657b1a4a2a9183e7f8d2ac14f6e175cb964e4b84e50d15a",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/mpris/MprisActivity.kt",
+          "sha256": "86d1387e1c9e0a934e9efbe07143b7e0b1175700f9e95f5279d0aa5971eaf27b",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/mpris/MprisMediaNotificationReceiver.kt",
+          "sha256": "a5a443bd1cdac8a0036f8717381244223f2efbbba9ecbef59456e7bccb5c2f1f",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/mpris/MprisMediaSession.kt",
+          "sha256": "5259f258b5d44e4e88ff1f42bd31d0c0ef93623afdcbf8b77dc96b7664743146",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/mpris/MprisNowPlayingFragment.kt",
+          "sha256": "ed6b89d01c68f7d116ca57698bb6be3deef263ffdb2276b81feb3003840929bd",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/mpris/MprisPlugin.kt",
+          "sha256": "badddb1e5b49f044d35d8c4b4f67eeee3e4a45de01af9d3c1a837db939219f44",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/mpris/VolumeKeyListener.kt",
+          "sha256": "3313192d43d516b491179e08a15e2af10d2b7ac45e8d3d538e9f71ee441e0628",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/mprisreceiver/MprisReceiverPlayer.kt",
+          "sha256": "1e5d9f84a4a940a112ab5d37a6fc8f99dd8d256b22d98ae92f7953a0815b3965",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/mprisreceiver/MprisReceiverPlugin.kt",
+          "sha256": "1ab190b202b94b4c41f4d1d80b1884682c7426c69b6f8a827dc322c5fcf17ca8",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/notifications/AppDatabase.kt",
+          "sha256": "edd4591973e71f31df40e7594c21361e5211eed7565690a6370fbc07c650b247",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/notifications/NotificationReceiver.kt",
+          "sha256": "e36b3c35ee590582f9664ee4a5d1a2d9a8c82ad886673187da4e1dba5390cead",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/notifications/NotificationsPlugin.kt",
+          "sha256": "cafb59c601e444762a74259feadc59d6ccdb47de5a76fae46a1719176214a4ec",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/notifications/NotificationsSettingsFragment.kt",
+          "sha256": "c76f34fae662b1264dfcb1b930a5f42f3f16ecaeccec2a0fafd0aa25553b99f3",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/notifications/RepliableNotification.kt",
+          "sha256": "db6933f7fafa30a191404aa133b54b48c57190994b43b816c6af7ffb826238f3",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/ping/PingPlugin.kt",
+          "sha256": "f1f9dc78326d07c01d4523eba4e5feb588cebda3ce28cad990e5f1f265fb7cf2",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/presenter/PresenterActivity.kt",
+          "sha256": "5d6e7f12e11771db95021bf04a7958b25648905694de243cbb0c08f2ce1fb3f6",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/presenter/PresenterPlugin.kt",
+          "sha256": "4a9bbb5298213acdacf326e2635737e3df9e028dc7a301601f73d36d137b38da",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/receivenotifications/ReceiveNotificationsPlugin.kt",
+          "sha256": "973c1ed9b4ac8647791061482f49a2804dcff9ef8a63152fe8f983cdc9905f46",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/remotekeyboard/RemoteKeyboardEnumClass.kt",
+          "sha256": "788b8852beb444d5f067ba68550267cb52996ed41dcee8a52a60ef40a7486b15",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/remotekeyboard/RemoteKeyboardPlugin.kt",
+          "sha256": "30c56fd031c604883622fd36d1a543710649f20d11f25819e03a1fab4ed2a376",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/remotekeyboardime/RemoteKeyboardIMEPlugin.kt",
+          "sha256": "626fc2a66e4e20724763e6d8f05e691545b2daed60f993f182a079e781a2a9e4",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/remotekeyboardime/RemoteKeyboardService.kt",
+          "sha256": "a6636282001ca57cffc7ed9269c6c7eb1568b65d334a1ea22f4d10d8cecc07af",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/runcommand/CommandInfo.kt",
+          "sha256": "a62724834de4703f41347979df474365001162558afb80e83c8127221275d35a",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/runcommand/RunCommandActivity.kt",
+          "sha256": "7efa077c0173d8bcddf5b5d2bfb703ffa97c1a7ead22675a2f6204dbba77feda",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/runcommand/RunCommandControlsProviderService.kt",
+          "sha256": "ec14061200a6b2d1b3929710aa16d6587751153fbfb5df1c0cbc11935b823683",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/runcommand/RunCommandPlugin.kt",
+          "sha256": "ccadfaac046e9f8940c0ad57b2e783f36c9c8e4b09012d499fe244b25a957f56",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/runcommand/RunCommandScreen.kt",
+          "sha256": "204fda5ed14ccfbabaa2d0e4de751acf856b1d1d31093be2a14f066ba239a71c",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/runcommand/RunCommandUrlActivity.kt",
+          "sha256": "0e4768967c232c743a40cff398faf91623544c98024f264459521d3d1b5ffa29",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/runcommand/RunCommandWidgetConfigActivity.kt",
+          "sha256": "5f55782bd68ca2a625e3a60f4442d4239241f36f6e582420de9b6767afbdd3b0",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/runcommand/RunCommandWidgetDataProvider.kt",
+          "sha256": "925f549df3875efb78386c88f806345905a2b212ce44bdba670c7afb42c5eb94",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/runcommand/RunCommandWidgetProvider.kt",
+          "sha256": "f4dfae24af41ff3651a60cf78d1f9082d4b9b76e37a244e516f88aebb8d02a3e",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/sftp/NativeStorageFileSystemFactory.kt",
+          "sha256": "c418b77be244226f64aefc75e51ad52b71b783773c76ae4d38328f00f87eb8fd",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/sftp/SftpPlugin.kt",
+          "sha256": "4374a6ebcd6386978a343fd3b6792aca5b3878211381d4d63f1cc964c620fe0f",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/sftp/SftpSettingsFragment.kt",
+          "sha256": "911c9d15ca9cf835ff0665292f29110e8de887931f657ef4a7b2dbbb50c950c9",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/sftp/SimpleSftpServer.kt",
+          "sha256": "f1673b0bd0145106c76d20d056286de6d4c4fd5d7d7cdb6ff3dfc255b8380428",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/sftp/StoragePreference.kt",
+          "sha256": "b84b11e061e6e0b841b433a886331de65da5d208344f1ded509c337b5288b55e",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/sftp/StoragePreferenceDialogFragment.kt",
+          "sha256": "6b6bf10acc9112d2f1bd97d84fab8de0c0fdf4550cd89c926aa90d2d4007bc22",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/sftp/saf/RootBasicFileAttributeView.kt",
+          "sha256": "9cf242bd0d924073964eeea92bcbe83570d12b983f0ec3f46f7e6042a3bc0458",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/sftp/saf/RootFileAttributes.kt",
+          "sha256": "db29f80b8cf42235a7afea9e43d3660088174b8652a8c4d1a753cc6a2d8e8e26",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/sftp/saf/RootPosixFileAttributeView.kt",
+          "sha256": "4f7f98aa128e01d50fce2da45f4f430ed3c5ccf8771d523a1b08bf791b52abcd",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/sftp/saf/SafFileSystem.kt",
+          "sha256": "e9ab354b547b830efbe1c89fb90e5c8d4c189194e250376faac3f5addb4a8c4b",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/sftp/saf/SafFileSystemFactory.kt",
+          "sha256": "c8169e24c45bcb3658ad7f605e7c85c4634264f31cf18b7512336aed62cfbf84",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/sftp/saf/SafFileSystemProvider.kt",
+          "sha256": "1790c1d980eefd5d4fbc3f734ce50770c7f6ec3fe6e81d750a32a32cd3088249",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/sftp/saf/SafPath.kt",
+          "sha256": "556919aa5bdfaaf5d9628621a462bcb96921ac4a79f550946129de87025ef8bc",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/share/CompositeReceiveFileJob.kt",
+          "sha256": "e13c4179e6ca48e36558c99a3152564a72aae95568a9e38e038daa25defdaed4",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/share/CompositeUploadFileJob.kt",
+          "sha256": "648392e6b51be25758da6e335cc9f5f7c859a3da39a94656ac1f35389907c301",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/share/ReceiveNotification.kt",
+          "sha256": "49aca8e4b080c14b6685a5a082a294e3de67b2c8fd89dae0d3f8f027fbb0871e",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/share/SendFileActivity.kt",
+          "sha256": "5b3b2f41e60495b2adda95de9e596d5af14388c9b76ae8b96585221bdc9162e9",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/share/ShareActivity.kt",
+          "sha256": "41743b30a5474919b9fc597c222fd997f66a418f7a7771af3d5dabfac716f258",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/share/ShareBroadcastReceiver.kt",
+          "sha256": "e45495fb25e9baf9a7277d8e45b86fc3205b5d6f803d686f1b596f434adc4301",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/share/ShareChooserTargetService.kt",
+          "sha256": "254b7bffc20b554d26649bc7a4d41e2aadf61db6fb13f7f3682e7cbb49855e22",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/share/ShareJob.kt",
+          "sha256": "59264a41c5369d882c6b2ff02c9bd59784835458dd2bd107eebfaab62b7ac46a",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/share/SharePlugin.kt",
+          "sha256": "8915da617d1f0d3daade433ab21ceee09050e19e7f56ffb37cf6101b1fc5f4e5",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/share/ShareSettingsFragment.kt",
+          "sha256": "5800cd35854763ac9885a9ef36eb6e620e46fbe8547c5e5b6feb13ad2abee4a8",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/share/UploadNotification.kt",
+          "sha256": "cb00e712552bd0bbfd1cb4fed44bf4e73b49b20fa8c93942dddbef29ea74f4b9",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/sms/MimeType.kt",
+          "sha256": "46765821b5bcf6c6ebef720442d334d864e79c81b0bbcc763774213209def9dc",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/sms/SMSPlugin.kt",
+          "sha256": "8b1274a7ceb4991f8984b7f4f8c702ba413620aed51e5c061188ce09ac437246",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/sms/SmsMmsUtils.kt",
+          "sha256": "1e704a46de61d15807b77305752be06731757c0ef5672766e4866ccd86e135e4",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/systemvolume/ItemGapDecoration.kt",
+          "sha256": "efed07666ad07640180ffc9a587f079cac1a362dabcb0e85862a3193c7b1057a",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/systemvolume/Sink.kt",
+          "sha256": "9fbd09020b17f0d62bedde92929e5c15774974445fe024074a0e9fec2707c9d7",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/systemvolume/SinkItemCallback.kt",
+          "sha256": "ae8e77e2d0653f23978f273b989eb93e73661d80a39d147a2a45d3291dfc015e",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/systemvolume/SinkItemHolder.kt",
+          "sha256": "cc917ffb93493d70447df637e98cb0b8634bea2f7f9b475e8f467c22a0af1ef1",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/systemvolume/SystemVolumeFragment.kt",
+          "sha256": "4e7fb31fd6aa6ad4a66526c282459087243d2f7109e9bbc484a4c58c8558f27f",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/systemvolume/SystemVolumePlugin.kt",
+          "sha256": "b5004c76bbfe4c5f08b819112db0dfa5ea0efbfa134ab145bd3202507007535b",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/systemvolume/SystemVolumeProvider.kt",
+          "sha256": "371cc1a4d5e656b9b48030a4015dfc47a7c54d090268d3ec90cec6d0bb2274f9",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/systemvolume/SystemVolumeUtils.kt",
+          "sha256": "1be99d8a4df36d1dd749742911f8c7eb19d8710b8e14d89c354b481a4225e4d0",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/plugins/telephony/TelephonyPlugin.kt",
+          "sha256": "f5e5043081f2f409b3a17e05de9996ce38ea948a2fd9551133407949c28c965f",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/AlertDialogFragment.kt",
+          "sha256": "9d3e5673a9f5db825981c62910d9832cc308cce48b9e257c54526bb671f6f464",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/CustomDevicesActivity.kt",
+          "sha256": "25efe3be2245cfce3594788689df9ca5d0185b816517959b2abf75a6a4712663",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/DeviceFragment.kt",
+          "sha256": "de1289d163cf5879b32c7a5425ec3ee137d561391a4523740c687fc99c165b88",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/DeviceSettingsAlertDialogFragment.kt",
+          "sha256": "72d114de276d57a6e086d0a4b770b28082c2074663c1681ccca3ee00867fcf62",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/MainActivity.kt",
+          "sha256": "0bccd45d98590a8580739c582a45ac71555cf215dbf6897769afb3d316cd30d8",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/PairingFragment.kt",
+          "sha256": "ca47608056b1665a78d7970a5d52e45465cfa35820b70ba3d6bc8323ca671749",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/PermissionsAlertDialogFragment.kt",
+          "sha256": "981ae159bc2e9b10ddbd0e3e4f995a3f61915eff8d87bdcb56d000c20b06dedd",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/PluginPreference.kt",
+          "sha256": "92e725f29c9871a32c7fc2838b3c2962c115dc572b1f2033695233a6080260df",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/PluginSettingsActivity.kt",
+          "sha256": "4251395c592c3116be7bfb482124aca181ca96ff16683318e4d70fda58d22100",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/PluginSettingsFragment.kt",
+          "sha256": "da4b654be7e589442dcc5146885036fe3715feac1f78acdf94791b318352a536",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/PluginSettingsListFragment.kt",
+          "sha256": "3c60bbe83fed9334be7534b59626bc5738afb9a124c89cf87ac2e68c7a0787a1",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/SettingsFragment.kt",
+          "sha256": "7f867cc8538802aad07db27229645708ed957e87b802877afe447f1f37cc2d32",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/StartActivityAlertDialogFragment.kt",
+          "sha256": "45d382bd9e486b112424af8879c8dacf24ed120f5ec529f4dadbbb6b760f12ea",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/ThemeUtil.kt",
+          "sha256": "072d6c6d5f1c8ece6f0ab63e6180564da16acb7fd2702b0360ff520441be2b3b",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/TrustedNetworksActivity.kt",
+          "sha256": "7c341a8f4d3c535cafd5b64d497daaa69d0a9f55d0775d110b592b65bed3c184",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/about/AboutData.kt",
+          "sha256": "e2ef0dc0cabffa628c12ff457acc35ba70d0be7736ca6f1df973230c41f21196",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/about/AboutFragment.kt",
+          "sha256": "5dd59055c247b5c8813477e15006115b9140d6a5be8d25ded77582c32a7d5113",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/about/AboutKDEActivity.kt",
+          "sha256": "7551a4821490aabb30247a7ac1a775bf5d3d4886eb43cf9ae68dfc96fc74019d",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/about/AboutPerson.kt",
+          "sha256": "9dc2b310bdcd4e8a8b010291afe1e0ef531b7551116f865310c5292a074613da",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/about/ApplicationAboutData.kt",
+          "sha256": "5e471c70477fc86c13e4b0f9e8ae9dfe456792824c7b8448c8dfb80cca484c0f",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/about/EasterEggActivity.kt",
+          "sha256": "575c2fd11d64b23db17bc98259978a7c9180a3db9de9cf0fef894075d50fb3e2",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/about/LicensesActivity.kt",
+          "sha256": "673559ffa8295955bd6110923cb4049ef9ae44020d82efc75257382ca4d8bb8b",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/compose/Buttons.kt",
+          "sha256": "44e5d843c5c5b75ea1c570e777aae66ab186a9bd70496a50d616b057de761db2",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/compose/KdeTheme.kt",
+          "sha256": "8b2f4ab945b28d14fde62b7a3d655b5a84cbd5f2e3bb5660812f959ea670263d",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/compose/KdeTopAppBar.kt",
+          "sha256": "a0f89e41bdb35f3792ba7f64a3d5a9fe224b9a6585bcbfe57f3e456943597343",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/compose/TextFields.kt",
+          "sha256": "bb028b8fed454b374cc6c0ebb49bf37bbbdb6a5a24d417055abaf90516848636",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/compose/components/Cards.kt",
+          "sha256": "eb2f9d225221af2823ee931373bf61c76580f808b58ddc61f63f5c630234a78e",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/compose/components/DeviceDisconnectedOverlay.kt",
+          "sha256": "b14fb722a28f69200f78a1524e715d3ccaf54416470a248ee7d8959cb736364f",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/compose/components/KdePreviews.kt",
+          "sha256": "2f9d3af8c3f5215664e8c3c057ffdbd8b6ce0e18ad1a31e00c8c35524d4779af",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/compose/components/SectionHeader.kt",
+          "sha256": "9a0c08f65480dafa46dbacfe37511075ccc9d1a04c2682591186634260362cc2",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/compose/components/Texts.kt",
+          "sha256": "a11fdcf01ccd0d084b86d2a1ee901fcc8d20bf393e39f650c6826a7602f7f6fb",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/compose/extensions/device/DeviceExtensions.kt",
+          "sha256": "9daa9f765ba6663dbaa53d3464649b5316b275afbb8dc0e342755042f430284c",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/compose/model/device/DeviceUiModel.kt",
+          "sha256": "442c8feff79e63aaf1a7911eb569a445af4d2e8b84fdda63f3523d193b347995",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/compose/screen/about/AboutScreen.kt",
+          "sha256": "279800f5068168c969012ec2e93f1a44b3b77ad6ccf396d0cf234767101672c5",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/compose/screen/aboutkde/AboutKDEScreen.kt",
+          "sha256": "031f80d581f9955cd8e8fce0865b24981e55771a9c8384b2d576ca8adf858efd",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/compose/screen/customdevices/CustomDevicesScreen.kt",
+          "sha256": "321fb9ba251143143ddf09b5550f8fa82b0df6e7ef82aad4c77d13ed2d890093",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/compose/screen/customdevices/CustomDevicesViewModel.kt",
+          "sha256": "e9191c183b963a724f78be723cf44dadb1c545c2e1f8958a94be3258bd588d06",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/compose/screen/device/DeviceErrorScreen.kt",
+          "sha256": "54c584c93f25d3993f88a8802bf6e99a59b338f5c6043c93b90bac53b8535b7e",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/compose/screen/device/DevicePairingScreen.kt",
+          "sha256": "102fb96077fa59f24eabebf5851ad20d92de146842fc74a6df36c75210b8c13e",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/compose/screen/device/DeviceViewModel.kt",
+          "sha256": "ba875608f165112310ac56ab49d7cdb84fb2eb5b470d671aa991a5466c677585",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/compose/screen/device/PluginsScreen.kt",
+          "sha256": "6bf14a47c7be2c43a7a3252e1bccfdda951e63ae9bbf317e363835a9953875d4",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/compose/screen/easteregg/EasterEggScreen.kt",
+          "sha256": "d54a08fb84756ec88526988a67d49f645cb093dd4fb4a85b724d9870d97c8db1",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/compose/screen/licenses/LicensesEvent.kt",
+          "sha256": "0ea90a3a44792162c682c9ccf5fb397e86d800a9278ea85a8abf886facd9ae36",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/compose/screen/licenses/LicensesScreen.kt",
+          "sha256": "e1cd5a6222e94a1abb28e007a5f687fabe99c048b83b604557ef50ab1e59a3b7",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/compose/screen/pairing/PairingScreen.kt",
+          "sha256": "a8d9e92ad0df8e9afe10ecde9d3856846a11c0dfd2aeb03b0d2eedb6031502f5",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/compose/screen/pairing/PairingUiState.kt",
+          "sha256": "8020afa7dddbf38b93776714fa8245bf7f60237b4550a02b562aabce3d44c5a4",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/compose/screen/pairing/PairingViewModel.kt",
+          "sha256": "67037e7289dcea7b7ddaf60b037f5c8da1e7395a5392b874b6ddda8c37b7a74e",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/compose/screen/share/ShareScreen.kt",
+          "sha256": "e07e1d15750fe378dcb25f7c1b5b323b3819ad14bc7ab76da28c46f0f25c13d9",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/list/DeviceItem.kt",
+          "sha256": "5bf5013a4bb2d3f5798048238df38f8f3f1becad7b4724dac5ebc98ba8a9318d",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/list/ListAdapter.kt",
+          "sha256": "3e4d77e30dfbc5471a397d2d046c330a3454807559bc0f740433db3d7f4f96d9",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/main/java/org/kde/kdeconnect/ui/list/SectionItem.kt",
+          "sha256": "f000de312f0224d368ae46609d4583a47172cc8f9d23101c06f7e08345c85e7c",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/test/java/android/os/SystemClock.java",
+          "sha256": "99eb4c74aadd0f768f8fdb73e061ddb2113c369fbfd6136041b4e73b28222c61",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "src/test/java/android/util/Log.java",
+          "sha256": "c0999c61048170fe4c4b4c957190073d88cd36a2776f0e67462c1b4387b6aa04",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "src/test/java/org/kde/kdeconnect/DeviceStatsTest.kt",
+          "sha256": "67b0f1542200557988212e466f84a2e416d9aec105f689273f08cb367f7f316d",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "src/test/java/org/kde/kdeconnect/DeviceTest.kt",
+          "sha256": "9f88628652d3c7b7d0f46952ec6c70aea5950177af44a64c8f0546f30c22897b",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/test/java/org/kde/kdeconnect/MockSharedPreference.kt",
+          "sha256": "ca951c8e2c51bc6af7dc8b0aa23366bbe77de3a58c1c303a9106881ceb4216d3",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "src/test/java/org/kde/kdeconnect/NetworkPacketTest.kt",
+          "sha256": "edc725e7b92a48a38911b5da9472a61fef4e4f05ecbb8d08d3332accff2a8be2",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/test/java/org/kde/kdeconnect/PairingHandlerTest.kt",
+          "sha256": "b993d447b7c9779f4bc4a868c4483058cf3d43cec88c1b2140321e9a969acbc8",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/test/java/org/kde/kdeconnect/backends/bluetooth/BluetoothLinkTest.kt",
+          "sha256": "9c9bff9072542c87a4381b41b59f67388055dcd80cd03962577f72ed28f7b456",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/test/java/org/kde/kdeconnect/backends/lan/MdnsDiscoveryTest.kt",
+          "sha256": "48168e8cec59da3baabcaa3079d36fe165e9a54dc544fc5e611a5877f97c670c",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/test/java/org/kde/kdeconnect/helpers/BoundedLineReaderTest.kt",
+          "sha256": "f6d16c5a69b7c3d15e43d9b8bd37b8a79e2f6a44b426d72201459e00b6c7ab7d",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/test/java/org/kde/kdeconnect/helpers/DeviceHelperTest.kt",
+          "sha256": "bfc2237e0b6d1ff0e7b927027ae1a0235c32eff01b4bcec99aad12838e81bb86",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/test/java/org/kde/kdeconnect/helpers/FilesHelperTest.kt",
+          "sha256": "708df575951f71a5b4af4f0525504cb68f6e70dd5164b29863d6048e984e4fe2",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/test/java/org/kde/kdeconnect/helpers/NetworkHelperTest.kt",
+          "sha256": "5751d88f2385b5ae92f18ac6e8bd2894de3e85a65893b942c54c5a9388a01cb1",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/test/java/org/kde/kdeconnect/helpers/SafeTextCheckerTest.kt",
+          "sha256": "19dcecd884ea3a069b0e183a7ec02671e7feb51968d9be19d20891d883f0b6e8",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/test/java/org/kde/kdeconnect/helpers/SslHelperTest.kt",
+          "sha256": "2adad344e42e69fe80a7221df8a2f98f662986889baa0a2ef1eaf57f85ad5570",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/test/java/org/kde/kdeconnect/helpers/StorageHelperTest.kt",
+          "sha256": "7a4c0fba191cc11bc59436a8e8dc81c350d6abbbdff71de5e2b2513cd70f0674",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "src/test/java/org/kde/kdeconnect/helpers/TelephonyHelperTest.kt",
+          "sha256": "ca7447ac6cf17452b4596adecc33c214d75846cbb6b5c5c0f5a4aa4d6eff66bd",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/test/java/org/kde/kdeconnect/helpers/VideoUrlsHelperTest.kt",
+          "sha256": "60d878493d46d65205743caf1d32440497bf54445abfa40147bb94518ac99362",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/test/java/org/kde/kdeconnect/plugins/battery/BatteryPluginTest.kt",
+          "sha256": "7ff92a6a9ed3abdfc4285b70558877f89fea1358e78955c3222a1bb976e8ee06",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "src/test/java/org/kde/kdeconnect/plugins/clipboard/ClipboardPluginTest.kt",
+          "sha256": "4bbab3ba10b7c2f4e03879e9e2b669d3c5df715e94601bb83f076e33287005eb",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "src/test/java/org/kde/kdeconnect/plugins/connectivityreport/ConnectivityReportPluginTest.kt",
+          "sha256": "9f45fa34fb2566e23e836c64f5596e1dfe4f5a698bb662950f2637917561b3b4",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "src/test/java/org/kde/kdeconnect/plugins/findmyphone/FindMyPhonePluginTest.kt",
+          "sha256": "ec5eedeafef98a032e0445d199506dc3f1dc54be214cf30706dc97410184c06b",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "src/test/java/org/kde/kdeconnect/plugins/ping/PingPluginTest.kt",
+          "sha256": "36ed31d66ba93efabbd1e44105e81e67bd4df7141b9a65ee0dcb43e70b2ae366",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "src/test/java/org/kde/kdeconnect/plugins/remotekeyboardime/RemoteKeyboardIMEPluginTest.kt",
+          "sha256": "caca242ff07dfc042a4afeb9ddcbbbaeab2c3197d2afab97c486318635b8c038",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "src/test/java/org/kde/kdeconnect/plugins/runcommand/RunCommandPluginTest.kt",
+          "sha256": "788f4e93752419ff5bac28046aeacda637cf3029e036052b07fc46d5bbee913b",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "src/test/java/org/kde/kdeconnect/plugins/sms/SmsMmsUtilsTest.kt",
+          "sha256": "6bb98511d74a9a11415b3648725b3db1cf370626b1febd329753654064995f54",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "src/test/java/org/kde/kdeconnect/plugins/systemvolume/SystemVolumePluginTest.kt",
+          "sha256": "cb364b0d5accb1e085769fab392ba04eab873ebe2e52a1380dfdfc8aecf3511d",
+          "notice": "no detected header: manual review"
+        }
+      ]
+    },
+    {
+      "repository": "KDE/kdeconnect-kde",
+      "revision": "da07df7399128810f19ce4acc853c54a405f8e62",
+      "purpose": "desktop service/plugins",
+      "code_file_count": 409,
+      "notice_counts": {
+        "no detected header: manual review": 60,
+        "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL": 327,
+        "BSD-3-Clause": 1,
+        "Apache-2.0": 1,
+        "LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL": 8,
+        "GPL-2.0-or-later": 8,
+        "CC0-1.0 OR LicenseRef-KDE-Accepted-GPL": 1,
+        "BSD-2-Clause": 1,
+        "GPL-3.0-or-later OR LicenseRef-KDE-Accepted-GPL": 1,
+        "MIT": 1
+      },
+      "files": [
+        {
+          "path": "CMakeLists.txt",
+          "sha256": "07735f6b808525f12efb9773d9c19da3c5333a27551dc1a8db557da13c4432db",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "KDEConnectMacros.cmake",
+          "sha256": "603124cb78a47777e199db6672fb3fc5d78e59cc9d65b2f64f76d4292653814a",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "app/CMakeLists.txt",
+          "sha256": "cb272ecab80a076f3b082d753e8716f22f775a56d0d190df8106d7115d96a3ae",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "app/macosforegroundapp.h",
+          "sha256": "def04cd377fa1296c2fa681c035bd78089e78626afc5e5cb3eef522ef9b85db9",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "app/main.cpp",
+          "sha256": "4f070abda4490665c7ddc039d187cad8eac2ca73d86b6d6147139117e338dee4",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "app/qml/BatteryInfo.qml",
+          "sha256": "1cc7b00c647589aa3a1b29a47b761dd9ce83e2d79a9df16c80d927b369f6db92",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "app/qml/ConnectivityInfo.qml",
+          "sha256": "e7b267aa49451c624210aa8ba4cb102cbf1a75c0612bbbc9743c566c44bc9bfe",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "app/qml/DevicePage.qml",
+          "sha256": "285068d9c6c349265e06eab046a5ea41c9eb18213167544d4fc0371372618179",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "app/qml/Main.qml",
+          "sha256": "b7bb447880f470f6d2a1e3449abc11f9ff1961173e8db7d0286e28fbb23fa2c8",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "app/qml/MprisSlider.qml",
+          "sha256": "93028ba4d3d69186c775b2d7e0a4aa724e2e3fc9b8c2cd92e05ffb9468e9b6f8",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "app/qml/NotificationPanel.qml",
+          "sha256": "672c8ac2f1a4d84f9f35f96c5211af457f8ee416bda40ecc40cb403f116944ed",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "app/qml/PluginItem.qml",
+          "sha256": "e318eae2a6b50dccd8341eca174f7dac1eb4440d05896b76e91d47071c21c2bf",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "app/qml/PluginSettings.qml",
+          "sha256": "b8fc435117f82a1f707d0d48f969e6980bbaabd174d54eaa95d05413ad62d401",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "app/qml/Settings.qml",
+          "sha256": "43a2c3df15d4a24eeaa8608be736c52827c4c38c8d7dbe481834d4e6b681208e",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "app/qml/WelcomePage.qml",
+          "sha256": "99274c0712abcb4850d4853c7b9d0ca540ff4a2d124f8a6fd7ad81b4ebcffdad",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "app/qml/mousepad.qml",
+          "sha256": "28d6cb8fc17cb2539403e5cd6443e0512af7e5160e04bb9adfe2decebe335adb",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "app/qml/mpris.qml",
+          "sha256": "437ee8d1296993d7ecf392eb8e16b2935c8de5a0978ad5dd1e3bf9edddf17ca6",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "app/qml/presentationRemote.qml",
+          "sha256": "2fe08686412485c66569ade032ab99237ed066a2b47f8018c35c7e370f372147",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "app/qml/runcommand.qml",
+          "sha256": "d31fabb093723e05b3b45efe9673a990393bdc72ece78f0919946e7a75c98d69",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "app/qml/volume.qml",
+          "sha256": "931cbad0eb024f4822935c4bbfaf2f9b8f4451c8d58eec0412bc92d100546786",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "cli/CMakeLists.txt",
+          "sha256": "7c4c583d831bd46bc63ed54119edc206c9f7342bfede50447718c830956db30f",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "cli/kdeconnect-cli.cpp",
+          "sha256": "ec9b437806b1056ce83f09253338d5fd25c3b6b3d83056e12afaac28c935e8be",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "cmake/DbusActivationMacros.cmake",
+          "sha256": "2d156b431289c2edc323a13fdcbb69368ae6a121ffb343aa3f66a36d86413b56",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "cmake/FindLibFakeKey.cmake",
+          "sha256": "80755d312e275043fc49c54bab7645ca6595127d730ac640368f007449dc1250",
+          "notice": "BSD-3-Clause"
+        },
+        {
+          "path": "cmake/FindXTest.cmake",
+          "sha256": "157486057fb3c00379063101306f949085987225cfa0cd20e09975995add8159",
+          "notice": "Apache-2.0"
+        },
+        {
+          "path": "config-X11.h.cmake",
+          "sha256": "f7b2179360f01f9086315cb3688d50013e933ae8d81fee432248d97180e28f6b",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "core/CMakeLists.txt",
+          "sha256": "bcab7712aabdde781a242ce4b479f6bf5985261298b2b5a15a92384796a9b0ab",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "core/backends/bluetooth/CMakeLists.txt",
+          "sha256": "70d81df108f983794358a7d446713d3d82b91a76ed065cc798b9a6e0b9d9a1f2",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "core/backends/bluetooth/bluetoothdevicelink.cpp",
+          "sha256": "bd74ee0d08b0f01f42f14caa989da5f0c42df8fb15582f3db33c18dd60f1b72e",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/bluetooth/bluetoothdevicelink.h",
+          "sha256": "1afc66c4c51d9afa4393bab2ad2e9ff8b6d3001da5875fad124db3c578864bdf",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/bluetooth/bluetoothdownloadjob.cpp",
+          "sha256": "9ad17acb33940bafea39ef34590b5b15df5b97ae02b73665de9d125afb7b7b3c",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/bluetooth/bluetoothdownloadjob.h",
+          "sha256": "f3b032db8b6838a26212e61b5ef75ef119e12b35ba6561e8e99e9ce522a37c47",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/bluetooth/bluetoothlinkprovider.cpp",
+          "sha256": "42cd2e0ba35d836493be162c926f8358217c5bdd79a9374f8d3cb27664a87f5e",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/bluetooth/bluetoothlinkprovider.h",
+          "sha256": "e3b8c2a9f937204591768b8254d958566dbf5c9ff3a194cd5f31d307eade1766",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/bluetooth/bluetoothlinkproviderimpl.cpp",
+          "sha256": "2dd70aa45216555c9dda11b58cfe24014bb4f055d556cd3003d5e28deddd83f6",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/bluetooth/bluetoothlinkproviderimpl.h",
+          "sha256": "77298af7b3c52d4c582da1cea6af184bc354480c5889f4f3eddcc376225895e5",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/bluetooth/bluetoothuploadjob.cpp",
+          "sha256": "ef07f5d00e82ed4688760b61f4c538ec54914bed30e22b579c2c95038f49b01e",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/bluetooth/bluetoothuploadjob.h",
+          "sha256": "5f1befa6b544a0d15efcfebaa3532e29063b46a83e0f932668c89e3675f06f2c",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/bluetooth/connectionmultiplexer.cpp",
+          "sha256": "af0e073182510be876652b3493aeae782f01d750deaa3ff1984f8237d119443b",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/bluetooth/connectionmultiplexer.h",
+          "sha256": "b36731779ce4020fedbb59807a8f0792196d38df955606b78a8788a41ef96791",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/bluetooth/multiplexchannel.cpp",
+          "sha256": "218a1a0e32c45ea72f46c7a3ed52e7a904c78e72e0a49c5181f66aa842ca410e",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/bluetooth/multiplexchannel.h",
+          "sha256": "925a48eb1f3438c405548f5bb98fff228de6f8e7fa937e26de6f767e9e84be25",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/bluetooth/multiplexchannelstate.cpp",
+          "sha256": "560562fe014da8c162256b45535a76e0dcb626e8fbae6a09daea849be3bd74e9",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/bluetooth/multiplexchannelstate.h",
+          "sha256": "7491f74183cbc32933a93408151c56fc6820f4b13ebcb2d2da8a87b0207913ae",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/devicelink.cpp",
+          "sha256": "92a298d9bbc65318f96d444debc6cb1f25c4e1f1bcd424bdcba7de943b4d94a5",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/devicelink.h",
+          "sha256": "64ac38ce44499c033729f9e7215cd8b9367479c7a75c4e2f0befa9aadea610ad",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/lan/CMakeLists.txt",
+          "sha256": "e16edc6e3171861fdb30a55e5effe89b3c2b5dd714f8ba61b28ad1e6189fb903",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "core/backends/lan/avahidiscovery.cpp",
+          "sha256": "f3c9958dd72a5d9d4c798b2bd852e7f90745b780dec1f7924c31f3ff95e9b62f",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/lan/avahidiscovery.h",
+          "sha256": "975aaeebda05aa3ebf45a3f8fadf982ba9cbaf6c080329ea27fb312853cf3622",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/lan/compositeuploadjob.cpp",
+          "sha256": "6cb6a1a3f572b7ea0ff4af05bdff8c1226b88db27543218cd518603cfff8fbb2",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/lan/compositeuploadjob.h",
+          "sha256": "8043b4934b611c5cc0bcda1f2c74e1b488f930a49ba7bd666fce9eb6559e3e50",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/lan/landevicelink.cpp",
+          "sha256": "7d62852e8a8d226c729c7d7399e295526facbddb77aaf280a3757c761917b443",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/lan/landevicelink.h",
+          "sha256": "36b5804c966625a17c3b21b5eb9becd9db1a7d56f46e00f9a1d4b43744aca757",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/lan/lanlinkprovider.cpp",
+          "sha256": "237c9bbc0f7b45435d260e722c8299f3b92e0b940e3753cf1e7d973057cef089",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/lan/lanlinkprovider.h",
+          "sha256": "42348dfd40c839da1ee9620a5121a32bbc790f756deee1b537b1032c4ece938b",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/lan/mdns.h",
+          "sha256": "4e13ca535045ace7212c41f0786e132a2948937cbd6670b68f1fc4ed33fae724",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "core/backends/lan/mdnsdiscovery.h",
+          "sha256": "57690653f72c7bc3e87a99d7a3cc35635e3394d0b042d10d7f24b38b49c9affc",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/lan/mdnsh_wrapper.cpp",
+          "sha256": "a250021283872effe652bd319f6368c983455111f9e2ba976f2adc0ef300d4bd",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/lan/mdnsh_wrapper.h",
+          "sha256": "d57150afcb56a88745a8209131e1695a04da264abab913829a649744fb8ae336",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/lan/mdnshdiscovery.cpp",
+          "sha256": "be03a55c16c97e880a3bb9eb823ba177f2f23eaa08252668940977bfed3f42e0",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/lan/mdnshdiscovery.h",
+          "sha256": "e3ef6bbc70e3d93052f06eae23959dff8df933e6b975cbe3930454dc61e526ba",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/lan/server.cpp",
+          "sha256": "5b6ee2ef5586daf7d192a7a14278786e93c3018a874f789413998fa1d625ba30",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/lan/server.h",
+          "sha256": "39c8c1309e0029334d2fe699c4ff10d79b8b189e7ea8a06d4b33c5b2da01fd33",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/lan/uploadjob.cpp",
+          "sha256": "4483fca25d8e7a428d657cd36c17aa0cd9f73ca46ff1177b4bb8749f3eb6a3ac",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/lan/uploadjob.h",
+          "sha256": "ae1ab721111b72fcc3619b83008c5aef0f9a47a51f805eb49addece971740780",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/linkprovider.cpp",
+          "sha256": "576ba1101ba4abeb5283b3b1d49642f9f2d537302595f3a85faed28182405ad3",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/linkprovider.h",
+          "sha256": "c202c07db23164c9a019393ac8c12a74f2aa2ac66860caac6fbae9dfcc26d4d2",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/loopback/CMakeLists.txt",
+          "sha256": "ab0ff204b6200d72896fe7f427eb4035e30fdb9e7f78b8c529c939576d39f4fa",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "core/backends/loopback/loopbackdevicelink.cpp",
+          "sha256": "1d025473fbc03f4c97e51a73b61775fc1854f1f8282866f0d0ee8b75f9d81fdd",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/loopback/loopbackdevicelink.h",
+          "sha256": "b8868f1cf95bd3388064465c4a083be9c3e57e1ca69be684bbbb438bc63f9477",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/loopback/loopbacklinkprovider.cpp",
+          "sha256": "23a628f6764625c2aa598521811dc408e07902ea5c1e9f158cf371083bf5ef2d",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/loopback/loopbacklinkprovider.h",
+          "sha256": "3c1153683776e212a71bc2a0b93e190bc87cf3d60ecc525d303261100a4e1965",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/pairinghandler.cpp",
+          "sha256": "53b0c735e0ace427baed19a12454cb6b2ddb45a20f8f580f47f62000a94e9b17",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/backends/pairinghandler.h",
+          "sha256": "7bf8ae9ec8d04623f37a417b1c1dc8043c52e193cf3538f3870e6909768b25e3",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/compositefiletransferjob.cpp",
+          "sha256": "f450ff5c00c2648e64160743a7a06e23410075894eb45e2c6ab20c6e0432bdce",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/compositefiletransferjob.h",
+          "sha256": "c228b805f90b7e16f4177969a10f6fa5d099705bc44ec45899a1704f981eb6e5",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/core_debug.cpp",
+          "sha256": "63dc2c5b93eecbc9147c2ea7ebba607bba33f51a34b160251c1ccc4cb42f0eb8",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/core_debug.h",
+          "sha256": "671a83b6cea27081c60ac8f5d9c054d2f2d9cb5464eb42c0ef245000816ff936",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/daemon.cpp",
+          "sha256": "1f3db8434cd24e4d85debc6845122efab44492e2ecd71d8fc04583041ef6b14b",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/daemon.h",
+          "sha256": "f31a95bc2c071dc4d509dad70aa59b08868c0755106562298dbc68c988a41f9a",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/dbushelper.cpp",
+          "sha256": "6427494125455d5d54b4952b1b32d984711bf844817f736efb1ad0e4ddf75e5c",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/dbushelper.h",
+          "sha256": "437834af5699d80408a3ef334d65a748733d07990931af21e648bc1ce65b204d",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/device.cpp",
+          "sha256": "85278241fb886f0088be955f4cb14ccd5ddea347a5ecce4ac438766aae2a238a",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/device.h",
+          "sha256": "7ce9611f6c409e9096cd105e7a39879510f56bbf2dda58b9e00c46d39154549d",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/deviceinfo.h",
+          "sha256": "8bc22b7ada6d45d27b7ec8ec6973ec224b94c465d9fc980b5ef9ed8595a94745",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/filetransferjob.cpp",
+          "sha256": "0936d1ba4b61f73400d90ad129c941b8e6417b30a1f5f4dcddd8bece867dd2d5",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/filetransferjob.h",
+          "sha256": "b1f78a8ac8cf822087440ce8008e59197a15f1cdc6d28186f8918a5bc2eefacc",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/kdeconnectconfig.cpp",
+          "sha256": "d8e843e5ab69da2cc2bc8e45b04d45a7b742c1aaef3015d0645a9bcb701114d8",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/kdeconnectconfig.h",
+          "sha256": "984a46b5702925961a248d53a7f906d33ddeaa36b00e1a131194dc85b73047df",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/kdeconnectplugin.cpp",
+          "sha256": "21e3cbb8565cac60c7fdbaca834f57ba5f3425fb92027a8f83c4c28b8285a729",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/kdeconnectplugin.h",
+          "sha256": "7803df02799e7eb7d057ad663dd77c3e1389c6341db7641c6eb64da926aebcfa",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/kdeconnectpluginconfig.cpp",
+          "sha256": "6de3e2737fe9d443fdf5b53a2c27223e2ecab5fc17e16eed73f9b174db0eb63a",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/kdeconnectpluginconfig.h",
+          "sha256": "b03e73f913b87feff4aea679ea132b049ff2ed17487c8391dfff3362fa9db8ea",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/networkpacket.cpp",
+          "sha256": "49167a9fc13536815889a6710f67ed0641ddef33583944378470ab08eb84f3b5",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/networkpacket.h",
+          "sha256": "26c2880f8f5a99fe99a5992ed5932aec4bcb609a8e0abd44cda42fdce226c5f8",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/networkpackettypes.h",
+          "sha256": "2df6f10468496fa24d968a4fa22a9e25128f4c42f14200240a782b74215e88df",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/notificationserverinfo.cpp",
+          "sha256": "339758f947cfb094ff52c5c0981a09d9f4385ed67301289bf66b69cc73ff80ef",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/notificationserverinfo.h",
+          "sha256": "f190ebb537e62d674e8816cada70013c86d0957467c6677952246c57636ba1e7",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/openconfig.cpp",
+          "sha256": "194a141f896434c8241cf4f79ccc4993caa0f4e6272a90b74b3570e57704088e",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/openconfig.h",
+          "sha256": "5b65738604906a4ba68427d10ad8dfde93cd2264991748e5d25a6cbea267fa3f",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/pairstate.h",
+          "sha256": "a15dd92aa610777cb48d022d79215e8103aefbd65dbb26a67b5135ec8240ad5d",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/pluginloader.cpp",
+          "sha256": "5f7b28cac2d92bb29f9624a38b0337981ad164cae6f57f72b273542e8bf473da",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/pluginloader.h",
+          "sha256": "24c54da29ee0a67d28853ee619b4d0be09cc94f200fdd129ab5f1027b445a14c",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/processhelper.h",
+          "sha256": "ba64d7ea501fb21d52906f2f7b9b8872cf70127cd3ea4c11c7586d60a9a0c296",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/sslhelper.cpp",
+          "sha256": "484c94478b3534e5f36f8351e33631bbb8ae8bf543ffb147a2f59fa5cc97a440",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "core/sslhelper.h",
+          "sha256": "f21a11aa0595dd3be4da6a9f63de193d6bab4fa91de96198257bc23b2eae1b88",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "daemon/CMakeLists.txt",
+          "sha256": "de8d1dbea9413c5649e3a5ab08b69ff05dc604277e58342b3edb53adce649556",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "daemon/desktop_daemon.cpp",
+          "sha256": "9c1b9a53ec5e9e32380598572ab24aea2ecae7f6e1b535a7ab306bd59e840c81",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "daemon/desktop_daemon.h",
+          "sha256": "9e612bc1b904c6ca487c560e3111e82e01047af0349db25866dd07bced950b50",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "daemon/kdeconnectd.cpp",
+          "sha256": "af70107bea41bc9ab2d018842a6b12c75bf934b8455077f1bc17eef71d6624af",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "daemon/org.kde.kdeconnect.daemon.desktop.cmake",
+          "sha256": "b5a80860edcf3d95cab048f24bf6bf762803ba12aaf276f1e76a1f3b20df5b15",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "data/CMakeLists.txt",
+          "sha256": "242884d2a9253c868cc03516b81f878164fed6401417a11f2fa5c435008a1286",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "dbusinterfaces/CMakeLists.txt",
+          "sha256": "2ac038a95adb7926815f3268f7ee03b586ef439afdcf8907642effb709eddfee",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "dbusinterfaces/dbushelpers.h",
+          "sha256": "d2a6256411f9ee8fa082e9c91e36931d3fc95886a9084d06c9cd062a4bc7d96c",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "dbusinterfaces/dbusinterfaces.cpp",
+          "sha256": "7c5f1b7917c4b1fbad81e09c5a2d35c8bdfdb916cb846a5f568d3cd7da137e32",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "dbusinterfaces/dbusinterfaces.h",
+          "sha256": "e0c9ce093ec4f33c139c918049abdb4413bb968e13dcb084f7952736f0d36994",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "declarativeplugin/CMakeLists.txt",
+          "sha256": "1b0bb6bab0d6c395b2bba2e9b9e1d8be0f3c534020a82e3a0df5076e80ba43e9",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "declarativeplugin/kdeconnectdeclarativeplugin.cpp",
+          "sha256": "250cf69edb8034640f9d48ea503c8862d61827bde8c9c752dcb690a1a4dae4ca",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "declarativeplugin/kdeconnectdeclarativeplugin.h",
+          "sha256": "4990b43ff513708c2c95e66ff75796ac48c6e843eba332c0ee827a15a981a790",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "declarativeplugin/objectfactory.cpp",
+          "sha256": "f37a836bcc6e339e387a4674164308e8d5229736b0666a5b1770dfc4a4b5c01b",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "declarativeplugin/objectfactory.h",
+          "sha256": "565e1fe2a32c8e3b6e0ff3ee5ddcdfb1e85e30ecb5dc368d1aec591c03a91840",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "declarativeplugin/pointerlocker.cpp",
+          "sha256": "e385669acd5046d103b592805db76bb05065a14f6c2607ba29c8ed7bc1d7e8fd",
+          "notice": "LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL"
+        },
+        {
+          "path": "declarativeplugin/pointerlocker.h",
+          "sha256": "5eb3fb70bfe672c74e55c91319c885a08c176ffcee03675fcb65b75d0290328b",
+          "notice": "LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL"
+        },
+        {
+          "path": "declarativeplugin/pointerlockerwayland.cpp",
+          "sha256": "c89a7853b2572405051d15ca35a3b2b79eaf8836e8d723da45b5717c2ad926ba",
+          "notice": "LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL"
+        },
+        {
+          "path": "declarativeplugin/pointerlockerwayland.h",
+          "sha256": "37309965254b88fa2b6a6644f10a419b9cca7554475f37ccf4abec6c83b7d23e",
+          "notice": "LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL"
+        },
+        {
+          "path": "declarativeplugin/qml/DBusProperty.qml",
+          "sha256": "4480b1ab08e3df58d7ade6f0a554025264a863b7b1caac752f5c2bcca774f3d8",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "declarativeplugin/qml/PluginChecker.qml",
+          "sha256": "280e9860bccd13d22251211887494a0d699f0d612559e2dd7752cdeb291f1cf5",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "declarativeplugin/qml/RemoteKeyboard.qml",
+          "sha256": "57c606403c185910b6b5e876c2fac6611ed43978e6f80500a267279e5c644d26",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "declarativeplugin/responsewaiter.cpp",
+          "sha256": "9e5df3da7a57e0a2bfb7fdf2ea5301298909aeaa350ced290296ea48c8c1fc1c",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "declarativeplugin/responsewaiter.h",
+          "sha256": "000dfeab7f547c3c5a8b1efd2dae3c411408f94e277467388c6622f2a1feed27",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "fileitemactionplugin/CMakeLists.txt",
+          "sha256": "c7e087b7cdfb1359a5f3614b69dd96eb959a58522ce0a2b05788735dc44d2627",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "fileitemactionplugin/deviceactionjob.cpp",
+          "sha256": "b02fe7dcd50ab12f5c9df7388cfa68c400c3810ab1737675b7c31968399587b5",
+          "notice": "GPL-2.0-or-later"
+        },
+        {
+          "path": "fileitemactionplugin/deviceactionjob.h",
+          "sha256": "173bcd773d53020a0e686c551cdc467e9ad797eaea906736fdc3fdf0e471ef34",
+          "notice": "GPL-2.0-or-later"
+        },
+        {
+          "path": "fileitemactionplugin/sendfileitemaction.cpp",
+          "sha256": "491fd565b6a9fe40c12f2a6d7e5537bb9a91dd3a422cc713d3dce0bb79b58b04",
+          "notice": "GPL-2.0-or-later"
+        },
+        {
+          "path": "fileitemactionplugin/sendfileitemaction.h",
+          "sha256": "b082633c7c9ae6b0a336f44e3216b41879da50826d5c7c0e4d04f615dee452b2",
+          "notice": "GPL-2.0-or-later"
+        },
+        {
+          "path": "icons/CMakeLists.txt",
+          "sha256": "442f4654cdd2a30cfd2b4bf64b0ce21ae351c570f3c137e09989694655e4a9d8",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "indicator/CMakeLists.txt",
+          "sha256": "93bc7a404b3415e94d0d3fa0b00d127b0d2a12516dc584a7afe293989a9281af",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "indicator/deviceindicator.cpp",
+          "sha256": "301819c98c498700fd8af30c3a0bce09046e78b529dedc0fecd9e416d6db7e07",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "indicator/deviceindicator.h",
+          "sha256": "7afcdf65b6f9bb9c90b0d0c2c1088ebe7175f59015ee418103f9ee0c6898204b",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "indicator/indicatorhelper.cpp",
+          "sha256": "1a082447a359b46aec6ad68f2b584a7b167946d212ba5310bda712f1702b342f",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "indicator/indicatorhelper.h",
+          "sha256": "b231a8a4021fd6a65fe6dc295b6b25acbcdd3a87922150b0dee579e8ac72bc86",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "indicator/indicatorhelper_mac.cpp",
+          "sha256": "64fd9eaac05ace813a84f78b12a3187a7126872c949c895ba280775ff70cc89a",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "indicator/indicatorhelper_win.cpp",
+          "sha256": "639aca020ac51be06e2a6b575b56a393b6b6c1959c447793f01112fa28d69e0e",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "indicator/main.cpp",
+          "sha256": "92a0d416bcd083dd385581e13e7d78ff27fa9b8b993e210286e3d5b0e4275836",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "indicator/serviceregister_mac.h",
+          "sha256": "e163450cd51c2a009c669ddf5090afe2b91912757d902ea02fb7d6d876e1ddcd",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "indicator/systray_actions/battery_action.cpp",
+          "sha256": "10e0d16acd15c21f4ad6c5d3ac6c4faff69fa1919cd2dc5ee0ddc8d5cda63138",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "indicator/systray_actions/battery_action.h",
+          "sha256": "f17965cffef74643a460ac3708f884926b6c635bed063c64da83148e7636391b",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "indicator/systray_actions/connectivity_action.cpp",
+          "sha256": "a995eecc1ff3ff9b9bcd837640b1bc44691a1296e92603310d0186add84a0309",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "indicator/systray_actions/connectivity_action.h",
+          "sha256": "2f86b27e5729ff5ac5d110730862ad3b918a73b9e4d97a2e61f31562d0fd0405",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "indicator/systray_actions/systray_actions.h",
+          "sha256": "edb2734d7b22b90c8cf992a5c9f57bad85f5c4f489f0a9889cdcff48efec2108",
+          "notice": "CC0-1.0 OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "kio/CMakeLists.txt",
+          "sha256": "fa60fc4cc5bc5cf94813a7389e4fb5cd8ceac5f0ce5bec39fb2a5b07079980ff",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "kio/kiokdeconnect.cpp",
+          "sha256": "2421896f3dbca1a2d2bbb7e599fd151d9fda42914cae96ef87a2a25d7968d087",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "kio/kiokdeconnect.h",
+          "sha256": "5442046de28ca01649a8f6d1b50118430cada721b2d4f72263197cd8c0801b41",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "models/CMakeLists.txt",
+          "sha256": "48fc2ab7eed87df7db2fadfcad1c158405b93b5a4c8635c865daff180718e7df",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "models/commandsmodel.cpp",
+          "sha256": "c41e5e8acdb0b31c6587ce51934cea6ce584237cd6c5b84719c8f5ea814cafca",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "models/commandsmodel.h",
+          "sha256": "ba303a0b4b57b08622e02e79ccb02a914dcc88b84de948c8284b77209c1466c7",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "models/conversationmessage.cpp",
+          "sha256": "88f5644639b80cb8c6520b11563c504a7ded2c5e51a4c00c92f8298a24696375",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "models/conversationmessage.h",
+          "sha256": "bce0070f576e0f0a5909ec9793bd97a6994fb97efbb1778956e7e25f40385d9d",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "models/devicesmodel.cpp",
+          "sha256": "b9989d7915d861f84ae5dd834d64074e14ec4788fceaf995b0862cb7420f5409",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "models/devicesmodel.h",
+          "sha256": "8ea0ac18f649c292733943619e671c8df6bb7836ffa29cc332960c1032a2d8a8",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "models/devicespluginfilterproxymodel.cpp",
+          "sha256": "c9f44939ab0788df71eb14617e8c5b4d2ccc079ecc615cc6e742eb8a5e5c0219",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "models/devicespluginfilterproxymodel.h",
+          "sha256": "3944e3066b70ea92b385487936c15a7b750d970923c223eea5eda2dc83e47aed",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "models/devicessortproxymodel.cpp",
+          "sha256": "068897b331948843af7534f1e2a07ac968f39b368ea9f1bdc462fd824dfa0d6f",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "models/devicessortproxymodel.h",
+          "sha256": "03edd94af5ffe60d818bb3597368723bc5854df8f62aa6df965fd78187e02b39",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "models/notificationsmodel.cpp",
+          "sha256": "e2016533a3a4fe39b4fd303ba1a044863f0be9b986ecac789ebc67a85588668b",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "models/notificationsmodel.h",
+          "sha256": "bde247631828e5010a51cf87aa14adf1a208f9d1bac22c7dc1552ce02a7233b4",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "models/pluginmodel.cpp",
+          "sha256": "025611539473fc3be5f274d6f338296ab5a55578bd359a975587e014d6f77c06",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "models/pluginmodel.h",
+          "sha256": "16883581cf487af598714ac6ee31ff3373aa0ee99be38ce4ea5d1399dd79a19d",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "models/remotecommandsmodel.cpp",
+          "sha256": "f29ba02884049e1d8ca21c876dae2dc34c971987f13663cd19caacb6d0a649cd",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "models/remotecommandsmodel.h",
+          "sha256": "1951ff67c91566f686ff288c41741aaacae0ef48b77070ef02de63d746b27530",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "models/remotesinksmodel.cpp",
+          "sha256": "544fe6bc7af300e43507b46e3ee9c32330e56f7c04a8ba8dddd073eb9dec028d",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "models/remotesinksmodel.h",
+          "sha256": "b65594efcfa0bfa8a4c4ac5a79c4ffc5643742da0b1935514b70201c450d6bdb",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "nautilus-extension/CMakeLists.txt",
+          "sha256": "890eb3e373c13cb6ec8c56419c0f296e3a0191f04df9201e4332afdb5fb3e1a0",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "nautilus-extension/kdeconnect-share.py",
+          "sha256": "7aacc502bd289623a23967040f1a36b41a36567f8fc5a07b7ab1a7bc8f3c90a8",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plasmoid/CMakeLists.txt",
+          "sha256": "f0e35dc1bcdd7cb514ca586a3fabb32f077bbbf5b104b23ca44d576f308a7c93",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plasmoid/package/contents/ui/Battery.qml",
+          "sha256": "6b80836e6670d26d4fd4d65841acfb465791d3df845200417b55eb63b7c71a02",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plasmoid/package/contents/ui/Clipboard.qml",
+          "sha256": "a649fbb754606a14d5afa2f7fbe805019fc9ffa6f6a385fa478b4753f42dc8bc",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plasmoid/package/contents/ui/CompactRepresentation.qml",
+          "sha256": "15fe3b98c4a2f430d46627c0e63379046a02c622e7eb1766099bea3ac4de827f",
+          "notice": "LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL"
+        },
+        {
+          "path": "plasmoid/package/contents/ui/Connectivity.qml",
+          "sha256": "f46ee24cb9ca778769ed54a6a5fdfc23b03b9813f4af004113376f54580c62f6",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plasmoid/package/contents/ui/DeviceDelegate.qml",
+          "sha256": "eca2eb10c810ee04dabe3bb1f8d85c342f421287d283579b3475575a02ed4c6d",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plasmoid/package/contents/ui/FindMyPhone.qml",
+          "sha256": "d4eb3e90886e7c53d5b623ff1baeac25b3c8b08df04fab4fc5637dd2a9a3e6b3",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plasmoid/package/contents/ui/FullRepresentation.qml",
+          "sha256": "9b4770b85770434a216a3c79451abcb10fe108b1e15683a03f6fa63ba135847b",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plasmoid/package/contents/ui/RemoteCommands.qml",
+          "sha256": "54504f62a15e20ba4e334d07c7e0981b9dcdf9e41d7cfcda012fb8261d97460c",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plasmoid/package/contents/ui/SMS.qml",
+          "sha256": "4bdb943b2d98b1d2ece43703d0b106fb6016859273714b74cfb0b6cf86671bd8",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plasmoid/package/contents/ui/Sftp.qml",
+          "sha256": "74ab4ebc17b59d1fb26b92812560fd38839f5eeb3b84ca130583b2960bf3f2aa",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plasmoid/package/contents/ui/Share.qml",
+          "sha256": "ef60309536323d5e19f6059cf2a39fceb88546af0ad0593b3e33a0518adec8d7",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plasmoid/package/contents/ui/VirtualMonitor.qml",
+          "sha256": "08647af06e15821c274ba8356e8a51c29eaf308245bf2145449df33b27647c14",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plasmoid/package/contents/ui/main.qml",
+          "sha256": "7b7c445d79a4c06efa2b73720b2f618d617c5b9a7625034166cf22d8657ffee5",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/CMakeLists.txt",
+          "sha256": "a4393ab3c9cc04773137421d3cccf1c87d297f4ec18cce90730853c230375e17",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/battery/CMakeLists.txt",
+          "sha256": "6df758ca927a95738df9554b7a900af9f0e1d0475a41f22ec250ed044259a0e4",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/battery/batterymonitor-macos.cpp",
+          "sha256": "dfa7e977ac055606dfb8df3397a471aa64d446ad1e1e2ed73337fc855febddf1",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/battery/batterymonitor-solid.cpp",
+          "sha256": "f7b1676cf7a1233a0931908c0b71c0ea885c3e0c5de8e271249b71d3b187b14c",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/battery/batterymonitor-win.cpp",
+          "sha256": "1a5f47279142ec1bb9a25f5baf7ec7c470528f436824df9445678909c023c8f2",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/battery/batterymonitor.h",
+          "sha256": "ff174409445adf5b86ad198d841b0200cc7ea83373c712e22255fdc6f7f57e15",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/battery/batteryplugin.cpp",
+          "sha256": "f80f0de22983a15bee5f65468714dd6b4e76bd923105be31e9f899095e942d72",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/battery/batteryplugin.h",
+          "sha256": "7e6fa66393304f915ebe7541d6804f39bbe35a496bb720e5e916326e399f5ee2",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/clipboard/CMakeLists.txt",
+          "sha256": "0ff1ad3f95c892241a523f30f8c1e9f8f863b991ec3a919aa85cb8e93e2289a0",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/clipboard/clipboardlistener.cpp",
+          "sha256": "7dd4ef99b5cb2b5f6a7d1a51db1549c5616f1be7b5c0b1fbddb9b28fe50ea2fa",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/clipboard/clipboardlistener.h",
+          "sha256": "c8059d3a97d0f0ac4a881480fe9372b0afd845657ba2b5189e70c4afbed3fa22",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/clipboard/clipboardplugin.cpp",
+          "sha256": "b72c522037cf14e6504c49dd93751e4983a7b48a5fe0919c656be11d10747f46",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/clipboard/clipboardplugin.h",
+          "sha256": "b29b84eb03a9ef7ff03f5ff23281a7d999d978165f181b2ba8f7e2f01bf3b581",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/clipboard/kdeconnect_clipboard_config.qml",
+          "sha256": "a2adbe671b149ae52d212bfeed3a36f6c971104fc0e7954ced44e626e2e02cb8",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/connectivity-report/CMakeLists.txt",
+          "sha256": "543b170de98258863b213cfa10f1fe4ce6b0b63383159ecb42dbffdfec815cd6",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/connectivity-report/connectivity_reportplugin.cpp",
+          "sha256": "457bcec64f602ab1695cea59d18488aa157da2275d9c78fc35308d7918089a52",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/connectivity-report/connectivity_reportplugin.h",
+          "sha256": "a03232c4c309ba67f5cc16fba721e42c603417b761b58e20d3c4666fe2b8eb4c",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/contacts/CMakeLists.txt",
+          "sha256": "6a8efb6603320529a7bcebf5952c628d48722ea3bbe0ace25d6b080d0693d283",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/contacts/contactsplugin.cpp",
+          "sha256": "651bca5b62f5a21af93b59a744ce0a0fdc8f8f0eca3c6ba7e4f3e2f2eade54ca",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/contacts/contactsplugin.h",
+          "sha256": "6fdff53bb1726cd070c0b24d16187aa6387143f99532a38c7300588537f166ed",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/digitizer/CMakeLists.txt",
+          "sha256": "774b9a01a170ffe4ad10cbad050c57c0236ebd08071a199ccf55e10fdb16fb2f",
+          "notice": "BSD-2-Clause"
+        },
+        {
+          "path": "plugins/digitizer/abstractdigitizerimpl.cpp",
+          "sha256": "17474e3806851d6bc6d5a11dca137855d85f2c4de37212e39b9a27894a141594",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/digitizer/abstractdigitizerimpl.h",
+          "sha256": "2fd80fc4aab01ec2820c8b420dfd5c04952af723bfc356596de3ac3ba3d8f142",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/digitizer/digitizerplugin.cpp",
+          "sha256": "36f0e50fc6bf74ef7c76f0744338a9f8cf6db3c2f83af70e10578365de76bc42",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/digitizer/digitizerplugin.h",
+          "sha256": "da269602ef578d59baebbe2817bb5387ec28adaf72fc6980b722dc39af1d69b6",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/digitizer/linuxdigitizerimpl.cpp",
+          "sha256": "5f4aa4745a976f09288e225c227f91a4da55e9754a41cedc612e0e6c955ea6eb",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/digitizer/linuxdigitizerimpl.h",
+          "sha256": "f5697fd9c7d98e4486a90823030996821ba044e0c51f80dbb2516bb2a4a6ebcf",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/digitizer/toolevent.h",
+          "sha256": "3a82ebe6a7b37fb652d6845d361cda82f330a81c1a7d74382956c291b8177a44",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/findmyphone/CMakeLists.txt",
+          "sha256": "b5223387bd47661fce5fbe2949ab18d35ce61cdf1c41a2a2ae567c6a5a35c1ad",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/findmyphone/findmyphoneplugin.cpp",
+          "sha256": "32af641fde13c118cbc5078639268ba6a9d5b2cd9a1aa83be0fa6b9e9acd7e31",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/findmyphone/findmyphoneplugin.h",
+          "sha256": "15dc64f298bdd4940eea7b8ac3c81cd82cab0ee13d7ebaa3f4bdd1d6ec758ae2",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/findthisdevice/CMakeLists.txt",
+          "sha256": "aa901e773ddbcfdf6889c402b101565209be7c3c37d8cb471f79d9fcf51f077d",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/findthisdevice/findthisdevicehelper.cpp",
+          "sha256": "cbf961bb6e4cde75b227a302c5e23dafea4d37d4e5a9918d22713626e390f385",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/findthisdevice/findthisdevicehelper.h",
+          "sha256": "b9c74ae722b288780c73eb8828655795c666a3496ee8324433553564530dc60b",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/findthisdevice/findthisdeviceplugin.cpp",
+          "sha256": "0f4b17345e2081a3a73957a41d1c9529c9057a0009c482b36cd3ce2246a1f6d7",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/findthisdevice/findthisdeviceplugin.h",
+          "sha256": "996413e2bfda8d17e92cef7d1df0525b96cf681e57a69af8d1aba4efc9c7571d",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/findthisdevice/kdeconnect_findthisdevice_config.qml",
+          "sha256": "29c81bf7a3df6638204d0ef942c32f1f3c215d435260801b37ae7b1d64ef3468",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/lockdevice/CMakeLists.txt",
+          "sha256": "00e863eacec8ab1ac7961998ac6c241863ae429e67cac95ef96602f9a162b26b",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/lockdevice/lockdeviceplugin-win.cpp",
+          "sha256": "4a894ee17485c7aac83103bcd3eb93dcb59573b1a7cb08555ba67b21e6bc84fb",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/lockdevice/lockdeviceplugin-win.h",
+          "sha256": "b7bd2ed57d8fbf59cbf18d90957a20d45b2a2f5820f706eab2efaca8dd4de471",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/lockdevice/lockdeviceplugin.cpp",
+          "sha256": "126fda4899d71cdc57e1345f53dac60ac447fb340334e2b9b5a59b86f4dcf3d5",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/lockdevice/lockdeviceplugin.h",
+          "sha256": "44164e9669d182385892a005a72ecc04a451fcea2ddb04ede9d9e0c4719c9a54",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/mmtelephony/CMakeLists.txt",
+          "sha256": "d0ce047ae7de9c528a225a5115b7fda7d4e3a524174bfde91db74cebebaf2a81",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/mmtelephony/mmtelephonyplugin.cpp",
+          "sha256": "bf3b153853740b0203acf2de2d7144bb58c926bf0e7bc1bbc3bf2163909cc628",
+          "notice": "GPL-3.0-or-later OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/mmtelephony/mmtelephonyplugin.h",
+          "sha256": "38cae0255a500324401b70850231d78897713a30811be9e7dcec766bc8fd938f",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/mousepad/CMakeLists.txt",
+          "sha256": "b7e93939ffa93fc786aed6a0e8d3702bed275d53d694af7364e2f6cfbd8c22b0",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/mousepad/abstractremoteinput.cpp",
+          "sha256": "37bd15888eea973cd1ab583ce62df9fc91b10e28283ac89202abf455c1b0c481",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/mousepad/abstractremoteinput.h",
+          "sha256": "6ceec1d511bd7c4722dd0c88c5967dc3cc80084d14c2646f519592cb8e60d371",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/mousepad/macosremoteinput.h",
+          "sha256": "aee712760b5251a337792d229c6e6c42a21c5624ec77dd0bb1ca44b7390b1cf6",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/mousepad/mousepadplugin.cpp",
+          "sha256": "047af981b1960ce8709eab46026e0ea375989dcb2aa10f95f7be21339b3c5146",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/mousepad/mousepadplugin.h",
+          "sha256": "3746a6419d5a5c5df866c843928ec0a03856f23da4ce612c43d1644281e0f940",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/mousepad/waylandremoteinput.cpp",
+          "sha256": "0523dc3f4b9f90e8559d42aa699ba32721efa45b67aecdc6c4029c7a140f535c",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/mousepad/waylandremoteinput.h",
+          "sha256": "49f28a58ff32ba2750a6992ee26d9149537174497f59fb24c06488b5d05ec0d9",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/mousepad/windowsremoteinput.cpp",
+          "sha256": "2f66adad534ba36d8f0f000728104393ef941d35dd14d356894fc6b844917728",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/mousepad/windowsremoteinput.h",
+          "sha256": "97f7efada693c413afeb754a6f52ada43ff1dabbd4b7f1f0cc15dbbe443bcaa8",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/mousepad/x11remoteinput.cpp",
+          "sha256": "530950afcd19f5cdb1ce8b46f36ff94c53a3a7a0df796e82c674c570577a155b",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/mousepad/x11remoteinput.h",
+          "sha256": "12958e5ce51fdca5f0c82be2e28bede9df8cd00cad3700c88e70d52f66ad1116",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/mpriscontrol/CMakeLists.txt",
+          "sha256": "de965fab4739a33d3b4063998f3c34ad7a7490f846b60a528d69c19bce774574",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/mpriscontrol/mpriscontrolplugin-macos.h",
+          "sha256": "7023d2276ae1631baa1e2b612366c59a534cff580e6106c27dfdc41e8d1bca26",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/mpriscontrol/mpriscontrolplugin-win.cpp",
+          "sha256": "2db1a6042f80e415bfc256b120061e48ca37cdc43180ab5097e42d37ecc49aea",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/mpriscontrol/mpriscontrolplugin-win.h",
+          "sha256": "dd824edbbc91ab33dcb8a6f322d0ed7d25e9845f95f470be4714037501f4f4c7",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/mpriscontrol/mpriscontrolplugin.cpp",
+          "sha256": "b9149e017971ba48a41f76259d16bc0d0cdd02e7819d190ed1745a9ecd71358a",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/mpriscontrol/mpriscontrolplugin.h",
+          "sha256": "1a727f644fe4cf71184dfb968d0288ee91da0214152aab7c7ba12778673cafa2",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/mprisremote/CMakeLists.txt",
+          "sha256": "ffb004b90701895b5675393a32a31a5ae6dfdcf41d47fa199104ce919f54ba98",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/mprisremote/albumart_cache.cpp",
+          "sha256": "55d4316d8c57697fb6dcabdb3c1193e17b39a916b408ae2f02b041304a895a28",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/mprisremote/albumart_cache.h",
+          "sha256": "1e744156c064e35fa4e5e4948ae125369e255e2726a4991cebc2f819610519ed",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/mprisremote/mprisremoteplayer.cpp",
+          "sha256": "a169b1f4b6c298c420fb57de0b960acc769a2cae98cd3ef41365803afed3a8a0",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/mprisremote/mprisremoteplayer.h",
+          "sha256": "55f4e549878ce9c5c89a738ac996bd321599a2a1120f9632f3276380740cfc62",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/mprisremote/mprisremoteplayermediaplayer2.cpp",
+          "sha256": "e3f62b86a23e20aff1a0679ecb7db31b672ff6c323ede6c92e4f34f902d53e5a",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/mprisremote/mprisremoteplayermediaplayer2.h",
+          "sha256": "ad467ed61049eae9760d06a6770879892bc5b43efbdd3cb3ce174836056553d8",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/mprisremote/mprisremoteplayermediaplayer2player.cpp",
+          "sha256": "ed4bb2d70792eaceab831ac2c7b38516d8d91f9d9bb2c2854bc1aa73e2eefc8a",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/mprisremote/mprisremoteplayermediaplayer2player.h",
+          "sha256": "b65526790b0096a5884340292346d8796edfc8f6b54516d2720bf7827e46724e",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/mprisremote/mprisremoteplugin.cpp",
+          "sha256": "19c062967d886ff7f6700ff0b9264abad28a01630128abd46d65c11f918f41a3",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/mprisremote/mprisremoteplugin.h",
+          "sha256": "0357e18bb507764e9ac1e4fe91ae6b1675b4c9de6a48cea70b38f2251f638490",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/notifications/CMakeLists.txt",
+          "sha256": "05616509d49a8f89d00800e59adf91d375136a9733341dbaffdd0b812817799a",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/notifications/notification.cpp",
+          "sha256": "588fe569c9fed9c17270f3385f951e499969a0d23438e7f4b31d8530ff80626e",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/notifications/notification.h",
+          "sha256": "fede0d8753e8cd0736041be39bf459233091a06b0322bf7f6b6f534513f54fef",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/notifications/notificationsplugin.cpp",
+          "sha256": "48e734af6a698cd5eda97234de6343bfbbab79e58aa4b86320bdfee65fb256e6",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/notifications/notificationsplugin.h",
+          "sha256": "d25f19e44361cd29d112d71378421a2d7d289e048dd61077b585006906987e07",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/notifications/sendreplydialog.cpp",
+          "sha256": "3807b0aa6b56c0be4d989f93df843024ed34216c315e2d38b5a6790fca968268",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/notifications/sendreplydialog.h",
+          "sha256": "15da4357c82682584747a7f51282de32cd94e94940f2693b263b0ab8df093d5a",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/pausemusic/CMakeLists.txt",
+          "sha256": "c2a4a2576cec6d9fa1fa03f6e3d51370963be53bd602e1ac6c82bc8076f5d322",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/pausemusic/kdeconnect_pausemusic_config.qml",
+          "sha256": "ccdc555dfae4b2fb8b9315053119655392850a01ff7e9c8f70524eb3eafd7713",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/pausemusic/pausemusicplugin-win.cpp",
+          "sha256": "077c28dd31746216337d327e52c4cfa3170eaf04e85a53641e3f64b7b157c690",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/pausemusic/pausemusicplugin-win.h",
+          "sha256": "1bb1bb3f682e69a3f26ee6a352c7dc2f31506aa6630a6be6d1c3c44f6fe67cf4",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/pausemusic/pausemusicplugin.cpp",
+          "sha256": "5bb04cb14292d806d07a8d82560e382b631a3912878ec458d8e478cf62c09e96",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/pausemusic/pausemusicplugin.h",
+          "sha256": "bdf5912e4c41a17a182b983a5236406a4cc1082a38be113f75cc3df78c9ea1aa",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/ping/CMakeLists.txt",
+          "sha256": "e0c77f2439179545e72b3ac1753a06839b59056832c62cc3e6e1f4d2b1c3eac3",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/ping/pingplugin.cpp",
+          "sha256": "3ac943a31cb8471b3bdcadf761cdc2222ba923d2febbeb3da91f0608750568e1",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/ping/pingplugin.h",
+          "sha256": "e6b72cd01f6675bd1e761a6e655ce228c0dd3104053fad190ef1996f75532bc1",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/presenter/CMakeLists.txt",
+          "sha256": "f8a68ab366940442901c9b54b7619e804d4467088909c609af040bf84ecd5f84",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/presenter/PresenterElectric.qml",
+          "sha256": "48f83f11b51f413c59311edc53a0354e22445bf710093a49a17d1a2a06eb5345",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/presenter/PresenterRedDot.qml",
+          "sha256": "698f7a4b73d4b66a22b4a4611706cc9147d62663f8dd7b30eabe3399498de8c9",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/presenter/kdeconnect_presenter_config.qml",
+          "sha256": "12348b568a42039a3180256b534bb24c382ea8969d35b0c9f2e20c719773ba71",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/presenter/presenterplugin.cpp",
+          "sha256": "2ab82b9354d1d1a3a5d581558f74420936e4a1d945b297a299624b41bd371d15",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/presenter/presenterplugin.h",
+          "sha256": "7419dff684c8d34d5211ff08ef10f08e2bef09cbd7654ad683d3b7cb5f4caeb3",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/presenter/test.qml",
+          "sha256": "170cd09329f2e6285d97d8f0b99acd607ea114b377dae94f8c9d20285305ca36",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/remotecommands/CMakeLists.txt",
+          "sha256": "e3a8c639cfb5754a2cc186a2a91b878e8e95d3442207ead42c15a328eccab1ca",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/remotecommands/remotecommandsplugin.cpp",
+          "sha256": "10bd195ef3c66df261520a39bf70fc24fd0facfc12bfe37b7cbfcf83fe9938c1",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/remotecommands/remotecommandsplugin.h",
+          "sha256": "ddb0450b843de0f876e79adda2071f70b1fc6170240ad0e127e9e5fe33bf0d4f",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/remotecontrol/CMakeLists.txt",
+          "sha256": "8d6b26d00f7f2719cfcf66fa0386382667636c393d6a60e9d8e949ddb07cd7ab",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/remotecontrol/remotecontrolplugin.cpp",
+          "sha256": "945a540aef2fbb50d2239b16a168e5f49af0104dc5417cfce0af18db10f1c229",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/remotecontrol/remotecontrolplugin.h",
+          "sha256": "dfaa029f5bbd6166b11a08f1bbdfb2e7a338a2d9fa69020f83ed66adaa4fe581",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/remotekeyboard/CMakeLists.txt",
+          "sha256": "ac7edd973b486c3603945769c8360b7e96b9eb00d246de873ff9cbb29838459f",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/remotekeyboard/remotekeyboardplugin.cpp",
+          "sha256": "9862765868ec083202d1c290c450bbc34b6ce71a3abec4c40641f466327454c7",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/remotekeyboard/remotekeyboardplugin.h",
+          "sha256": "04f08f2f9764df85a40bd0541265ca569c60bde4d2b6abebec3d7f5d70049e01",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/remotesystemvolume/CMakeLists.txt",
+          "sha256": "46732dec087659dec9e466be77f970b5ae3f996dab85901bd67234c99cd3e392",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/remotesystemvolume/remotesystemvolumeplugin.cpp",
+          "sha256": "ce717527d0daa0ea0ce04e1322d25e9c6750857b87d5a892b91c935e0d5cfa28",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/remotesystemvolume/remotesystemvolumeplugin.h",
+          "sha256": "1dbe3986e822c5dac495292c9ba7d493179d86ac55a44b8705afc8c2963fa24b",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/runcommand/CMakeLists.txt",
+          "sha256": "91eb89962f39a30cb4506c9ae2b22055ab06747d0c70b27b9c2da877852151af",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/runcommand/kdeconnect_runcommand_config.qml",
+          "sha256": "fd93ede9d992d6dc5338f8358c2d07fcbc774bbf7586305fd2f0445a6771c149",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/runcommand/runcommandplugin.cpp",
+          "sha256": "5669d6481bafbec8063acc104f59d302a68757d65034a700f13f478490237c01",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/runcommand/runcommandplugin.h",
+          "sha256": "060b6f15545c60517809444d3eb0c54e375cfaa7a9f69d63fd179a2d306a80aa",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/screensaver-inhibit/CMakeLists.txt",
+          "sha256": "f1c38f61e87b086df20611cc131ae5a108601f4e50952f041dd825ea9981b261",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/screensaver-inhibit/screensaverinhibitplugin-macos.cpp",
+          "sha256": "8d4a5b884f728f13a97d5c3f6ea4cdac8eb639a7f04722e7b9d0ef954a0f06b4",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/screensaver-inhibit/screensaverinhibitplugin-macos.h",
+          "sha256": "32e71e151971084de72322993a096c2dacef47472a5fe547830069c0e417556d",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/screensaver-inhibit/screensaverinhibitplugin-win.cpp",
+          "sha256": "9cc511c8b1bc48b8dea503b1f07d5999b33845d41cc4efe56d4845d6b34d5484",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/screensaver-inhibit/screensaverinhibitplugin-win.h",
+          "sha256": "fc813827c1cb529abf99483ba0c86ac09fc2b9f3fa19411c694415c0fb80a140",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/screensaver-inhibit/screensaverinhibitplugin.cpp",
+          "sha256": "86f2703b5590e28f48a665746703cef197f2b6f5b0858f1e8f5a36bed5b0a5e5",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/screensaver-inhibit/screensaverinhibitplugin.h",
+          "sha256": "e1580ed89cad79f312c5ab2424bb2e3e2617ec1571f54420cb4af6c080f5c4ba",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/sendnotifications/CMakeLists.txt",
+          "sha256": "aa18f91cf775f7d3325d8eb9aa29d5c0e3bdb50e1778841719f6d34fe84627f6",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/sendnotifications/dbusnotificationslistener.cpp",
+          "sha256": "34236707c2c7a546fcb68be0260a8a3e1c4c0f891d790058b51a935bba050f0d",
+          "notice": "GPL-2.0-or-later"
+        },
+        {
+          "path": "plugins/sendnotifications/dbusnotificationslistener.h",
+          "sha256": "6b768094847ef679e90571c82403ba2a610a87d1623fadd7bed2cabac81eeba9",
+          "notice": "GPL-2.0-or-later"
+        },
+        {
+          "path": "plugins/sendnotifications/kdeconnect_sendnotifications_config.qml",
+          "sha256": "c346541d2ca5e85e4a0ae52acfdc0bdb8dcd1b186a21c7f1bce36bb1fbd71b6d",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/sendnotifications/notificationslistener.cpp",
+          "sha256": "119db49b96508475dcecdd65a5d5af8db88529ec18cc7c4351dcff495dd81276",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/sendnotifications/notificationslistener.h",
+          "sha256": "db30b30960e296a20323ca3b5b620fa53c57f1a70c8658031d521c8342e9b23c",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/sendnotifications/notifyingapplication.cpp",
+          "sha256": "e2f8296b23f8ffa89be683984d2669fd9546900d6081e1b4b79bd640b4bc5bf2",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/sendnotifications/notifyingapplication.h",
+          "sha256": "0e57955be7ecf9acf84feb63c39e0598a55422f6a91fc8ddd546ebffdcb842ac",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/sendnotifications/notifyingapplicationmodel.cpp",
+          "sha256": "8ea66cfa73ee3f1bbf51d0b0ac2e5f73ff6722ca22f5eb6c8c091c4a14c47008",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/sendnotifications/notifyingapplicationmodel.h",
+          "sha256": "027ba924c93d9bca2d8e93d036449b33bd2dbdc7986b918c7d7a6ea09baaeb13",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/sendnotifications/pw_libnotificationmanager/CMakeLists.txt",
+          "sha256": "5f3b412b813059c43f95e62770c5c7abfd8c2f5deaf671e126c6ae900958caf7",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/sendnotifications/pw_libnotificationmanager/notification.cpp",
+          "sha256": "d2abf6f95287a9d3e0597b6bf4be39254c765d4b372e51d830213881abffcec1",
+          "notice": "LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL"
+        },
+        {
+          "path": "plugins/sendnotifications/pw_libnotificationmanager/notification.h",
+          "sha256": "65cfaa4406e10d6e513d4ca4e9e5772019dfc40bd0e0482ce161c0160a71fb4b",
+          "notice": "LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL"
+        },
+        {
+          "path": "plugins/sendnotifications/pw_libnotificationmanager/notification_p.h",
+          "sha256": "4d2051ef8a0e022f683dad452814132ced306adc182d58449a6d2c452390be89",
+          "notice": "LGPL-2.1-only OR LGPL-3.0-only OR LicenseRef-KDE-Accepted-LGPL"
+        },
+        {
+          "path": "plugins/sendnotifications/sendnotificationsplugin.cpp",
+          "sha256": "a91f32905678dfccdb8ff68490121edf00cfe1203027fa2ba92ef0f897b85d6a",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/sendnotifications/sendnotificationsplugin.h",
+          "sha256": "ce06a3f1f370099ed844d752cf54d404b7f26e4064e8501d0108d47048b552c8",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/sendnotifications/windowsnotificationslistener.cpp",
+          "sha256": "774771f500be91404f13c88f2e340354f12b2304fb3f92d471f9f307a8ecc63f",
+          "notice": "GPL-2.0-or-later"
+        },
+        {
+          "path": "plugins/sendnotifications/windowsnotificationslistener.h",
+          "sha256": "7c16917566324f277331b61ed321acd4896a1f90a1c0d81cb7079dd9a1c394b3",
+          "notice": "GPL-2.0-or-later"
+        },
+        {
+          "path": "plugins/sftp/CMakeLists.txt",
+          "sha256": "6b468550c06d7ff3e7e2ce67517c08ef6260dc49c1c128f69b52bd1998532065",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/sftp/config-sftp.h.cmake",
+          "sha256": "116c9cbb86b479767703618cf652acbee9c6740cd5cd579d25abc6c3cded42d0",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/sftp/mounter.cpp",
+          "sha256": "a08e951e6c690c7d0200f2d26091c767b1060c4efb74abd9f0888358bdef397c",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/sftp/mounter.h",
+          "sha256": "e87f3af5a1a8d404d71df20714216db95702df866c6be94be958127cbd8fd6e6",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/sftp/mountloop.cpp",
+          "sha256": "676208dff74533633b62a84d0a5635c312555664bb27c85f8c780717f40ce73d",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/sftp/mountloop.h",
+          "sha256": "b568b0563bbdf68a7050ebf814e652e3a52532b45d1c535c499d3b74cf506ca3",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/sftp/sftpplugin-win.cpp",
+          "sha256": "6fd0bd9fff04fa070f89fbd0112b9573b01beeef2cc4fc79de9957cec2122461",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/sftp/sftpplugin-win.h",
+          "sha256": "0a6473c9665101575b55ae515b1b0d0c8a6b9e1414a9428869da480447b44a7e",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/sftp/sftpplugin.cpp",
+          "sha256": "ed406b2c8e5e09d1a0d77e74549d5ee3d8216a8f796c4500a763a30a47e19217",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/sftp/sftpplugin.h",
+          "sha256": "6f3855996319725d00c7bd053bf54a24c874f613260c5b359d0f99a420e4bef5",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/share/CMakeLists.txt",
+          "sha256": "762e3b25a840d7f5a980a18ac272a01b3ead74966ed72ecdab167312b560a805",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/share/kdeconnect_share_config.qml",
+          "sha256": "c7ae1087566ffa861269b41683d4f631792b4cce24c2148fc8ae7f2b1b0eb248",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/share/shareplugin.cpp",
+          "sha256": "3894db697e4bdaaabde6d43b788f8bbd4a153eadb671e271faa002b6a0fbf50a",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/share/shareplugin.h",
+          "sha256": "6805f2e037cb169122bc18c039957b1ba8f22a7a90de3d433289ebdaebb54373",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/shareinputdevices/CMakeLists.txt",
+          "sha256": "d89c725300ff7c4cccf6c5fc09235f1557b02d6381285bd44ed331753c4b6b0b",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/shareinputdevices/inputcapturesession.cpp",
+          "sha256": "fc7b0e9e47fafbfdfae1d0edc6486e8a99ec2bdea629946c3d8912a65b2b9034",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/shareinputdevices/inputcapturesession.h",
+          "sha256": "38c0e3cce29cf5d825d5da3d695281b45f3ed54fdb296c04ae0d62930caf2f9a",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/shareinputdevices/kdeconnect_shareinputdevices_config.qml",
+          "sha256": "417df260444c4add41e55b2cf6b3e8c7f47b3b75f83ed3e7bf8854bf186adb6b",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/shareinputdevices/shareinputdevicesplugin.cpp",
+          "sha256": "a6ed0eb496c6eec80b50b4685109d8bdded39740b45738398554372d66fedcc2",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/shareinputdevices/shareinputdevicesplugin.h",
+          "sha256": "f173aa1261d19a01161371f9ba11df95b44365947cb88b507a1094c4eb87ff6b",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/shareinputdevicesremote/CMakeLists.txt",
+          "sha256": "d2283060de5fbb74a06f6aa2cea2914d1f5e62a31bb2ac041a3ca174930aa395",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/shareinputdevicesremote/shareinputdevicesremoteplugin.cpp",
+          "sha256": "e357c6accdfc796300479c84449385cb5331dcc54753dd109937dfc3d48eb109",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/shareinputdevicesremote/shareinputdevicesremoteplugin.h",
+          "sha256": "c8efc3bf4fa18de8c1bc9c13ed2ccd17de66101dc3a411cc746e825bf0e8203e",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/sms/CMakeLists.txt",
+          "sha256": "b55923003e63bf76a35bb1bfa5b78ea118a9f6492f68143916283a8704d1d366",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/sms/conversationsdbusinterface.cpp",
+          "sha256": "59b859af98a6288df97e174a8de97e635489a1492459273747427af9b4c51b2d",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/sms/conversationsdbusinterface.h",
+          "sha256": "ce920edbcef1890487ac183388263c7d78b9a9202b3068226fa84e9e6247b53a",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/sms/requestconversationworker.cpp",
+          "sha256": "abfdb8badfd800edbfdf5b897ed1dd6d7ad836201e4e755a9e0a58e21cbcdff0",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/sms/requestconversationworker.h",
+          "sha256": "973830ea69dc0be58758adacea95a99c224491fb10caa7fdc2e78d67871801fb",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/sms/smsplugin.cpp",
+          "sha256": "0ff7185af8d5be2749f94b3dfee337e817b44c4fc6edff77bcedbe6461184d1b",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/sms/smsplugin.h",
+          "sha256": "3c24f418c4739458ef748689aa256b32bbdc5e88d6550803cc6958fa4351adc3",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/systemvolume/CMakeLists.txt",
+          "sha256": "9824f48e67f9c62661643fa4fd35a002e7605b14778a4af5487917348ef9dfa1",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/systemvolume/PolicyConfig.h",
+          "sha256": "c74c02779a49169e9144e2326b294246af7a7a6006849727e2c1b971423ac3b9",
+          "notice": "MIT"
+        },
+        {
+          "path": "plugins/systemvolume/systemvolumeplugin-macos.cpp",
+          "sha256": "0e0821e5be5b5c555e8df9965af743f93d4aef296840ec10ac40902180873f63",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/systemvolume/systemvolumeplugin-macos.h",
+          "sha256": "7df6d8a6afaae7c3ea14796e934a573d88558a50961aafe2e359f8f097e02cb5",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/systemvolume/systemvolumeplugin-pulse.cpp",
+          "sha256": "60ae1da7e9abe0c90d330f26137147fa9b6cd60ab1bb3d48f066b4315e797ccb",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/systemvolume/systemvolumeplugin-pulse.h",
+          "sha256": "2345489f43a667a0c2ea9478dc2955df7598fe144f2ac345b72911b37a851190",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/systemvolume/systemvolumeplugin-win.cpp",
+          "sha256": "006eecea6f76aa62513f056c8d1ce00326a3aeed1a294ee47b6685e7bb412703",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/systemvolume/systemvolumeplugin-win.h",
+          "sha256": "5e257345b3e5ba2f44c18b841a3aa6de829cbb18e451393decc568bd987d9282",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/telephony/CMakeLists.txt",
+          "sha256": "7a2f6ca339799448da19198890cc0720d3cd95cf299502ad889d9d7618fa8abc",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/telephony/telephonyplugin.cpp",
+          "sha256": "758bb4775847c353c856256f613c582d888ceb1705a3f1014e93206eb83d9453",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/telephony/telephonyplugin.h",
+          "sha256": "d8fcfa24eba296eef2c96540f8475eaf210fb0e2073544fd06260452db70031d",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/virtualmonitor/CMakeLists.txt",
+          "sha256": "14d9db27e8a5813d66466ef7a03b42fa745b3c6aba35bb3864c46a0849dbc032",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "plugins/virtualmonitor/virtualmonitorplugin.cpp",
+          "sha256": "3d7a7d0117f2f676b9b3b9486487c1e8320758d6283fe3dbf563701d6146780f",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "plugins/virtualmonitor/virtualmonitorplugin.h",
+          "sha256": "a45f37293ef3ba16e701602d32edf33c41f146da31a95322d4820388823351c2",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "smsapp/CMakeLists.txt",
+          "sha256": "4522045c81a64960480d6e3cfe99ea76b97e56b5bbd54da89ca5c38b6a0b750d",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "smsapp/attachmentinfo.cpp",
+          "sha256": "92e5473de9ec20c4bf3be6425c397877da61d3603a4e1a578926f7b33f27a544",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "smsapp/attachmentinfo.h",
+          "sha256": "3f72b8f31f6513207f0b1fa0d7ecc2683e350aaa702a8868a126804c6dfcce07",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "smsapp/attachmentshelper.cpp",
+          "sha256": "2a49f052b31ff77c58a5ade4f9cbcbeed84007231aa159d6c15a787914861318",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "smsapp/attachmentshelper.h",
+          "sha256": "a668f69a2eeb85398ecc00d4c4d72b1e07e8e073b5aee4b6f8bd43014cebaddf",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "smsapp/conversationlistmodel.cpp",
+          "sha256": "9f21e5e54bf33b913a4a1b32d50234e0eb0146d01bf9dd92462ebbfb54387ae1",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "smsapp/conversationlistmodel.h",
+          "sha256": "89f07c4a11347e1cfca884f08c64588ba2cfb5edb1535f5e329fdfb1590abd34",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "smsapp/conversationmodel.cpp",
+          "sha256": "b00af3cd4d40927cbff3dfdb822d6cd57160d7692a05b70b10cb5a0c2c3c195c",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "smsapp/conversationmodel.h",
+          "sha256": "6ba6d3a52f684849bfa3a17fc48bb2d094018f0c48f9e05a86ed5cb8cfad4c56",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "smsapp/conversationssortfilterproxymodel.cpp",
+          "sha256": "c5d5b9f31e9a5836fd1782b053419002d656da4f8425e1c46fccb9d6decfeec0",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "smsapp/conversationssortfilterproxymodel.h",
+          "sha256": "2ca09b47f01db8f899ea7766205e0c4b820b372f3892b1f6fdaa783715c4abf5",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "smsapp/gsmasciimap.cpp",
+          "sha256": "d7ceaec949a32b55d104e5c07a2d0dd40731b428b02cc9b79cd79f4307fa788d",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "smsapp/gsmasciimap.h",
+          "sha256": "b30a498ed008d3bdbb578bb8f15e2b050d5401b539f25b0e74e345a910907af1",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "smsapp/main.cpp",
+          "sha256": "eb6d85e9300501e1cd9498a59d35a608e322e09e82b52e63c79a061981f5dea7",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "smsapp/qml/AttachmentViewer.qml",
+          "sha256": "442da8fed7786368941f7dd2b2b4ca6a9d7f78081501c081cacf952e25eb858b",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "smsapp/qml/ChatMessage.qml",
+          "sha256": "606d666c355b5005c94645c6511b013b3cc16756a421ff8dc7938628a6cf5b31",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "smsapp/qml/ConversationDisplay.qml",
+          "sha256": "46c0306d64c7daefc14115e8dae51dd530e7a4921d041be653855072ee0c9487",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "smsapp/qml/ConversationList.qml",
+          "sha256": "ce6d1047f49d49d299acfdaa3ea9da1adbeb1227bf2b12f64874965f44a0f195",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "smsapp/qml/Main.qml",
+          "sha256": "c4d971f0c818a26af9899d123daf7d93224ef6b6d6bbd861949ca425d56a65ce",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "smsapp/qml/MessageAttachments.qml",
+          "sha256": "971e1856f09afb1a87e00af00e61603f059c825e363d2d68646e896447e2bb04",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "smsapp/qml/SendingArea.qml",
+          "sha256": "79f1b3e2b45c7122fdf25562117827bc7408552110365a0bd3992cc8f83339c0",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "smsapp/smscharcount.h",
+          "sha256": "88076444aeb2d8bec724473c78213ed8954e9fb802195226cd476027b14e81d4",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "smsapp/smshelper.cpp",
+          "sha256": "c36ea1ab6ed9aba346cbf7bc835608abbeba5508a87168191d119fd486b038a2",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "smsapp/smshelper.h",
+          "sha256": "d8ea018da6246a593cfe6c5216fb6b4e86f38b9449916b27cc018a341d316910",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "smsapp/thumbnailsprovider.cpp",
+          "sha256": "469e7897b5d6130773b78044add4f9886746a9ec6167d51e57a543ac14487231",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "smsapp/thumbnailsprovider.h",
+          "sha256": "b26b716718dce8d8adcaff0bca0a4c4528540f8d67f625ed28165aa0e15708a2",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "tests/CMakeLists.txt",
+          "sha256": "94ff7b472500b3a3bb7e9ba81e6461ae1ed9a2005af588b77210b9669f407ae1",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "tests/lanipv6test.cpp",
+          "sha256": "3be0ed1982b9cb39f802adcfa0c39c8e3d7fc2399dfad5f6e3f30176568e3582",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "tests/lanratelimittest.cpp",
+          "sha256": "caf3544af5f288ce852ac1715aaf0914e0fee2113a652127ed18147ca37fc1cf",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "tests/mdnstest.cpp",
+          "sha256": "7edccb2a3d9d1b49a6a1cbfa75ac4565790259f85b5e3a8dbcb402ff436dd4a3",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "tests/notificationstest.cpp",
+          "sha256": "3456f2ec8995f07684e7dd7b646a5a15cfdccef85feb65e4842719cb43a2b7d0",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "tests/pluginloadtest.cpp",
+          "sha256": "d5f108390ff2cb4d8abcfef87d326799fbaa3d97e0f1963964012dfb3ddb37a8",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "tests/sendfiletest.cpp",
+          "sha256": "9c5482f0ebb27d7e56a2acb44482adff09096700dc2edc2ed74db3e00a78ac14",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "tests/smshelpertest.cpp",
+          "sha256": "1f3aac93bc4ce83e630e3e57a326ac8f6411ef35fee82dd8be43c1f03aee71cf",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "tests/testdaemon.h",
+          "sha256": "4f9f7716eab4d141b320cebdca22abc680699e02f50533d63fa10700299a7b5c",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "tests/testdevice.cpp",
+          "sha256": "c9faa2e67674b6ca5a8173c001903ac83f21088fc9176c672bc8e7e888978ffb",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "tests/testdevice.h",
+          "sha256": "48146aa43bed28c7747fa5a5bfb83ea4a67f7c7eed52598abc9dfaa3e2334a22",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        },
+        {
+          "path": "urlhandler/CMakeLists.txt",
+          "sha256": "65eca25f5374617d0bd454247ad5e4bed6b050839c9ce8b94d4079e649506ef8",
+          "notice": "no detected header: manual review"
+        },
+        {
+          "path": "urlhandler/kdeconnect-handler.cpp",
+          "sha256": "9b906b85fb28c50565855e3092244433cd58d3064a6fac3020e49b31bf38595e",
+          "notice": "GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL"
+        }
+      ]
+    },
+    {
+      "repository": "AminBlg/kaller",
+      "revision": "fc25b13592561c6236f191256752171a4bdeb44f",
+      "purpose": "optional Bluetooth calling reference",
+      "code_file_count": 41,
+      "notice_counts": {
+        "GPL-3.0-or-later": 41
+      },
+      "files": [
+        {
+          "path": "CMakeLists.txt",
+          "sha256": "f32649e4df10e5618e2102271e0ae525774c72d6d600d3627b6c15ea888f4e3a",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/CMakeLists.txt",
+          "sha256": "5e2c0b560a67c2962171c2541e48845b59c64ad48e5f21293e4194ff1710f882",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/app/qml/Keypad.qml",
+          "sha256": "f20e13c3015fe3613ca7b2b0edd86209811508b390e1e4779420e54c7b705b55",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/app/qml/main.qml",
+          "sha256": "e325080a0aea3f247a0814fd5862b2144388de7c301d2173c2b4b68f0f82d48e",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/app/trayicon.cpp",
+          "sha256": "ac16952a1e03b50ad05e73e24f545c340d3ab006b2cdf630ad54772763ede0d4",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/app/trayicon.h",
+          "sha256": "84ddb34109b37ac9f23f63aed1a6d09c97ea363e40181b6f35ae22f0782cbc54",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/core/contacts/contactitem.h",
+          "sha256": "4da9535851c0bee9afe7b8e1d1cfb8d9fa4712bd370ea55ef8c177e9e619a847",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/core/contacts/contactsmodel.cpp",
+          "sha256": "1d210e948a13d472bee99bbcbb97827dd8f2afca9e9d79a09774626bff7178ea",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/core/contacts/contactsmodel.h",
+          "sha256": "e09ed86a1be5095d6c303f3c3e545d8402a023fb3b028f0c92d6f37523f7cbad",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/core/contacts/pbapclient.cpp",
+          "sha256": "46e5efb75cd9585f4b0e66f157113083a53d1908700c75c524d97e4ff9a66c67",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/core/contacts/pbapclient.h",
+          "sha256": "38c36338c67801f6556c785a7c8f2236a41647eff2bccea495cdac4143100e41",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/core/logging.cpp",
+          "sha256": "00f2c8648f4d8303f9974db67ef98832164369f581d330e10dfeac6cc84a87c7",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/core/logging.h",
+          "sha256": "d43519eaa460a1826594b4b97f8456e68e80a167314e63d0d54a86048b3059a0",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/core/notifications/eventnotifier.cpp",
+          "sha256": "b27fabdcd96d88c14fa17deec8d09573b56cc5c0c30a572e5cefb060dfb532cc",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/core/notifications/eventnotifier.h",
+          "sha256": "89bcbcf635d548ee23157cdfa04729b77106133f21c3a05bfb621bfa135022aa",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/core/notifications/incomingcallnotifier.cpp",
+          "sha256": "2688e60b58aaebdf29b6b2a4ce6348705c16691582f087a7d6c0d475ab1ba523",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/core/notifications/incomingcallnotifier.h",
+          "sha256": "e6a09b71443ca72bf12092ec4edd0c191ea80c9e729037df62d7d999b3846959",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/core/recents/recententry.h",
+          "sha256": "daca0d88b90601d6a26b798c9909beb68adac137e722f9376fb6f51790e124bf",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/core/recents/recentsmodel.cpp",
+          "sha256": "624c3a3e375c04a6f7d67bdb921773041e6044efd86533b1b38f0d9260066f0c",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/core/recents/recentsmodel.h",
+          "sha256": "128dd5f540af86134da3cb2a3ccff5b6b2a9d5ba5363fb699977ebda7cd0d96b",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/core/settings/settings.cpp",
+          "sha256": "2a9b2581858c9abd05dadfd0cdbb18686e0744afe99630d666d70acf163b4214",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/core/settings/settings.h",
+          "sha256": "74cece404dd51f4c6fbc1eaad18ca58c5330c75cdf3415467bee177f8d023897",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/core/telephony/agdevice.cpp",
+          "sha256": "a9968de4f7ad6d9d80c12f4289b04ae6247a93f32505c67eb0b5b3be3a415780",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/core/telephony/agdevice.h",
+          "sha256": "c43abd7777a02d9b020f5dd741cd4c70d25f04f4e8f3171c59fa6f8bd2b5cc9c",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/core/telephony/agmodel.cpp",
+          "sha256": "6cf8a315051fefb195b6395d893287c4941c40cd80ce6f651c521ddd3f218464",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/core/telephony/agmodel.h",
+          "sha256": "ca9c51c7162465d962c26d9d925f5b1be5cca29fbbaad1185e338b17796c6c63",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/core/telephony/bluezdevices.cpp",
+          "sha256": "fc212b87c0a0546ddecbe90f1edfa76f75465a1cfe2a7aa62c350fc3d673ecdc",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/core/telephony/bluezdevices.h",
+          "sha256": "c6357db1f5668994747bd4c82f11249c56775741e0686678ccdf177e872abb35",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/core/telephony/call.cpp",
+          "sha256": "19a63058a1f6cf313a894b11de849b16904ecbf340b25836ccbbc26d3b384a72",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/core/telephony/call.h",
+          "sha256": "980fcfad119fc1ce2957397c9b3f15aed6ab08bbb12b8a8bf69cf734e2ff937f",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/core/telephony/callmodel.cpp",
+          "sha256": "1d10ad5bd530d0d06c51a8fae7154106896a37ccf7e93df81aeacf1895a907fa",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/core/telephony/callmodel.h",
+          "sha256": "3250004b974e751d51766223647cd3b184d38cd0e28a421663c0916634ee9a1a",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/core/telephony/pendingendtracker.cpp",
+          "sha256": "df65328ecc851eb51651ff00019a65c40f1a278b26a9977c95dbaf87d12b2e8f",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/core/telephony/pendingendtracker.h",
+          "sha256": "84a29804e295fe7ea7d72e981d720312197ac9c90076aa415ee91760776701f6",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/core/telephony/telephonyclient.cpp",
+          "sha256": "14cb1332074065cecf644f931eaffb761b42aa2660753626524e303fcc9ee2d8",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/core/telephony/telephonyclient.h",
+          "sha256": "b45c55a64097b143647ba0ac3701a6532c0cb43e79ae790771dae29d09a986b3",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "src/main.cpp",
+          "sha256": "3d78b2e70a9eccf1f27dea561877aef55e712c9a05f38087e3f6fab546c823fc",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "tests/CMakeLists.txt",
+          "sha256": "8df5be9717179deb074cec64b1174f8f564519be38b3ed74d94d09d091fd2752",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "tests/probe.cpp",
+          "sha256": "881023c3fde1ddd41397ce740d3d549f22fb1dc61e7fff07a563b4f3c3392e6d",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "tests/test_callend.cpp",
+          "sha256": "5c83ca6404caff63c3b8a405bd6aaf1aa7e4254c5aac6143f98a2e6a41615f8f",
+          "notice": "GPL-3.0-or-later"
+        },
+        {
+          "path": "tests/test_contacts.cpp",
+          "sha256": "508f9528862919beea7a85922f9ac7f08277d628334c3af69f58401009a77c45",
+          "notice": "GPL-3.0-or-later"
+        }
+      ]
+    }
+  ]
+}

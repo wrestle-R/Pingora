@@ -1,6 +1,6 @@
 # Pingora implementation plan
 
-Status: implementation-preparation baseline. No app code implemented or runtime compatibility proven. Original 17-item backlog and six test boundaries approved; progress tracking uses local Markdown. Latest user correction removes all remote input. See [readiness](readiness.md) for evidence, [backlog](backlog.md) for the approved core sequence and website extension and [testing](testing.md) for approved core test boundaries and proposed website coverage.
+Status: implementation authorized for the full Android/Linux plan; milestone commits and pushes requested. Website P18 is complete. Native work is in progress; runtime compatibility is not yet proven. Original 17-item backlog and six test boundaries approved; progress tracking uses local Markdown. Latest user correction removes all remote input. See [readiness](readiness.md) for evidence, [backlog](backlog.md) for the approved core sequence and website extension and [testing](testing.md) for approved core test boundaries and proposed website coverage.
 
 ## Product and supported release
 
@@ -15,7 +15,7 @@ Repository stays private until the owner makes it public. Version tags build and
 - `tauri/`: Linux desktop application; native backend integration remains behind explicit adapters.
 - `docs/`: plans, decisions, glossary, agent configuration and local progress tracking.
 
-Keep the repository root lean. Progress lives in local Markdown, not GitHub Issues. Website GitHub integration is for user-facing reports/feature requests and release/download information; it is separate from internal progress tracking. See [website scope](website.md). No website or app code is implemented by creating the folder map.
+Keep the repository root lean. Progress lives in local Markdown, not GitHub Issues. Website GitHub integration is for user-facing reports/feature requests and release/download information; it is separate from internal progress tracking. See [website scope](website.md). The website is implemented; directory briefs alone still do not prove native app support.
 
 ## Agreed features
 
@@ -23,6 +23,10 @@ Keep the repository root lean. Progress lives in local Markdown, not GitHub Issu
 - Bluetooth only for optional SIM calling on verified setups, including laptop microphone/speakers and explicit Answer/Decline. No automatic answering. Root is not required for the core app. Outgoing dialling is outside the initial calling milestone.
 - No touchpad, keyboard or slide control, media control, remote commands, full SMS conversation client, iOS, Windows or macOS in this release.
 
+
+## Native Slumber extension
+
+User explicitly requests phone controls for the existing right-sidebar Slumber from `code/Hyprland-stuff`. Use the existing lock-safe QuickShell integration through an optional authenticated capability, not generic remote shell execution. Status and activation IPC were identified; lid preference setter is not yet exposed. No remote password unlock. See [integration contract](slumber.md) and P20.
 
 ## Approved usability features
 

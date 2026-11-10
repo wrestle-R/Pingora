@@ -40,7 +40,7 @@ const topics = [
   [
     "scope",
     "Scope & Slumber",
-    "The initial targets are Android and Linux (Hyprland, Plasma and GNOME), with compatibility still to verify. Phone touchpad, keyboard, slide control, media controls, remote commands and a full SMS client are outside the core scope. Phone control for Slumber is a separate requested integration whose behaviour and interface still need defining. It is not implemented or included in a release.",
+    "The initial targets are Android and Linux (Hyprland, Plasma and GNOME), with compatibility still to verify. Phone touchpad, keyboard, slide control, media controls, remote commands and a full SMS client are outside the core scope. Phone control for the owner’s native Slumber (Arch/Hyprland with QuickShell) is a separate requested integration. Its local status and activation interface has been identified; phone controls are not implemented or included in a release.",
   ],
   [
     "troubleshooting",

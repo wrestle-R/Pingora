@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Pingora · Connection health</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <header><b>↗ Pingora</b><span>Development build</span></header>
+    <main>
+      <p class="label">YOUR LITTLE CONNECTION</p>
+      <h1>Let’s get closer.</h1>
+      <p class="intro">
+        Connection health, from this laptop. Device pairing is the next
+        milestone.
+      </p>
+      <section aria-labelledby="health-title">
+        <h2 id="health-title">Connection health</h2>
+        <dl>
+          <div>
+            <dt>Paired phone</dt>
+            <dd id="pair">Checking…</dd>
+          </div>
+          <div>
+            <dt>Secure LAN transport</dt>
+            <dd id="transport">Checking…</dd>
+          </div>
+          <div>
+            <dt>Notification adapter</dt>
+            <dd id="notifications">Checking…</dd>
+          </div>
+          <div>
+            <dt>Native Slumber</dt>
+            <dd id="slumber">Checking…</dd>
+          </div>
+          <div>
+            <dt>Lid-close preference</dt>
+            <dd id="lid">Checking…</dd>
+          </div>
+        </dl>
+        <button id="refresh">Refresh health ↗</button>
+        <p id="message" role="status">
+          This view never changes Slumber settings or locks your screen.
+        </p>
+      </section>
+      <p class="footnote">
+        No phone is paired by this build. Slumber controls will require an
+        approved paired session and a separate feature toggle.
+      </p>
+    </main>
+  </body>
+</html>

@@ -28,3 +28,6 @@ Thumbs.db
 
 # TypeScript incremental build cache
 **/*.tsbuildinfo
+
+# Python probe cache
+**/__pycache__/
