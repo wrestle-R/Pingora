@@ -46,6 +46,7 @@ import org.kde.kdeconnect_tp.databinding.ActivityMainBinding
 
 private const val MENU_ENTRY_ADD_DEVICE = 1 //0 means no-selection
 private const val MENU_ENTRY_SETTINGS = 2
+private const val MENU_ENTRY_HEALTH = 4
 private const val MENU_ENTRY_ABOUT = 3
 private const val MENU_ENTRY_DEVICE_FIRST_ID = 1000 //All subsequent ids are devices in the menu
 private const val MENU_ENTRY_DEVICE_UNKNOWN = 9999 //It's still a device, but we don't know which one yet
@@ -148,6 +149,10 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
                 MENU_ENTRY_SETTINGS -> {
                     preferences.edit { putString(STATE_SELECTED_DEVICE, null) }
                     setContentFragment(SettingsFragment())
+                }
+
+                MENU_ENTRY_HEALTH -> {
+                    setContentFragment(HealthFragment())
                 }
 
                 MENU_ENTRY_ABOUT -> {
@@ -301,6 +306,7 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
         val addDeviceItem = devicesMenu.add(Menu.FIRST, MENU_ENTRY_ADD_DEVICE, 1000, R.string.pair_new_device)
         addDeviceItem.setIcon(R.drawable.ic_action_content_add_circle_outline_32dp)
         addDeviceItem.isCheckable = true
+        menu.add(Menu.FIRST, MENU_ENTRY_HEALTH, 999, "Connection health").isCheckable = true
         val settingsItem = menu.add(Menu.FIRST, MENU_ENTRY_SETTINGS, 1000, R.string.settings)
         settingsItem.setIcon(R.drawable.ic_settings_white_32dp)
         settingsItem.isCheckable = true

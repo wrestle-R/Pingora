@@ -2,7 +2,7 @@
 
 This is the development tracker selected by the user. Individual tickets are the single status authority; GitHub Issues are only for user-facing website bug/feature flows. Do not publish these tickets or automatically import them into public documentation.
 
-The original P01–P17 breakdown is approved; P18–P19 cover the requested website addition. Apps have not been implemented. `ready-for-agent` means dependencies permit work once implementation is requested, not that permission has been inferred from a status.
+The original P01–P17 breakdown is approved; P18–P19 cover the requested website addition. Development app builds exist; feature acceptance and release qualification remain in progress. `ready-for-agent` means dependencies permit work once implementation is requested, not that permission has been inferred from a status.
 
 ## Tickets
 

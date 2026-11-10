@@ -13,8 +13,7 @@
       <p class="label">YOUR LITTLE CONNECTION</p>
       <h1>Let’s get closer.</h1>
       <p class="intro">
-        Connection health, from this laptop. Device pairing is the next
-        milestone.
+        Connection health, from this laptop. Start the local LAN service, then approve your phone and laptop.
       </p>
       <section aria-labelledby="health-title">
         <h2 id="health-title">Connection health</h2>
@@ -45,9 +44,16 @@
           This view never changes Slumber settings or locks your screen.
         </p>
       </section>
+      <section aria-labelledby="devices-title">
+        <h2 id="devices-title">Your devices</h2>
+        <p>Only pair your own devices. Compare the verification value on both screens before accepting.</p>
+        <div class="service-actions"><button id="start-lan">Start LAN service</button><button id="stop-lan" class="secondary" disabled>Stop owned service</button></div>
+        <p id="device-status" role="status">Checking the native service…</p>
+        <div id="devices"></div>
+      </section>
       <p class="footnote">
-        No phone is paired by this build. Slumber controls will require an
-        approved paired session and a separate feature toggle.
+        Development pairing build. No device plugins are enabled yet. Slumber,
+        notifications and sharing require separately verified capabilities.
       </p>
     </main>
   </body>

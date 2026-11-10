@@ -2,6 +2,9 @@
 
 use serde::Serialize;
 use std::process::Command;
+use std::sync::Arc;
+use tauri::{Manager, State};
+mod service;
 
 #[derive(Serialize)]
 struct Health {
@@ -69,40 +72,13 @@ fn slumber_status() -> Slumber {
     }
 }
 
-fn paired_count() -> Option<usize> {
-    let output = Command::new("/usr/bin/busctl")
-        .args([
-            "--user",
-            "--json=short",
-            "--timeout=3",
-            "call",
-            "io.github.wrestle_r.pingora",
-            "/modules/kdeconnect",
-            "org.kde.kdeconnect.daemon",
-            "devices",
-            "bb",
-            "false",
-            "true",
-        ])
-        .output()
-        .ok()?;
-    if !output.status.success() || output.stdout.len() > 65536 {
-        return None;
-    }
-    let value: serde_json::Value = serde_json::from_slice(&output.stdout).ok()?;
-    if value["type"].as_str()? != "as" {
-        return None;
-    }
-    Some(value["data"][0].as_array()?.len())
-}
-
 fn read_health() -> Health {
-    let count = paired_count();
+    let count = service::paired_count();
     Health {
         paired: count.is_some_and(|count| count > 0),
         native_service: count.is_some(),
         transport: if count.is_some() {
-            "LAN service available · pairing checks pending"
+            "LAN service available"
         } else {
             "Native LAN service not running"
         },
@@ -118,6 +94,43 @@ async fn health() -> Result<Health, String> {
         .map_err(|_| "Could not read connection health".into())
 }
 
+#[tauri::command]
+async fn device_list() -> Result<Vec<service::Peer>, String> {
+    tauri::async_runtime::spawn_blocking(service::peers)
+        .await
+        .map_err(|_| "Could not read devices")?
+}
+#[tauri::command]
+async fn pairing(
+    device_id: String,
+    action: service::PairAction,
+    expected_verification: Option<String>,
+) -> Result<(), String> {
+    tauri::async_runtime::spawn_blocking(move || {
+        service::pairing(&device_id, action, expected_verification.as_deref())
+    })
+    .await
+    .map_err(|_| "Could not complete pairing action")?
+}
+#[tauri::command]
+async fn start_lan(state: State<'_, Arc<service::NativeService>>) -> Result<(), String> {
+    let state = Arc::clone(&state);
+    tauri::async_runtime::spawn_blocking(move || state.start())
+        .await
+        .map_err(|_| "Could not start LAN service")?
+}
+#[tauri::command]
+async fn stop_lan(state: State<'_, Arc<service::NativeService>>) -> Result<(), String> {
+    let state = Arc::clone(&state);
+    tauri::async_runtime::spawn_blocking(move || state.stop())
+        .await
+        .map_err(|_| "Could not stop LAN service")?
+}
+#[tauri::command]
+fn owns_lan(state: State<'_, Arc<service::NativeService>>) -> bool {
+    state.owned()
+}
+
 fn main() {
     // A CLI probe exercises exactly the native boundary used by the webview without
     // launching a second notification daemon, changing settings or locking the session.
@@ -129,7 +142,20 @@ fn main() {
         return;
     }
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![health])
-        .run(tauri::generate_context!())
-        .expect("Pingora desktop failed to start");
+        .manage(Arc::new(service::NativeService::default()))
+        .invoke_handler(tauri::generate_handler![
+            health,
+            device_list,
+            pairing,
+            start_lan,
+            stop_lan,
+            owns_lan
+        ])
+        .build(tauri::generate_context!())
+        .expect("Pingora desktop failed to start")
+        .run(|app, event| {
+            if matches!(event, tauri::RunEvent::Exit) {
+                let _ = app.state::<Arc<service::NativeService>>().stop();
+            }
+        });
 }
