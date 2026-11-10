@@ -4,25 +4,23 @@
 
 **Blocked by:** None
 
-**Status:** in-progress
+**Status:** done
 
 **Spec:** [Product plan](../../plan.md)
 
 ## Acceptance criteria
 
-- [ ] Responsive home/docs/support pages.
-- [ ] Clear unreleased/private states.
-- [ ] GitHub-hosted bug/feature links.
-- [ ] No internal progress exposed.
+- [x] Responsive home/docs/support pages.
+- [x] Clear unreleased/private states.
+- [x] GitHub-hosted bug/feature links.
+- [x] No internal progress exposed.
 
 ## Verification
 
-Hero visual exploration started at explicit user request: five Codex-directed image concepts in paired themes, five independently coded Antigravity Gemini 3.8 Flash directions requested. This does not complete production website navigation/docs/support or the full ticket.
+Completed 2026-11-10. Production build, TypeScript and diff checks passed. Five routes in both themes checked at 390/768/1440 px: no overflow, page errors or automated WCAG 2 A/AA violations. Theme persistence, docs CTA and custom 404 passed. See [full evidence and limits](../website-verification.md).
 
 ## Comments
 
-Preparation ticket only; status is not authorization to start implementation. No app/release artifact exists yet.
+User selected 05 Paper Airwave and authorized implementation in the referenced conversation. Responsive SVG/CSS illustration, local fonts, persistent theme switch, curated public docs, honest no-release states and GitHub-hosted report links implemented. Milestone commits/pushes previously authorized.
 
-User authorizes commits/pushes at milestones. Preparation baseline 77ba511 pushed; hero image reference milestone 714c7e0 committed. Source exploration is under next/design-exploration/. No concept is selected yet.
-
-Hero exploration completed: ten distinct directions / twenty labelled light-dark frames. Combined selector, two labelled sheets, original image prompts, five Flash source concepts and QA evidence are under next/design-exploration/. Source theme toggles and gallery desktop/mobile checks passed; no full product website, docs integration or live backend is claimed. Await user design selection; P18 remains in-progress.
+No hosting/deployment, native app implementation or live GitHub API integration is claimed. P19 remains separate and blocked by real release/public-data prerequisites. Slumber phone control is preserved as a requested integration with undefined interface and behaviour.

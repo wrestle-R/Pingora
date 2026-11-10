@@ -1,6 +1,6 @@
 # Website scope
 
-User-requested Next.js application at root next/. This is the implementation brief, not a built website. Use Next.js conventions and a separate local frontend for Tauri. Do not add a website build to the Android root app/ directory.
+User-requested Next.js application at root next/. The Paper Airwave implementation is in next/src/app/. Use Next.js conventions and a separate local frontend for Tauri. Do not add a website build to the Android root app/ directory.
 
 ## Pages
 
@@ -22,8 +22,10 @@ Handle GitHub rate limits, network failures, empty results and missing release a
 
 Use Next.js App Router. Static or server-backed deployment choice follows GitHub freshness/private-preview needs; no hosting platform is authorized yet. Read-only public integration + GitHub-hosted report flow is the initial direction. Responsive, accessible pages, coherent typography, keyboard navigation and clear docs hierarchy. Version/dependency pins and design direction are selected during website implementation.
 
-Root next/ is the site directory; its future src/app/ is a Next.js route tree, distinct from root app/ Android. Root tauri/ contains the desktop web UI/Rust bridge; it does not load the public site with desktop privileges.
+Root next/ is the site directory; its src/app/ is a Next.js route tree, distinct from root app/ Android. Root tauri/ contains the desktop web UI/Rust bridge; it does not load the public site with desktop privileges.
 
 ## Status
 
-Added to preparation scope and local progress as P18 (site/content/navigation) and P19 (permitted GitHub data/downloads). No UI, package installation, GitHub write endpoint or deployment has been implemented. See root next/README.md for the directory brief.
+P18 implemented: Paper Airwave responsive home, public docs, downloads status, support navigation, changelog empty state and custom 404. Both themes work, with local fonts and a static export. No GitHub API integration, release artifacts or deployment is claimed. P19 remains blocked by real releases and public-data prerequisites. See [verification](progress/website-verification.md) and [run instructions](../next/README.md).
+
+The user’s selected direction is 05 in both themes. The later Slumber phone-control request is preserved as an undefined integration, not a shipped feature or permission to introduce arbitrary remote commands.

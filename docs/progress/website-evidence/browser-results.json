@@ -1,0 +1,218 @@
+{
+  "results": [
+    {
+      "width": 390,
+      "route": "/",
+      "theme": "light",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "width": 390,
+      "route": "/",
+      "theme": "dark",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "width": 390,
+      "route": "/docs",
+      "theme": "light",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "width": 390,
+      "route": "/docs",
+      "theme": "dark",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "width": 390,
+      "route": "/downloads",
+      "theme": "light",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "width": 390,
+      "route": "/downloads",
+      "theme": "dark",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "width": 390,
+      "route": "/support",
+      "theme": "light",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "width": 390,
+      "route": "/support",
+      "theme": "dark",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "width": 390,
+      "route": "/changelog",
+      "theme": "light",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "width": 390,
+      "route": "/changelog",
+      "theme": "dark",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "width": 768,
+      "route": "/",
+      "theme": "light",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "width": 768,
+      "route": "/",
+      "theme": "dark",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "width": 768,
+      "route": "/docs",
+      "theme": "light",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "width": 768,
+      "route": "/docs",
+      "theme": "dark",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "width": 768,
+      "route": "/downloads",
+      "theme": "light",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "width": 768,
+      "route": "/downloads",
+      "theme": "dark",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "width": 768,
+      "route": "/support",
+      "theme": "light",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "width": 768,
+      "route": "/support",
+      "theme": "dark",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "width": 768,
+      "route": "/changelog",
+      "theme": "light",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "width": 768,
+      "route": "/changelog",
+      "theme": "dark",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "width": 1440,
+      "route": "/",
+      "theme": "light",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "width": 1440,
+      "route": "/",
+      "theme": "dark",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "width": 1440,
+      "route": "/docs",
+      "theme": "light",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "width": 1440,
+      "route": "/docs",
+      "theme": "dark",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "width": 1440,
+      "route": "/downloads",
+      "theme": "light",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "width": 1440,
+      "route": "/downloads",
+      "theme": "dark",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "width": 1440,
+      "route": "/support",
+      "theme": "light",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "width": 1440,
+      "route": "/support",
+      "theme": "dark",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "width": 1440,
+      "route": "/changelog",
+      "theme": "light",
+      "overflow": false,
+      "violations": []
+    },
+    {
+      "width": 1440,
+      "route": "/changelog",
+      "theme": "dark",
+      "overflow": false,
+      "violations": []
+    }
+  ],
+  "errors": [],
+  "persistence": true,
+  "navigation": true,
+  "notFound": "This one\nflew off."
+}
