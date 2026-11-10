@@ -1,0 +1,92 @@
+[
+  {
+    "id": "01",
+    "name": "Signal hardware",
+    "theme": "light",
+    "destination": "next/design-exploration/images/01-light.png",
+    "prompt": "Use case: ui-mockup. Generate ONE polished HORIZONTAL 16:10 desktop website HERO ONLY for Pingora. This is concept 01: Signal hardware, LIGHT THEME. A tactile industrial design study. Centered short giant headline above a sculptural brushed-aluminum connection hub, real physical toggle, single recessed green status lamp. Premium warm-gray/graphite hardware with sage accents. The product visual is two thin device planes linked by a subtle signal line, not a literal router. Refined grotesk type, technical micro labels, generous margins.\nOne page frame, no browser chrome, no collage, no multiple sections. Extremely high-end art direction and crisp readable website typography. Show top navigation: Pingora, Features, Docs, GitHub, theme toggle. Exact headline: \"Your phone. Your desktop. In sync.\" Small subheading: \"Notifications, clipboard and sharing. Android meets Linux.\" CTA: \"Explore Pingora\", secondary \"Read the docs\". Small \"In development\" label; do not claim a released download, users or metrics. Primary visual is illustrative local device sync, no charts or generic analytics dashboards. Three lines maximum main heading. Big comfortable spacing. Light-theme material colors intentionally light, dark legible ink. Tasteful tactile button inspired by real physical face/base construction, subtle controlled shadows, no card nesting. No watermark. Render a single finished website hero as a beautiful design image, not as a photo of a screen.",
+    "generator": "built-in image_gen",
+    "directionProvider": "Codex gpt-6.1-sol"
+  },
+  {
+    "id": "01",
+    "name": "Signal hardware",
+    "theme": "dark",
+    "destination": "next/design-exploration/images/01-dark.png",
+    "prompt": "Use case: ui-mockup. ONE separate HORIZONTAL 16:10 desktop website HERO ONLY. Product Pingora. Concept 01: Signal hardware. DARK THEME. A tactile industrial design study. Centered short giant headline above a sculptural brushed-aluminum connection hub, real physical toggle, single recessed green status lamp. Premium warm-gray/graphite hardware with sage accents. The product visual is two thin device planes linked by a subtle signal line, not a literal router. Refined grotesk type, technical micro labels, generous margins.\nFinish as an outstanding premium website design comp. One single hero section, no multi-panel collage, no full long page, no browser chrome. Same design must work in a coherent complementary light theme. Navigation: Pingora, Features, Docs, GitHub, small theme selector. Big readable headline EXACT: \"Your phone. Your desktop. In sync.\" Supporting text: \"Notifications, clipboard and sharing. Android meets Linux.\" Primary action \"Explore Pingora\", secondary \"Read the docs\". Small \"In development\" label. No released download, fabricated customer counts, charts, marketing metric cards or testimonials. Spacious clean hierarchy with only 2-3 lines headline. Beautiful product-relevant imagery, refined typography and physical material detail. Clearly dark canvas and light legible text, rich dark material, no muddy gray text. Carefully composed asymmetry or the direction's specified composition; avoid all concepts looking like the same text-left dashboard-right template. Crisp UI and believable small sample notifications if present. No watermark.",
+    "generator": "built-in image_gen",
+    "directionProvider": "Codex gpt-6.1-sol"
+  },
+  {
+    "id": "02",
+    "name": "Editorial connection",
+    "theme": "light",
+    "destination": "next/design-exploration/images/02-light.png",
+    "prompt": "Use case: ui-mockup. ONE separate HORIZONTAL 16:10 desktop website HERO ONLY. Product Pingora. Concept 02: Editorial connection. LIGHT THEME. A sophisticated typography-led editorial site. Oversized elegant serif headline in the upper left; small lowercase Pingora wordmark; huge asymmetric translucent glass phone and laptop silhouettes entering from bottom right with one beautiful readable notification strip. Warm paper or ink black, tangerine accent, fine hairline rules, magazine pacing. Not beige luxury clich\u00e9.\nFinish as an outstanding premium website design comp. One single hero section, no multi-panel collage, no full long page, no browser chrome. Same design must work in a coherent complementary dark theme. Navigation: Pingora, Features, Docs, GitHub, small theme selector. Big readable headline EXACT: \"Your phone. Your desktop. In sync.\" Supporting text: \"Notifications, clipboard and sharing. Android meets Linux.\" Primary action \"Explore Pingora\", secondary \"Read the docs\". Small \"In development\" label. No released download, fabricated customer counts, charts, marketing metric cards or testimonials. Spacious clean hierarchy with only 2-3 lines headline. Beautiful product-relevant imagery, refined typography and physical material detail. Clearly light canvas and deep ink text, elegant clear light-theme material. Carefully composed asymmetry or the direction's specified composition; avoid all concepts looking like the same text-left dashboard-right template. Crisp UI and believable small sample notifications if present. No watermark.",
+    "generator": "built-in image_gen",
+    "directionProvider": "Codex gpt-6.1-sol"
+  },
+  {
+    "id": "02",
+    "name": "Editorial connection",
+    "theme": "dark",
+    "destination": "next/design-exploration/images/02-dark.png",
+    "prompt": "Use case: ui-mockup. ONE separate HORIZONTAL 16:10 desktop website HERO ONLY. Product Pingora. Concept 02: Editorial connection. DARK THEME. A sophisticated typography-led editorial site. Oversized elegant serif headline in the upper left; small lowercase Pingora wordmark; huge asymmetric translucent glass phone and laptop silhouettes entering from bottom right with one beautiful readable notification strip. Warm paper or ink black, tangerine accent, fine hairline rules, magazine pacing. Not beige luxury clich\u00e9.\nFinish as an outstanding premium website design comp. One single hero section, no multi-panel collage, no full long page, no browser chrome. Same design must work in a coherent complementary light theme. Navigation: Pingora, Features, Docs, GitHub, small theme selector. Big readable headline EXACT: \"Your phone. Your desktop. In sync.\" Supporting text: \"Notifications, clipboard and sharing. Android meets Linux.\" Primary action \"Explore Pingora\", secondary \"Read the docs\". Small \"In development\" label. No released download, fabricated customer counts, charts, marketing metric cards or testimonials. Spacious clean hierarchy with only 2-3 lines headline. Beautiful product-relevant imagery, refined typography and physical material detail. Clearly dark canvas and light legible text, rich dark material, no muddy gray text. Carefully composed asymmetry or the direction's specified composition; avoid all concepts looking like the same text-left dashboard-right template. Crisp UI and believable small sample notifications if present. No watermark.",
+    "generator": "built-in image_gen",
+    "directionProvider": "Codex gpt-6.1-sol"
+  },
+  {
+    "id": "03",
+    "name": "Electric blue relay",
+    "theme": "light",
+    "destination": "next/design-exploration/images/03-light.png",
+    "prompt": "Use case: ui-mockup. ONE separate HORIZONTAL 16:10 desktop website HERO ONLY. Product Pingora. Concept 03: Electric blue relay. LIGHT THEME. Bold Swiss poster hero: cobalt-blue giant Pingora wordmark as architectural typography across upper quarter, two huge stacked words in a geometric sans left, crisp white and black technical callouts. One striking blue glass conduit ribbon connects an Android slab and Linux window at bottom. Flat vivid cobalt, cool white and near black; sharp rectangular graphic blocks, not glowing purple gradients.\nFinish as an outstanding premium website design comp. One single hero section, no multi-panel collage, no full long page, no browser chrome. Same design must work in a coherent complementary dark theme. Navigation: Pingora, Features, Docs, GitHub, small theme selector. Big readable headline EXACT: \"Your phone. Your desktop. In sync.\" Supporting text: \"Notifications, clipboard and sharing. Android meets Linux.\" Primary action \"Explore Pingora\", secondary \"Read the docs\". Small \"In development\" label. No released download, fabricated customer counts, charts, marketing metric cards or testimonials. Spacious clean hierarchy with only 2-3 lines headline. Beautiful product-relevant imagery, refined typography and physical material detail. Clearly light canvas and deep ink text, elegant clear light-theme material. Carefully composed asymmetry or the direction's specified composition; avoid all concepts looking like the same text-left dashboard-right template. Crisp UI and believable small sample notifications if present. No watermark.",
+    "generator": "built-in image_gen",
+    "directionProvider": "Codex gpt-6.1-sol"
+  },
+  {
+    "id": "03",
+    "name": "Electric blue relay",
+    "theme": "dark",
+    "destination": "next/design-exploration/images/03-dark.png",
+    "prompt": "Use case: ui-mockup. ONE separate HORIZONTAL 16:10 desktop website HERO ONLY. Product Pingora. Concept 03: Electric blue relay. DARK THEME. Bold Swiss poster hero: cobalt-blue giant Pingora wordmark as architectural typography across upper quarter, two huge stacked words in a geometric sans left, crisp white and black technical callouts. One striking blue glass conduit ribbon connects an Android slab and Linux window at bottom. Flat vivid cobalt, cool white and near black; sharp rectangular graphic blocks, not glowing purple gradients.\nFinish as an outstanding premium website design comp. One single hero section, no multi-panel collage, no full long page, no browser chrome. Same design must work in a coherent complementary light theme. Navigation: Pingora, Features, Docs, GitHub, small theme selector. Big readable headline EXACT: \"Your phone. Your desktop. In sync.\" Supporting text: \"Notifications, clipboard and sharing. Android meets Linux.\" Primary action \"Explore Pingora\", secondary \"Read the docs\". Small \"In development\" label. No released download, fabricated customer counts, charts, marketing metric cards or testimonials. Spacious clean hierarchy with only 2-3 lines headline. Beautiful product-relevant imagery, refined typography and physical material detail. Clearly dark canvas and light legible text, rich dark material, no muddy gray text. Carefully composed asymmetry or the direction's specified composition; avoid all concepts looking like the same text-left dashboard-right template. Crisp UI and believable small sample notifications if present. No watermark.",
+    "generator": "built-in image_gen",
+    "directionProvider": "Codex gpt-6.1-sol"
+  },
+  {
+    "id": "04",
+    "name": "Quiet desktop",
+    "theme": "light",
+    "destination": "next/design-exploration/images/04-light.png",
+    "prompt": "Use case: ui-mockup. ONE separate HORIZONTAL 16:10 desktop website HERO ONLY. Product Pingora. Concept 04: Quiet desktop. LIGHT THEME. Minimal premium product website with a giant cropped realistic desktop notification tray as the central visual, beautiful soft charcoal or porcelain UI, two short readable notification rows and one physical raised Copy text key. Small central headline, enormous breathing room, monochrome ink with a singular grass-green dot. Japanese industrial product photography sensibility; elegant small typography, not a generic SaaS dashboard.\nFinish as an outstanding premium website design comp. One single hero section, no multi-panel collage, no full long page, no browser chrome. Same design must work in a coherent complementary dark theme. Navigation: Pingora, Features, Docs, GitHub, small theme selector. Big readable headline EXACT: \"Your phone. Your desktop. In sync.\" Supporting text: \"Notifications, clipboard and sharing. Android meets Linux.\" Primary action \"Explore Pingora\", secondary \"Read the docs\". Small \"In development\" label. No released download, fabricated customer counts, charts, marketing metric cards or testimonials. Spacious clean hierarchy with only 2-3 lines headline. Beautiful product-relevant imagery, refined typography and physical material detail. Clearly light canvas and deep ink text, elegant clear light-theme material. Carefully composed asymmetry or the direction's specified composition; avoid all concepts looking like the same text-left dashboard-right template. Crisp UI and believable small sample notifications if present. No watermark.",
+    "generator": "built-in image_gen",
+    "directionProvider": "Codex gpt-6.1-sol"
+  },
+  {
+    "id": "04",
+    "name": "Quiet desktop",
+    "theme": "dark",
+    "destination": "next/design-exploration/images/04-dark.png",
+    "prompt": "Use case: ui-mockup. ONE separate HORIZONTAL 16:10 desktop website HERO ONLY. Product Pingora. Concept 04: Quiet desktop. DARK THEME. Minimal premium product website with a giant cropped realistic desktop notification tray as the central visual, beautiful soft charcoal or porcelain UI, two short readable notification rows and one physical raised Copy text key. Small central headline, enormous breathing room, monochrome ink with a singular grass-green dot. Japanese industrial product photography sensibility; elegant small typography, not a generic SaaS dashboard.\nFinish as an outstanding premium website design comp. One single hero section, no multi-panel collage, no full long page, no browser chrome. Same design must work in a coherent complementary light theme. Navigation: Pingora, Features, Docs, GitHub, small theme selector. Big readable headline EXACT: \"Your phone. Your desktop. In sync.\" Supporting text: \"Notifications, clipboard and sharing. Android meets Linux.\" Primary action \"Explore Pingora\", secondary \"Read the docs\". Small \"In development\" label. No released download, fabricated customer counts, charts, marketing metric cards or testimonials. Spacious clean hierarchy with only 2-3 lines headline. Beautiful product-relevant imagery, refined typography and physical material detail. Clearly dark canvas and light legible text, rich dark material, no muddy gray text. Carefully composed asymmetry or the direction's specified composition; avoid all concepts looking like the same text-left dashboard-right template. Crisp UI and believable small sample notifications if present. No watermark.",
+    "generator": "built-in image_gen",
+    "directionProvider": "Codex gpt-6.1-sol"
+  },
+  {
+    "id": "05",
+    "name": "Paper airwave",
+    "theme": "light",
+    "destination": "next/design-exploration/images/05-light.png",
+    "prompt": "Use case: ui-mockup. ONE separate HORIZONTAL 16:10 desktop website HERO ONLY. Product Pingora. Concept 05: Paper airwave. LIGHT THEME. Playful sophisticated art-directed hero. A sculptural origami-like folded ribbon travels from a beautiful phone edge on left to a slim laptop edge on right; tangible warm paper and matte terracotta with crimson/salmon accent. Main short headline centered on upper third in wide expressive sans; asymmetrical tiny UI notification label rides ribbon. Warm cream in light theme, chocolate-black in dark. Editorial tactile illustration with precise shadows; no childish characters.\nFinish as an outstanding premium website design comp. One single hero section, no multi-panel collage, no full long page, no browser chrome. Same design must work in a coherent complementary dark theme. Navigation: Pingora, Features, Docs, GitHub, small theme selector. Big readable headline EXACT: \"Your phone. Your desktop. In sync.\" Supporting text: \"Notifications, clipboard and sharing. Android meets Linux.\" Primary action \"Explore Pingora\", secondary \"Read the docs\". Small \"In development\" label. No released download, fabricated customer counts, charts, marketing metric cards or testimonials. Spacious clean hierarchy with only 2-3 lines headline. Beautiful product-relevant imagery, refined typography and physical material detail. Clearly light canvas and deep ink text, elegant clear light-theme material. Carefully composed asymmetry or the direction's specified composition; avoid all concepts looking like the same text-left dashboard-right template. Crisp UI and believable small sample notifications if present. No watermark.",
+    "generator": "built-in image_gen",
+    "directionProvider": "Codex gpt-6.1-sol"
+  },
+  {
+    "id": "05",
+    "name": "Paper airwave",
+    "theme": "dark",
+    "destination": "next/design-exploration/images/05-dark.png",
+    "prompt": "Use case: ui-mockup. ONE separate HORIZONTAL 16:10 desktop website HERO ONLY. Product Pingora. Concept 05: Paper airwave. DARK THEME. Playful sophisticated art-directed hero. A sculptural origami-like folded ribbon travels from a beautiful phone edge on left to a slim laptop edge on right; tangible warm paper and matte terracotta with crimson/salmon accent. Main short headline centered on upper third in wide expressive sans; asymmetrical tiny UI notification label rides ribbon. Warm cream in light theme, chocolate-black in dark. Editorial tactile illustration with precise shadows; no childish characters.\nFinish as an outstanding premium website design comp. One single hero section, no multi-panel collage, no full long page, no browser chrome. Same design must work in a coherent complementary light theme. Navigation: Pingora, Features, Docs, GitHub, small theme selector. Big readable headline EXACT: \"Your phone. Your desktop. In sync.\" Supporting text: \"Notifications, clipboard and sharing. Android meets Linux.\" Primary action \"Explore Pingora\", secondary \"Read the docs\". Small \"In development\" label. No released download, fabricated customer counts, charts, marketing metric cards or testimonials. Spacious clean hierarchy with only 2-3 lines headline. Beautiful product-relevant imagery, refined typography and physical material detail. Clearly dark canvas and light legible text, rich dark material, no muddy gray text. Carefully composed asymmetry or the direction's specified composition; avoid all concepts looking like the same text-left dashboard-right template. Crisp UI and believable small sample notifications if present. No watermark.",
+    "generator": "built-in image_gen",
+    "directionProvider": "Codex gpt-6.1-sol"
+  }
+]
