@@ -10,3 +10,18 @@
 .DS_Store
 Thumbs.db
 *.log
+
+# Native build output and local signing material
+.gradle/
+**/build/
+/app/local.properties
+*.jks
+*.keystore
+*.p12
+/release-private/
+
+# Website and Tauri generated output
+**/node_modules/
+**/.next/
+**/out/
+**/target/

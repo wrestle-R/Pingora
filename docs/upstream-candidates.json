@@ -1,0 +1,32 @@
+{
+  "status": "candidate source revisions; not build-tested or imported",
+  "sources": [
+    {
+      "repository": "KDE/kdeconnect-android",
+      "revision": "207dcdb17681557f738c5b16642baa6b9fa076c0",
+      "purpose": "native Android derivative"
+    },
+    {
+      "repository": "KDE/kdeconnect-kde",
+      "revision": "da07df7399128810f19ce4acc853c54a405f8e62",
+      "purpose": "desktop service/plugins"
+    },
+    {
+      "repository": "AminBlg/kaller",
+      "revision": "fc25b13592561c6236f191256752171a4bdeb44f",
+      "purpose": "optional Bluetooth calling reference"
+    }
+  ],
+  "skills": {
+    "repository": "mattpocock/skills",
+    "revision": "4ae2317ddb22b046e26455e4f9c9b3aaaf62212d",
+    "installed": [
+      "setup-matt-pocock-skills",
+      "to-tickets",
+      "tdd",
+      "implement",
+      "code-review",
+      "diagnosing-bugs"
+    ]
+  }
+}
