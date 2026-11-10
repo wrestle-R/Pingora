@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pingora — 09 Plum Instrument</title>
+  <style>
+    :root[data-theme="dark"] {
+      --bg: #18111e;
+      --surface: #22182b;
+      --surface-raised: #2a1e35;
+      --surface-well: #100b14;
+      --border: #3b2a4c;
+      --border-subtle: #2d1f3b;
+      --border-highlight: rgba(255, 255, 255, 0.08);
+      --text: #f5edfc;
+      --text-muted: #b9a4c8;
+      --text-dim: #776286;
+      --plum: #4a2866;
+      --brass: #e2b170;
+      --brass-base: #8f652b;
+      --brass-glow: rgba(226, 177, 112, 0.25);
+      --key-face: #31233e;
+      --key-edge: #463359;
+      --key-base: #18111e;
+      --key-shadow: 0 5px 12px rgba(0, 0, 0, 0.55), 0 2px 0 #18111e;
+      --shadow-elevated: 0 16px 36px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.3);
+      --shadow-well: inset 0 2px 6px rgba(0, 0, 0, 0.7);
+      --ring: #e2b170;
+    }
+
+    :root[data-theme="light"] {
+      --bg: #f6f3f9;
+      --surface: #ffffff;
+      --surface-raised: #fbf9fd;
+      --surface-well: #e8e1f0;
+      --border: #d2c5de;
+      --border-subtle: #e2d9ec;
+      --border-highlight: rgba(255, 255, 255, 0.95);
+      --text: #21132b;
+      --text-muted: #604e70;
+      --text-dim: #8e7a9e;
+      --plum: #623687;
+      --brass: #b87b28;
+      --brass-base: #784c10;
+      --brass-glow: rgba(184, 123, 40, 0.2);
+      --key-face: #ffffff;
+      --key-edge: #e0d5eb;
+      --key-base: #c1b3cf;
+      --key-shadow: 0 4px 10px rgba(33, 19, 43, 0.08), 0 2px 0 #c1b3cf;
+      --shadow-elevated: 0 14px 30px rgba(33, 19, 43, 0.06), 0 1px 3px rgba(33, 19, 43, 0.03);
+      --shadow-well: inset 0 2px 4px rgba(33, 19, 43, 0.06);
+      --ring: #b87b28;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      min-height: 850px;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .hero-container {
+      width: 100%;
+      max-width: 1360px;
+      min-height: 850px;
+      height: 850px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      padding: 24px 48px;
+      overflow: hidden;
+    }
+
+    /* Rack Chassis Texture */
+    .hero-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100%;
+      background-image: radial-gradient(var(--border-subtle) 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      z-index: 10;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .instrument-jewel {
+      width: 32px;
+      height: 32px;
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 1px 0 var(--border-highlight) inset, 0 2px 4px var(--shadow-elevated);
+      position: relative;
+    }
+
+    .jewel-notch {
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      background: var(--brass);
+      box-shadow: 0 0 6px var(--brass);
+    }
+
+    .brand-title {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      transition: color 0.15s ease;
+      padding: 4px 6px;
+      border-radius: 4px;
+    }
+
+    .nav-links a:hover, .nav-links a:focus-visible {
+      color: var(--text);
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+
+    .header-aside {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .dev-badge {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: var(--surface-well);
+      border: 1px solid var(--border);
+      color: var(--brass);
+      box-shadow: var(--shadow-well);
+    }
+
+    /* Skeuomorphic Rocker Switch Theme Toggle */
+    .tactile-rocker {
+      display: flex;
+      align-items: center;
+      background: var(--surface-well);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 3px;
+      box-shadow: var(--shadow-well);
+      cursor: pointer;
+      outline: none;
+    }
+
+    .tactile-rocker:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+
+    .rocker-side {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 5px;
+      color: var(--text-muted);
+      transition: all 0.15s ease;
+    }
+
+    .rocker-side.active {
+      background: var(--key-face);
+      color: var(--text);
+      border: 1px solid var(--border-highlight);
+      box-shadow: var(--key-shadow);
+    }
+
+    /* Main Console Grid */
+    .instrument-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      z-index: 5;
+      margin-top: 20px;
+    }
+
+    /* Left Console */
+    .console-left {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .protocol-mark {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--brass);
+      margin-bottom: 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .protocol-mark::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--brass);
+      box-shadow: 0 0 6px var(--brass);
+    }
+
+    .headline {
+      font-size: 60px;
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    .headline .plum-accent {
+      color: var(--brass);
+      font-family: ui-serif, Georgia, serif;
+      font-style: italic;
+      font-weight: 700;
+    }
+
+    .subhead {
+      font-size: 17px;
+      line-height: 1.5;
+      color: var(--text-muted);
+      max-width: 520px;
+      margin-bottom: 28px;
+    }
+
+    .console-cta-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 34px;
+    }
+
+    /* Tactile Brass / Plum Buttons */
+    .btn-brass-primary {
+      appearance: none;
+      background: linear-gradient(180deg, var(--brass) 0%, var(--brass-base) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: #1a1005;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 13px 26px;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 1px 0 rgba(255,255,255,0.5) inset, 0 3px 0 #54370c, 0 8px 18px var(--brass-glow);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transform: translateY(0);
+      transition: all 0.1s ease;
+      outline: none;
+    }
+
+    .btn-brass-primary:hover {
+      filter: brightness(1.08);
+    }
+
+    .btn-brass-primary:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.5) inset, 0 1px 0 #54370c;
+    }
+
+    .btn-brass-primary:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 3px;
+    }
+
+    .btn-plum-secondary {
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 13px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 1px 0 var(--border-highlight) inset, 0 2px 0 var(--border);
+      transform: translateY(0);
+      transition: all 0.1s ease;
+      outline: none;
+    }
+
+    .btn-plum-secondary:hover {
+      background: var(--surface);
+    }
+
+    .btn-plum-secondary:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 var(--border-highlight) inset, 0 0 0 var(--border);
+    }
+
+    .btn-plum-secondary:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 3px;
+    }
+
+    /* Tactile Physical Hardware Dial & Rocker Pod */
+    .controls-pod {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      background: var(--surface-well);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 20px;
+      box-shadow: var(--shadow-well);
+    }
+
+    /* Tactile Dial */
+    .dial-group {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .rotary-dial {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--key-face);
+      border: 2px solid var(--key-edge);
+      box-shadow: 0 1px 0 var(--border-highlight) inset, var(--key-shadow);
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .dial-knurl {
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      width: 3px;
+      height: 12px;
+      background: var(--brass);
+      border-radius: 2px;
+      transform: translateX(-50%);
+      box-shadow: 0 0 4px var(--brass);
+    }
+
+    .dial-labels {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .dial-mode-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .dial-active-state {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .pod-divider {
+      width: 1px;
+      height: 38px;
+      background: var(--border);
+    }
+
+    /* Rocker Switch for Bluetooth SIM Calls */
+    .call-switch-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .call-switch-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .physical-rocker-btn {
+      appearance: none;
+      background: var(--key-face);
+      border: 1px solid var(--key-edge);
+      color: var(--text);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 1px 0 var(--border-highlight) inset, var(--key-shadow);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      outline: none;
+      transition: all 0.1s ease;
+    }
+
+    .rocker-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--brass);
+    }
+
+    /* Right Console: Asymmetric Connected Devices Visual */
+    .console-right {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    /* Asymmetric Hardware Instrument Card 1: Companion Bridge */
+    .companion-dock-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px;
+      box-shadow: 0 1px 0 var(--border-highlight) inset, var(--shadow-elevated);
+      transform: perspective(800px) rotateY(-4deg) rotateX(1deg);
+      transition: transform 0.25s ease;
+    }
+
+    .companion-dock-card:hover {
+      transform: perspective(800px) rotateY(0deg);
+    }
+
+    .dock-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .dock-title {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--brass);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dock-title-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--brass);
+      box-shadow: 0 0 6px var(--brass);
+    }
+
+    .dock-route-text {
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    .dock-body-headline {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .dock-body-desc {
+      font-size: 13px;
+      line-height: 1.45;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    /* Clipboard Terminal in Dock */
+    .dock-clipboard-well {
+      background: var(--surface-well);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-well);
+    }
+
+    .dock-clip-code {
+      font-family: ui-monospace, monospace;
+      font-size: 12px;
+      color: var(--text);
+    }
+
+    .btn-dock-copy {
+      background: var(--key-face);
+      border: 1px solid var(--key-edge);
+      color: var(--text);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 1px 0 var(--border-highlight) inset, var(--key-shadow);
+      outline: none;
+    }
+
+    .btn-dock-copy:active {
+      transform: translateY(1px);
+    }
+
+    /* Asymmetric Hardware Card 2: Optional Bluetooth SIM Call Strip */
+    .call-hardware-card {
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 20px;
+      box-shadow: 0 1px 0 var(--border-highlight) inset, var(--shadow-elevated);
+      margin-left: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transform: perspective(800px) rotateY(-2deg);
+    }
+
+    .call-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .call-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--brass);
+    }
+
+    .call-caller {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .call-route-sub {
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    .call-actions-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-call-answer {
+      appearance: none;
+      background: var(--brass);
+      color: #1a1005;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 8px 14px;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.4);
+      cursor: pointer;
+      box-shadow: 0 1px 0 rgba(255,255,255,0.4) inset, 0 2px 0 var(--brass-base);
+      outline: none;
+    }
+
+    .btn-call-decline {
+      appearance: none;
+      background: var(--surface-well);
+      color: var(--text);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      box-shadow: 0 1px 0 var(--border-highlight) inset;
+      outline: none;
+    }
+
+    /* Footer */
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 48px;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 12px;
+      color: var(--text-dim);
+      z-index: 10;
+    }
+
+    .footer-specs {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-specs span b {
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 950px) {
+      .hero-container {
+        height: auto;
+        min-height: 850px;
+        padding: 24px 20px;
+      }
+      .instrument-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .headline {
+        font-size: 42px;
+      }
+      .call-hardware-card {
+        margin-left: 0;
+      }
+      .companion-dock-card, .call-hardware-card {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="hero-container">
+    <!-- Header -->
+    <header>
+      <a href="#" class="brand-group">
+        <div class="instrument-jewel">
+          <div class="jewel-notch"></div>
+        </div>
+        <span class="brand-title">Pingora</span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#docs">Docs</a></li>
+          <li><a href="#github">GitHub</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-aside">
+        <span class="dev-badge">In Development</span>
+        <button class="tactile-rocker" id="theme-rocker" aria-label="Toggle theme">
+          <span class="rocker-side" id="side-light">Light</span>
+          <span class="rocker-side active" id="side-dark">Dark</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Console Grid -->
+    <main class="instrument-grid">
+      <!-- Left Column -->
+      <section class="console-left">
+        <div class="protocol-mark">Precision Companion Rack • P2P LAN</div>
+        <h1 class="headline">
+          Your phone.<br>
+          Your desktop.<br>
+          <span class="plum-accent">In calibrated sync.</span>
+        </h1>
+        <p class="subhead">
+          Engineered for Android and Linux. Discrete bidirectional notifications, clipboard sharing, and local file transfers. No cloud relay for device sharing.
+        </p>
+
+        <div class="console-cta-row">
+          <button class="btn-brass-primary" id="btn-see-how">
+            <span>See how it works</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+          <a href="#docs" class="btn-plum-secondary">Read the docs</a>
+        </div>
+
+        <!-- Hardware Controls Pod -->
+        <div class="controls-pod">
+          <!-- Rotary Dial -->
+          <div class="dial-group">
+            <div class="rotary-dial" id="mode-dial" title="Click to rotate channel mode">
+              <div class="dial-knurl"></div>
+            </div>
+            <div class="dial-labels">
+              <span class="dial-mode-title">Sync Mode</span>
+              <span class="dial-active-state" id="dial-status-text">LAN Active</span>
+            </div>
+          </div>
+
+          <div class="pod-divider"></div>
+
+          <!-- Rocker Toggle -->
+          <div class="call-switch-group">
+            <span class="call-switch-label">SIM Audio Link</span>
+            <button class="physical-rocker-btn" id="btn-toggle-calls">
+              <span class="rocker-dot"></span>
+              <span id="call-toggle-label">Bluetooth Ready</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Asymmetric Instrument Panels -->
+      <section class="console-right" aria-label="Connected device dock">
+        <!-- Companion Card 1 -->
+        <div class="companion-dock-card">
+          <div class="dock-top">
+            <div class="dock-title">
+              <span class="dock-title-dot"></span>
+              <span>Node Bridge: Pixel 8 &harr; Workstation</span>
+            </div>
+            <span class="dock-route-text">Encrypted Stream</span>
+          </div>
+          <h2 class="dock-body-headline">Notification &amp; Clipboard Shuttle</h2>
+          <p class="dock-body-desc">
+            Readable notification previews and shared clipboard text. Illustrative interface only.
+          </p>
+
+          <div class="dock-clipboard-well">
+            <span class="dock-clip-code" id="sample-clip">https://github.com/wrestle-R/Pingora</span>
+            <button class="btn-dock-copy" id="btn-copy-sample">Copy</button>
+          </div>
+        </div>
+
+        <!-- Companion Card 2: Optional Bluetooth SIM Calling -->
+        <div class="call-hardware-card" id="call-card">
+          <div class="call-meta">
+            <span class="call-tag">Optional Calling • SIM 1</span>
+            <span class="call-caller" id="caller-name">David Zhao (Mobile)</span>
+            <span class="call-route-sub" id="route-desc">Route audio to Laptop Mic &amp; Speakers</span>
+          </div>
+          <div class="call-actions-row">
+            <button class="btn-call-answer" id="btn-answer">Answer</button>
+            <button class="btn-call-decline" id="btn-decline">Decline</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div>Pingora Concept 09 — Plum Instrument</div>
+      <div class="footer-specs">
+        <span>Channel: <b>Direct LAN Peer</b></span>
+        <span>Calling: <b>Optional SIM Audio</b></span>
+        <span>Telemetry: <b>None</b></span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Theme toggle
+    const rootEl = document.documentElement;
+    const rockerBtn = document.getElementById('theme-rocker');
+    const sideLight = document.getElementById('side-light');
+    const sideDark = document.getElementById('side-dark');
+
+    function toggleAppTheme(t) {
+      rootEl.setAttribute('data-theme', t);
+      if (t === 'dark') {
+        sideDark.classList.add('active');
+        sideLight.classList.remove('active');
+      } else {
+        sideLight.classList.add('active');
+        sideDark.classList.remove('active');
+      }
+    }
+
+    rockerBtn.addEventListener('click', () => {
+      const cur = rootEl.getAttribute('data-theme') || 'dark';
+      toggleAppTheme(cur === 'dark' ? 'light' : 'dark');
+    });
+
+    // Rotary dial interaction
+    const dial = document.getElementById('mode-dial');
+    const dialStatus = document.getElementById('dial-status-text');
+    let dialStep = 0;
+    const modes = [
+      { deg: 0, text: 'LAN Active' },
+      { deg: 45, text: 'Paused (Silent)' },
+      { deg: 90, text: 'Direct Wi-Fi' }
+    ];
+
+    dial.addEventListener('click', () => {
+      dialStep = (dialStep + 1) % modes.length;
+      dial.style.transform = `rotate(${modes[dialStep].deg}deg)`;
+      dialStatus.textContent = modes[dialStep].text;
+    });
+
+    // Call demo interaction
+    const answerBtn = document.getElementById('btn-answer');
+    const declineBtn = document.getElementById('btn-decline');
+    const routeDesc = document.getElementById('route-desc');
+    const callerName = document.getElementById('caller-name');
+
+    answerBtn.addEventListener('click', () => {
+      callerName.textContent = 'Demo Call (00:08)';
+      routeDesc.textContent = 'Demo only — no call audio is connected.';
+      answerBtn.textContent = 'End Call';
+      answerBtn.style.background = '#e04f5f';
+      answerBtn.style.color = '#fff';
+      setTimeout(() => {
+        callerName.textContent = 'David Zhao (Mobile)';
+        routeDesc.textContent = 'Route audio to Laptop Mic & Speakers';
+        answerBtn.textContent = 'Answer';
+        answerBtn.style.background = 'var(--brass)';
+        answerBtn.style.color = '#1a1005';
+      }, 3000);
+    });
+
+    declineBtn.addEventListener('click', () => {
+      routeDesc.textContent = 'Demo: declined in this preview only.';
+      setTimeout(() => {
+        routeDesc.textContent = 'Route audio to Laptop Mic & Speakers';
+      }, 2500);
+    });
+
+    // Clipboard copy demo
+    const copySample = document.getElementById('btn-copy-sample');
+    copySample.addEventListener('click', () => {
+      copySample.textContent = 'Demo only';
+      setTimeout(() => {
+        copySample.textContent = 'Copy';
+      }, 1500);
+    });
+  </script>
+</body>
+</html>

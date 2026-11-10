@@ -1,0 +1,62 @@
+[
+  {
+    "id": "01",
+    "name": "Signal hardware",
+    "description": "Tactile aluminum, sage and a physical connection metaphor.",
+    "kind": "image"
+  },
+  {
+    "id": "02",
+    "name": "Editorial connection",
+    "description": "Large serif typography with warm light and rich ink themes.",
+    "kind": "image"
+  },
+  {
+    "id": "03",
+    "name": "Electric blue relay",
+    "description": "Oversized cobalt wordmark and a sculptural signal conduit.",
+    "kind": "image"
+  },
+  {
+    "id": "04",
+    "name": "Quiet desktop",
+    "description": "Restrained product photography and a physical Copy key.",
+    "kind": "image"
+  },
+  {
+    "id": "05",
+    "name": "Paper airwave",
+    "description": "Warm folded-paper illustration linking two devices.",
+    "kind": "image"
+  },
+  {
+    "id": "06",
+    "name": "Mint laboratory",
+    "description": "Precise technical composition and a tactile clipboard control.",
+    "kind": "coded"
+  },
+  {
+    "id": "07",
+    "name": "Sunset studio",
+    "description": "Bold coral editorial rhythm and graphic product details.",
+    "kind": "coded"
+  },
+  {
+    "id": "08",
+    "name": "Ink & porcelain",
+    "description": "Confident monochrome typography and a quiet notification strip.",
+    "kind": "coded"
+  },
+  {
+    "id": "09",
+    "name": "Plum instrument",
+    "description": "Aubergine materials and instrument-inspired controls.",
+    "kind": "coded"
+  },
+  {
+    "id": "10",
+    "name": "Cyan blueprint",
+    "description": "Crisp signal diagrams and a cool technical palette.",
+    "kind": "coded"
+  }
+]

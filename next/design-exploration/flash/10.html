@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pingora — 10 Cyan Blueprint</title>
+  <style>
+    :root[data-theme="dark"] {
+      --bg: #070e18;
+      --bg-grid: rgba(6, 182, 212, 0.08);
+      --surface: #0e1c2e;
+      --surface-raised: #13243a;
+      --surface-well: #040810;
+      --border: #1a3654;
+      --border-subtle: #142a42;
+      --border-highlight: rgba(255, 255, 255, 0.1);
+      --text: #edf6fc;
+      --text-muted: #8bb3cb;
+      --text-dim: #4d758f;
+      --cyan: #06b6d4;
+      --cyan-bright: #22d3ee;
+      --cyan-base: #086d80;
+      --cyan-glow: rgba(6, 182, 212, 0.28);
+      --cyan-subtle: rgba(6, 182, 212, 0.09);
+      --key-face: #15273d;
+      --key-edge: #234368;
+      --key-base: #08111d;
+      --key-shadow: 0 4px 12px rgba(0, 0, 0, 0.55), 0 2px 0 #08111d;
+      --shadow-elevated: 0 16px 36px rgba(0, 0, 0, 0.45), 0 1px 3px rgba(0, 0, 0, 0.25);
+      --shadow-well: inset 0 2px 5px rgba(0,0,0,0.65), inset 0 0 0 1px rgba(0,0,0,0.4);
+      --ring: #06b6d4;
+    }
+
+    :root[data-theme="light"] {
+      --bg: #f0f6fa;
+      --bg-grid: rgba(8, 145, 178, 0.09);
+      --surface: #ffffff;
+      --surface-raised: #f7fafc;
+      --surface-well: #dfeaf1;
+      --border: #bfd6e4;
+      --border-subtle: #d3e4ef;
+      --border-highlight: rgba(255, 255, 255, 0.9);
+      --text: #092032;
+      --text-muted: #3d6077;
+      --text-dim: #6e94ad;
+      --cyan: #0891b2;
+      --cyan-bright: #0284c7;
+      --cyan-base: #075985;
+      --cyan-glow: rgba(8, 145, 178, 0.2);
+      --cyan-subtle: rgba(8, 145, 178, 0.08);
+      --key-face: #ffffff;
+      --key-edge: #d1e2ed;
+      --key-base: #b0c9d9;
+      --key-shadow: 0 4px 10px rgba(9, 32, 50, 0.08), 0 2px 0 #b0c9d9;
+      --shadow-elevated: 0 14px 30px rgba(9, 32, 50, 0.07), 0 1px 3px rgba(9, 32, 50, 0.03);
+      --shadow-well: inset 0 2px 4px rgba(9, 32, 50, 0.06), inset 0 0 0 1px rgba(9, 32, 50, 0.03);
+      --ring: #0891b2;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      min-height: 850px;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .hero-container {
+      width: 100%;
+      max-width: 1360px;
+      min-height: 850px;
+      height: 850px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      padding: 24px 48px;
+      background-image:
+        linear-gradient(var(--bg-grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--bg-grid) 1px, transparent 1px);
+      background-size: 24px 24px;
+      background-position: -1px -1px;
+      overflow: hidden;
+    }
+
+    /* Blueprint Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      z-index: 10;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 8px;
+    }
+
+    .brand-blueprint {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .blueprint-glyph {
+      width: 32px;
+      height: 32px;
+      background: var(--surface-well);
+      border: 1px solid var(--cyan);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 8px var(--cyan-glow), inset 0 1px 0 var(--border-highlight);
+    }
+
+    .brand-title {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .blueprint-ref {
+      font-family: ui-monospace, SFMono-Regular, monospace;
+      font-size: 11px;
+      color: var(--cyan);
+      padding: 2px 6px;
+      background: var(--cyan-subtle);
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.15s ease;
+      padding: 4px 6px;
+      border-radius: 4px;
+    }
+
+    .nav-links a:hover, .nav-links a:focus-visible {
+      color: var(--cyan);
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+
+    .header-aside {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .status-stamp {
+      font-family: ui-monospace, monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 4px;
+      background: var(--surface-well);
+      border: 1px solid var(--border);
+      color: var(--cyan);
+    }
+
+    /* Tactile Blueprint Rocker Toggle */
+    .tactile-blueprint-switch {
+      background: var(--surface-well);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 3px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      box-shadow: var(--shadow-well);
+      outline: none;
+    }
+
+    .tactile-blueprint-switch:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+
+    .bp-switch-tab {
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-family: ui-monospace, monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      transition: all 0.15s ease;
+    }
+
+    .bp-switch-tab.active {
+      background: var(--key-face);
+      color: var(--cyan);
+      border: 1px solid var(--border-highlight);
+      box-shadow: var(--key-shadow);
+    }
+
+    /* Center Hero Typography */
+    .hero-top {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-top: 10px;
+      z-index: 5;
+    }
+
+    .draft-sheet-label {
+      font-family: ui-monospace, SFMono-Regular, monospace;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .calm-headline {
+      font-size: 60px;
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.04em;
+      color: var(--text);
+      max-width: 860px;
+      margin-bottom: 14px;
+    }
+
+    .calm-headline .cyan-accent {
+      color: var(--cyan);
+    }
+
+    .calm-subhead {
+      font-size: 17px;
+      line-height: 1.5;
+      color: var(--text-muted);
+      max-width: 680px;
+      margin-bottom: 22px;
+    }
+
+    .cta-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Tactile Blueprint Primary & Secondary Buttons */
+    .btn-bp-primary {
+      appearance: none;
+      background: linear-gradient(180deg, var(--cyan) 0%, var(--cyan-base) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 12px 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 1px 0 rgba(255,255,255,0.4) inset, 0 3px 0 #043d47, 0 8px 16px var(--cyan-glow);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transform: translateY(0);
+      transition: all 0.12s ease;
+      outline: none;
+    }
+
+    .btn-bp-primary:hover {
+      filter: brightness(1.08);
+    }
+
+    .btn-bp-primary:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.4) inset, 0 1px 0 #043d47;
+    }
+
+    .btn-bp-primary:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 3px;
+    }
+
+    .btn-bp-secondary {
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 12px 22px;
+      border-radius: 6px;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 1px 0 var(--border-highlight) inset, 0 2px 0 var(--border);
+      transform: translateY(0);
+      transition: all 0.12s ease;
+      outline: none;
+    }
+
+    .btn-bp-secondary:hover {
+      background: var(--surface);
+    }
+
+    .btn-bp-secondary:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 var(--border-highlight) inset, 0 0 0 var(--border);
+    }
+
+    .btn-bp-secondary:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 3px;
+    }
+
+    /* Horizontal Device Schematic Blueprint Diagram */
+    .blueprint-diagram-stage {
+      width: 100%;
+      height: 360px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px 24px;
+      box-shadow: 0 1px 0 var(--border-highlight) inset, var(--shadow-elevated);
+      position: relative;
+      display: grid;
+      grid-template-columns: 280px 1fr 280px;
+      gap: 20px;
+      align-items: center;
+      z-index: 5;
+      margin-top: 14px;
+    }
+
+    .diagram-watermark {
+      position: absolute;
+      top: 10px;
+      right: 18px;
+      font-family: ui-monospace, monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+
+    /* Left Block: Node 01 Mobile */
+    .schematic-node {
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 1px 0 var(--border-highlight) inset;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .node-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 8px;
+    }
+
+    .node-tag {
+      font-family: ui-monospace, monospace;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--cyan);
+    }
+
+    .node-os {
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    .schematic-spec-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .schematic-spec-row b {
+      color: var(--text);
+      font-family: ui-monospace, monospace;
+    }
+
+    /* Center Schematic SVG Data Bus */
+    .schematic-bus-center {
+      position: relative;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      padding: 10px 0;
+    }
+
+    .bus-svg-container {
+      width: 100%;
+      height: 70px;
+    }
+
+    /* Live Blueprint Notification Box */
+    .blueprint-packet-card {
+      background: var(--surface-well);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 16px;
+      box-shadow: var(--shadow-well);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .packet-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: ui-monospace, monospace;
+      font-size: 11px;
+      color: var(--cyan);
+    }
+
+    .packet-payload {
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .packet-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .btn-packet-tap {
+      appearance: none;
+      background: var(--key-face);
+      border: 1px solid var(--key-edge);
+      color: var(--cyan);
+      font-family: ui-monospace, monospace;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      box-shadow: 0 1px 0 var(--border-highlight) inset, var(--key-shadow);
+      outline: none;
+    }
+
+    .btn-packet-tap:active {
+      transform: translateY(1px);
+    }
+
+    /* Right Block: Node 02 Desktop */
+    .desktop-right-node {
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      box-shadow: 0 1px 0 var(--border-highlight) inset;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* Footer */
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 48px;
+      border-top: 1px solid var(--border-subtle);
+      font-family: ui-monospace, monospace;
+      font-size: 11px;
+      color: var(--text-dim);
+      z-index: 10;
+    }
+
+    .footer-spec-row {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-spec-row span b {
+      color: var(--cyan);
+    }
+
+    @media (max-width: 950px) {
+      .hero-container {
+        height: auto;
+        min-height: 850px;
+        padding: 20px;
+      }
+      .calm-headline {
+        font-size: 40px;
+      }
+      .blueprint-diagram-stage {
+        grid-template-columns: 1fr;
+        height: auto;
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="hero-container">
+    <!-- Header -->
+    <header>
+      <a href="#" class="brand-blueprint">
+        <div class="blueprint-glyph" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--cyan)" stroke-width="2.5"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <span class="brand-title">Pingora</span>
+        <span class="blueprint-ref">SPEC_REV_04</span>
+      </a>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#docs">Docs</a></li>
+          <li><a href="#github">GitHub</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-aside">
+        <span class="status-stamp">In Development</span>
+        <button class="tactile-blueprint-switch" id="bp-theme-toggle" aria-label="Toggle blueprint theme">
+          <span class="bp-switch-tab" id="bp-tab-light">Light</span>
+          <span class="bp-switch-tab active" id="bp-tab-dark">Dark</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Center Hero Copy -->
+    <main class="hero-top">
+      <div class="draft-sheet-label">
+        <span>FIG. 01 — DISTRIBUTED COMPANION MATRIX</span>
+        <span>•</span>
+        <span>ZERO CLOUD RELAY</span>
+      </div>
+      <h1 class="calm-headline">
+        Your phone. Your desktop.<br>
+        <span class="cyan-accent">In architectural sync.</span>
+      </h1>
+      <p class="calm-subhead">
+        A local companion connecting Android and Linux. Readable notifications, shared clipboard text, and file transfers you approve.
+      </p>
+
+      <div class="cta-row">
+        <button class="btn-bp-primary" id="btn-explore-bp">
+          <span>Explore Pingora</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <a href="#docs" class="btn-bp-secondary">Read the docs</a>
+      </div>
+    </main>
+
+    <!-- Horizontal Device Schematic Blueprint Diagram Stage -->
+    <section class="blueprint-diagram-stage" aria-label="Schematic device diagram">
+      <div class="diagram-watermark">DWG NO: PINGORA-ARCH-01</div>
+
+      <!-- Node 01: Android Mobile -->
+      <div class="schematic-node">
+        <div class="node-header">
+          <span class="node-tag">NODE_01: MOBILE</span>
+          <span class="node-os">Android 14</span>
+        </div>
+        <div class="schematic-spec-row">
+          <span>Hardware</span>
+          <b>Pixel 8 Pro</b>
+        </div>
+        <div class="schematic-spec-row">
+          <span>Interface</span>
+          <b style="color:var(--cyan);">wlan0 (Wi-Fi 6)</b>
+        </div>
+        <div class="schematic-spec-row">
+          <span>IP Address</span>
+          <b>192.168.1.84</b>
+        </div>
+        <div class="schematic-spec-row">
+          <span>Battery Status</span>
+          <b>92% • Standby</b>
+        </div>
+      </div>
+
+      <!-- Center: SVG Schematic Data Bus & Live Packet -->
+      <div class="schematic-bus-center">
+        <!-- Inline SVG Bus Lines -->
+        <svg class="bus-svg-container" viewBox="0 0 600 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Guide lines -->
+          <line x1="0" y1="20" x2="600" y2="20" stroke="var(--border)" stroke-width="2" stroke-dasharray="4 4"/>
+          <line x1="0" y1="35" x2="600" y2="35" stroke="var(--cyan)" stroke-width="2"/>
+          <line x1="0" y1="50" x2="600" y2="50" stroke="var(--border)" stroke-width="2" stroke-dasharray="4 4"/>
+          <!-- Schematic Taps & Nodes -->
+          <circle cx="50" cy="35" r="5" fill="var(--cyan)"/>
+          <circle cx="300" cy="35" r="5" fill="var(--cyan)"/>
+          <circle cx="550" cy="35" r="5" fill="var(--cyan)"/>
+          <text x="300" y="14" fill="var(--cyan)" font-family="monospace" font-size="9" text-anchor="middle" letter-spacing="1">ILLUSTRATIVE LOCAL DATA BUS</text>
+        </svg>
+
+        <!-- Live Schematic Packet Card -->
+        <div class="blueprint-packet-card">
+          <div class="packet-top">
+            <span>PACKET_ID: #4092 [2FA_AUTH]</span>
+            <span>SAMPLE DATA</span>
+          </div>
+          <div class="packet-payload" id="packet-payload-text">
+            SMS Code received on phone: <b>592 108</b> (Copy OTP for login prompt)
+          </div>
+          <div class="packet-actions">
+            <button class="btn-packet-tap" id="btn-copy-otp">COPY OTP TO DESKTOP</button>
+            <span style="font-family:ui-monospace,monospace;font-size:10px;color:var(--text-dim);" id="otp-status">READY</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Node 02: Linux Desktop -->
+      <div class="desktop-right-node">
+        <div class="node-header">
+          <span class="node-tag">NODE_02: DESKTOP</span>
+          <span class="node-os">Arch Linux</span>
+        </div>
+        <div class="schematic-spec-row">
+          <span>Framework</span>
+          <b>Tauri + Rust</b>
+        </div>
+        <div class="schematic-spec-row">
+          <span>Compositor</span>
+          <b style="color:var(--cyan);">Linux desktop</b>
+        </div>
+        <div class="schematic-spec-row">
+          <span>Port</span>
+          <b>TCP 1716 (LAN)</b>
+        </div>
+        <div class="schematic-spec-row">
+          <span>Verification</span>
+          <b>PAIRING DEMO</b>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div>Pingora Concept 10 — Cyan Blueprint</div>
+      <div class="footer-spec-row">
+        <span>TOPOLOGY: <b>PHONE ↔ LAPTOP</b></span>
+        <span>AUDIO_ROUTING: <b>OPTIONAL BT</b></span>
+        <span>TELEMETRY: <b>OFFLINE ONLY</b></span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Theme toggle
+    const htmlDoc = document.documentElement;
+    const bpBtn = document.getElementById('bp-theme-toggle');
+    const tabLight = document.getElementById('bp-tab-light');
+    const tabDark = document.getElementById('bp-tab-dark');
+
+    function switchBpTheme(t) {
+      htmlDoc.setAttribute('data-theme', t);
+      if (t === 'dark') {
+        tabDark.classList.add('active');
+        tabLight.classList.remove('active');
+      } else {
+        tabLight.classList.add('active');
+        tabDark.classList.remove('active');
+      }
+    }
+
+    bpBtn.addEventListener('click', () => {
+      const cur = htmlDoc.getAttribute('data-theme') || 'dark';
+      switchBpTheme(cur === 'dark' ? 'light' : 'dark');
+    });
+
+    // Blueprint packet action demo
+    const copyOtpBtn = document.getElementById('btn-copy-otp');
+    const otpStatus = document.getElementById('otp-status');
+    const packetText = document.getElementById('packet-payload-text');
+
+    copyOtpBtn.addEventListener('click', () => {
+      otpStatus.textContent = 'DEMO ONLY — CLIPBOARD UNCHANGED';
+      otpStatus.style.color = 'var(--cyan)';
+      copyOtpBtn.textContent = 'DEMO PREVIEW';
+      setTimeout(() => {
+        otpStatus.textContent = 'READY';
+        otpStatus.style.color = 'var(--text-dim)';
+        copyOtpBtn.textContent = 'COPY OTP TO DESKTOP';
+      }, 2000);
+    });
+  </script>
+</body>
+</html>

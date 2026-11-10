@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pingora — 08 Ink & Porcelain</title>
+  <style>
+    :root[data-theme="dark"] {
+      --bg: #09090b;
+      --surface: #121216;
+      --surface-raised: #18181d;
+      --surface-well: #050507;
+      --border: #27272f;
+      --border-subtle: #1c1c22;
+      --border-highlight: rgba(255, 255, 255, 0.12);
+      --text: #fafafc;
+      --text-muted: #94949f;
+      --text-dim: #5c5c68;
+      --porcelain: #f4f4f6;
+      --ink: #09090b;
+      --accent: #ffffff;
+      --accent-base: #2a2a34;
+      --key-face: #1a1a21;
+      --key-edge: #2e2e3a;
+      --key-base: #0c0c10;
+      --key-shadow: 0 4px 12px rgba(0, 0, 0, 0.6), 0 2px 0 #0c0c10;
+      --shadow-elevated: 0 16px 36px rgba(0, 0, 0, 0.5), 0 1px 3px rgba(0, 0, 0, 0.3);
+      --shadow-well: inset 0 2px 4px rgba(0, 0, 0, 0.7);
+      --ring: #ffffff;
+    }
+
+    :root[data-theme="light"] {
+      --bg: #f9f9fb;
+      --surface: #ffffff;
+      --surface-raised: #fdfdfe;
+      --surface-well: #eaeaf0;
+      --border: #d4d4dc;
+      --border-subtle: #e4e4ec;
+      --border-highlight: rgba(255, 255, 255, 0.95);
+      --text: #09090b;
+      --text-muted: #52525c;
+      --text-dim: #8b8b98;
+      --porcelain: #ffffff;
+      --ink: #09090b;
+      --accent: #09090b;
+      --accent-base: #b0b0bc;
+      --key-face: #ffffff;
+      --key-edge: #dcdce4;
+      --key-base: #c2c2ce;
+      --key-shadow: 0 4px 10px rgba(9, 9, 11, 0.08), 0 2px 0 #c2c2ce;
+      --shadow-elevated: 0 14px 30px rgba(9, 9, 11, 0.06), 0 1px 3px rgba(9, 9, 11, 0.03);
+      --shadow-well: inset 0 2px 4px rgba(9, 9, 11, 0.06);
+      --ring: #09090b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      min-height: 850px;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .hero-container {
+      width: 100%;
+      max-width: 1360px;
+      min-height: 850px;
+      height: 850px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      padding: 28px 56px;
+      overflow: hidden;
+    }
+
+    /* Minimal Hairline Grid */
+    .hairline-rule {
+      position: absolute;
+      top: 96px;
+      left: 56px;
+      right: 56px;
+      height: 1px;
+      background: var(--border-subtle);
+      pointer-events: none;
+    }
+
+    /* Header */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 52px;
+      z-index: 10;
+    }
+
+    .brand-section {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+    }
+
+    .brand-wordmark {
+      font-family: ui-serif, "Didot", "Playfair Display", Georgia, serif;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .brand-spec-label {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      font-weight: 600;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: color 0.15s ease;
+      padding: 4px 6px;
+      border-radius: 4px;
+    }
+
+    .nav-links a:hover, .nav-links a:focus-visible {
+      color: var(--text);
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .badge-dev {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 3px 10px;
+      border-radius: 4px;
+      background: var(--surface-well);
+    }
+
+    /* Porcelain Tactile Theme Toggle */
+    .tactile-toggle-btn {
+      appearance: none;
+      background: var(--key-face);
+      border: 1px solid var(--key-edge);
+      color: var(--text);
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 1px 0 var(--border-highlight) inset, var(--key-shadow);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      outline: none;
+      transition: all 0.1s ease;
+    }
+
+    .tactile-toggle-btn:hover {
+      filter: brightness(1.04);
+    }
+
+    .tactile-toggle-btn:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 var(--border-highlight) inset, 0 1px 0 var(--key-base);
+    }
+
+    .tactile-toggle-btn:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+
+    .toggle-indicator {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--text);
+      box-shadow: 0 0 6px var(--text);
+    }
+
+    /* Hero Typography Center */
+    .hero-center {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-top: 36px;
+      max-width: 960px;
+      z-index: 5;
+    }
+
+    .editorial-badge {
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--text-dim);
+      margin-bottom: 20px;
+    }
+
+    .condensed-title {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      font-size: 72px;
+      font-weight: 900;
+      line-height: 0.96;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .serif-accent {
+      font-family: ui-serif, "Didot", "Playfair Display", Georgia, serif;
+      font-weight: 400;
+      font-style: italic;
+      text-transform: none;
+      letter-spacing: -0.01em;
+    }
+
+    .editorial-subhead {
+      font-size: 18px;
+      line-height: 1.5;
+      color: var(--text-muted);
+      max-width: 620px;
+      margin-bottom: 28px;
+      font-weight: 400;
+    }
+
+    .cta-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-porcelain-primary {
+      appearance: none;
+      background: var(--text);
+      color: var(--bg);
+      border: 1px solid var(--border-highlight);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 13px 28px;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 1px 0 rgba(255,255,255,0.4) inset, 0 3px 0 var(--accent-base), 0 8px 16px rgba(0,0,0,0.15);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transform: translateY(0);
+      transition: all 0.12s ease;
+      outline: none;
+    }
+
+    .btn-porcelain-primary:hover {
+      filter: brightness(1.08);
+    }
+
+    .btn-porcelain-primary:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.4) inset, 0 1px 0 var(--accent-base);
+    }
+
+    .btn-porcelain-primary:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 3px;
+    }
+
+    .btn-porcelain-secondary {
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 13px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 1px 0 var(--border-highlight) inset, 0 2px 0 var(--border);
+      transform: translateY(0);
+      transition: all 0.12s ease;
+      outline: none;
+    }
+
+    .btn-porcelain-secondary:hover {
+      background: var(--surface);
+    }
+
+    .btn-porcelain-secondary:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 var(--border-highlight) inset, 0 0 0 var(--border);
+    }
+
+    .btn-porcelain-secondary:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 3px;
+    }
+
+    /* Single Horizontal Notification Product Strip */
+    .product-strip-wrapper {
+      width: 100%;
+      margin-top: 32px;
+      margin-bottom: 8px;
+      z-index: 5;
+    }
+
+    .strip-eyebrow {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .horizontal-strip {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 24px;
+      box-shadow: 0 1px 0 var(--border-highlight) inset, var(--shadow-elevated);
+      display: grid;
+      grid-template-columns: 220px 1fr 280px;
+      gap: 28px;
+      align-items: center;
+      position: relative;
+    }
+
+    /* Column 1: Connected Devices Pair */
+    .strip-device-node {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding-right: 20px;
+      border-right: 1px solid var(--border-subtle);
+    }
+
+    .device-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .device-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--text);
+    }
+
+    .device-specs {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* Column 2: The Intentional Notification Strip */
+    .strip-notification-content {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .notif-row-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .sender-badge {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .source-app {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 2px 6px;
+      border-radius: 3px;
+      background: var(--surface-well);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    .notif-time-tag {
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    .notif-message-text {
+      font-size: 13px;
+      line-height: 1.4;
+      color: var(--text-muted);
+    }
+
+    /* Column 3: Tactile Porcelain Action Buttons */
+    .strip-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    .btn-strip-action {
+      appearance: none;
+      background: var(--key-face);
+      border: 1px solid var(--key-edge);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      padding: 9px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 1px 0 var(--border-highlight) inset, var(--key-shadow);
+      outline: none;
+      transform: translateY(0);
+      transition: all 0.1s ease;
+    }
+
+    .btn-strip-action:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 var(--border-highlight) inset, 0 1px 0 var(--key-base);
+    }
+
+    .btn-strip-action:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+
+    .btn-strip-action.primary {
+      background: var(--text);
+      color: var(--bg);
+      border-color: var(--text);
+    }
+
+    /* Footer */
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 48px;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      z-index: 10;
+    }
+
+    .footer-metrics {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-metrics span b {
+      color: var(--text);
+    }
+
+    @media (max-width: 950px) {
+      .hero-container {
+        height: auto;
+        min-height: 850px;
+        padding: 24px 20px;
+      }
+      .condensed-title {
+        font-size: 48px;
+      }
+      .horizontal-strip {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .strip-device-node {
+        border-right: none;
+        border-bottom: 1px solid var(--border-subtle);
+        padding-bottom: 12px;
+      }
+      .strip-actions {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="hero-container">
+    <div class="hairline-rule" aria-hidden="true"></div>
+
+    <!-- Header -->
+    <header>
+      <div class="brand-section">
+        <a href="#" class="brand-wordmark">Pingora</a>
+        <span class="brand-spec-label">Edition 08 • Monochrome</span>
+      </div>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#docs">Docs</a></li>
+          <li><a href="#github">GitHub</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-right">
+        <span class="badge-dev">In Development</span>
+        <button class="tactile-toggle-btn" id="btn-theme-toggle" aria-label="Toggle monochrome palette">
+          <span class="toggle-indicator"></span>
+          <span id="theme-btn-text">Dark / Light</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Hero Typography Center -->
+    <main class="hero-center">
+      <div class="editorial-badge">Local Companion Protocol • Android &amp; Linux</div>
+      <h1 class="condensed-title">
+        Your phone.<br>
+        Your desktop.<br>
+        <span class="serif-accent">In quiet sync.</span>
+      </h1>
+      <p class="editorial-subhead">
+        A quiet, high-restraint bridge connecting mobile notifications, shared clipboards, and local storage. No noisy dashboards, no telemetry, no cloud intermediary.
+      </p>
+
+      <div class="cta-row">
+        <button class="btn-porcelain-primary" id="btn-explore">
+          <span>Explore Pingora</span>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <a href="#docs" class="btn-porcelain-secondary">Read the docs</a>
+      </div>
+    </main>
+
+    <!-- Single Horizontal Notification Product Strip -->
+    <section class="product-strip-wrapper" aria-label="Live product notification strip">
+      <div class="strip-eyebrow">
+        <span>Active Synchronization Conduit</span>
+        <span>Status: Connected via Local LAN</span>
+      </div>
+
+      <div class="horizontal-strip">
+        <!-- Node 1: Connected Devices -->
+        <div class="strip-device-node">
+          <div class="device-title">
+            <span class="device-dot"></span>
+            <span>Pixel 8 &rarr; Arch Linux</span>
+          </div>
+          <p class="device-specs">Illustrative Android device<br>Battery: 91% (sample)</p>
+        </div>
+
+        <!-- Node 2: Live Intentional Notification -->
+        <div class="strip-notification-content" id="strip-notification">
+          <div class="notif-row-top">
+            <div class="sender-badge">
+              <span class="source-app">Gmail</span>
+              <span>Hannah Weiss</span>
+            </div>
+            <span class="notif-time-tag">2 min ago</span>
+          </div>
+          <div class="notif-message-text" id="notif-text">
+            Forwarded 3 architecture schematics (14.2 MB) to your desktop downloads folder.
+          </div>
+        </div>
+
+        <!-- Node 3: Porcelain Action Buttons -->
+        <div class="strip-actions">
+          <button class="btn-strip-action primary" id="btn-save-dl">Save to ~/Downloads</button>
+          <button class="btn-strip-action" id="btn-strip-dismiss">Dismiss</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div>Pingora Concept 08 — Ink &amp; Porcelain</div>
+      <div class="footer-metrics">
+        <span>Channel: <b>Encrypted LAN</b></span>
+        <span>Calling: <b>Optional SIM Bluetooth</b></span>
+        <span>Telemetry: <b>Zero</b></span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Theme toggle
+    const htmlElem = document.documentElement;
+    const themeBtn = document.getElementById('btn-theme-toggle');
+    const themeBtnText = document.getElementById('theme-btn-text');
+
+    function switchTheme(t) {
+      htmlElem.setAttribute('data-theme', t);
+      themeBtnText.textContent = t === 'dark' ? 'Theme: Dark' : 'Theme: Light';
+    }
+
+    themeBtn.addEventListener('click', () => {
+      const cur = htmlElem.getAttribute('data-theme') || 'dark';
+      switchTheme(cur === 'dark' ? 'light' : 'dark');
+    });
+
+    // Strip button actions
+    const saveBtn = document.getElementById('btn-save-dl');
+    const notifText = document.getElementById('notif-text');
+    saveBtn.addEventListener('click', () => {
+      saveBtn.textContent = 'Demo only';
+      notifText.textContent = 'Demo: transfer preview — no files were saved.';
+      setTimeout(() => {
+        saveBtn.textContent = 'Save to ~/Downloads';
+        notifText.textContent = 'Forwarded 3 architecture schematics (14.2 MB) to your desktop downloads folder.';
+      }, 2500);
+    });
+
+    const dismissBtn = document.getElementById('btn-strip-dismiss');
+    dismissBtn.addEventListener('click', () => {
+      notifText.textContent = 'Demo: notification dismissed in this preview.';
+      setTimeout(() => {
+        notifText.textContent = 'Forwarded 3 architecture schematics (14.2 MB) to your desktop downloads folder.';
+      }, 2500);
+    });
+  </script>
+</body>
+</html>

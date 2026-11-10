@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pingora — 06 Mint Laboratory</title>
+  <style>
+    :root[data-theme="dark"] {
+      --bg: #0c1013;
+      --bg-grid: rgba(255, 255, 255, 0.03);
+      --surface: #13191f;
+      --surface-raised: #182129;
+      --surface-well: #090c0f;
+      --border: #232f3a;
+      --border-subtle: #19222b;
+      --border-highlight: rgba(255, 255, 255, 0.09);
+      --text: #e6edf3;
+      --text-muted: #8092a0;
+      --text-dim: #546573;
+      --mint: #10b981;
+      --mint-glow: rgba(16, 185, 129, 0.28);
+      --mint-subtle: rgba(16, 185, 129, 0.1);
+      --mint-text: #34d399;
+      --key-face: #1e2832;
+      --key-edge: #2e3d4c;
+      --key-base: #0f141a;
+      --key-shadow: 0 5px 12px rgba(0, 0, 0, 0.5), 0 2px 0 #0f141a;
+      --shadow-elevated: 0 16px 36px rgba(0, 0, 0, 0.4), 0 2px 6px rgba(0, 0, 0, 0.2);
+      --shadow-well: inset 0 2px 5px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(0,0,0,0.4);
+      --ring: #10b981;
+    }
+
+    :root[data-theme="light"] {
+      --bg: #f3f6f5;
+      --bg-grid: rgba(0, 0, 0, 0.035);
+      --surface: #ffffff;
+      --surface-raised: #fbfcfc;
+      --surface-well: #e5ebe9;
+      --border: #c8d4cf;
+      --border-subtle: #dbe4e0;
+      --border-highlight: rgba(255, 255, 255, 0.85);
+      --text: #111a16;
+      --text-muted: #4e635b;
+      --text-dim: #7d948c;
+      --mint: #059669;
+      --mint-glow: rgba(5, 150, 105, 0.22);
+      --mint-subtle: rgba(5, 150, 105, 0.08);
+      --mint-text: #047857;
+      --key-face: #ffffff;
+      --key-edge: #dbe4e0;
+      --key-base: #bcc8c3;
+      --key-shadow: 0 4px 10px rgba(17, 26, 22, 0.1), 0 2px 0 #bcc8c3;
+      --shadow-elevated: 0 14px 30px rgba(17, 26, 22, 0.08), 0 1px 3px rgba(17, 26, 22, 0.05);
+      --shadow-well: inset 0 2px 4px rgba(0,0,0,0.08), inset 0 0 0 1px rgba(0,0,0,0.04);
+      --ring: #059669;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      min-height: 850px;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .hero-container {
+      width: 100%;
+      max-width: 1360px;
+      min-height: 850px;
+      height: 850px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      padding: 24px 44px;
+      background-image:
+        radial-gradient(var(--bg-grid) 1px, transparent 1px),
+        radial-gradient(ellipse at 50% 40%, var(--mint-subtle) 0%, transparent 60%);
+      background-size: 24px 24px, 100% 100%;
+      background-position: 0 0, 0 0;
+      overflow: hidden;
+    }
+
+    /* Navigation */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 56px;
+      z-index: 10;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo {
+      width: 32px;
+      height: 32px;
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 1px 0 var(--border-highlight) inset, 0 2px 4px var(--shadow-elevated);
+      position: relative;
+    }
+
+    .led-jewel {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--mint);
+      box-shadow: 0 0 8px var(--mint), inset 0 1px 1px rgba(255,255,255,0.7);
+    }
+
+    .brand-title {
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: color 0.15s ease;
+      padding: 4px 6px;
+      border-radius: 4px;
+    }
+
+    .nav-links a:hover, .nav-links a:focus-visible {
+      color: var(--text);
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .badge-dev {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--surface-well);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      box-shadow: var(--shadow-well);
+    }
+
+    /* Skeuomorphic Theme Switch */
+    .tactile-toggle {
+      background: var(--surface-well);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 3px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      box-shadow: var(--shadow-well);
+      outline: none;
+    }
+
+    .tactile-toggle:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+
+    .toggle-thumb {
+      padding: 4px 10px;
+      border-radius: 14px;
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .toggle-thumb.active {
+      background: var(--key-face);
+      color: var(--text);
+      border: 1px solid var(--border-highlight);
+      box-shadow: var(--key-shadow);
+    }
+
+    /* Hero Center Copy */
+    .hero-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-top: 10px;
+      z-index: 5;
+    }
+
+    .lab-ticker {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 14px;
+      border-radius: 12px;
+      background: var(--mint-subtle);
+      border: 1px solid var(--mint-glow);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--mint-text);
+      margin-bottom: 18px;
+    }
+
+    .lab-ticker-pulse {
+      width: 6px;
+      height: 6px;
+      background: var(--mint);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    .headline {
+      font-size: 58px;
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+      color: var(--text);
+      max-width: 820px;
+      margin-bottom: 16px;
+    }
+
+    .headline .mint-accent {
+      color: var(--mint-text);
+      position: relative;
+      display: inline-block;
+    }
+
+    .subhead {
+      font-size: 17px;
+      line-height: 1.5;
+      color: var(--text-muted);
+      max-width: 640px;
+      margin-bottom: 24px;
+    }
+
+    .cta-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Skeuomorphic Primary & Secondary Buttons */
+    .btn-tactile-primary {
+      appearance: none;
+      border: 1px solid var(--border-highlight);
+      background: linear-gradient(180deg, var(--mint) 0%, var(--mint-text) 100%);
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 1px 0 rgba(255,255,255,0.3) inset, 0 3px 0 #03543d, 0 6px 14px var(--mint-glow);
+      transform: translateY(0);
+      transition: all 0.12s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      outline: none;
+    }
+
+    .btn-tactile-primary:hover {
+      filter: brightness(1.05);
+    }
+
+    .btn-tactile-primary:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.3) inset, 0 1px 0 #03543d, 0 2px 6px var(--mint-glow);
+    }
+
+    .btn-tactile-primary:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 3px;
+    }
+
+    .btn-tactile-secondary {
+      appearance: none;
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 22px;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 1px 0 var(--border-highlight) inset, 0 2px 0 var(--border), 0 4px 10px rgba(0,0,0,0.06);
+      transform: translateY(0);
+      transition: all 0.12s ease;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      outline: none;
+    }
+
+    .btn-tactile-secondary:hover {
+      background: var(--surface);
+    }
+
+    .btn-tactile-secondary:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 var(--border-highlight) inset, 0 0 0 var(--border);
+    }
+
+    .btn-tactile-secondary:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 3px;
+    }
+
+    /* Product Laboratory Stage */
+    .lab-stage {
+      width: 100%;
+      height: 350px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      margin-top: 10px;
+    }
+
+    /* Center Signal Line Conduit */
+    .conduit-line-wrapper {
+      position: absolute;
+      top: 50%;
+      left: 100px;
+      right: 100px;
+      height: 2px;
+      background: var(--border);
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+
+    .conduit-active-beam {
+      position: absolute;
+      top: -1px;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, transparent 0%, var(--mint) 50%, transparent 100%);
+      opacity: 0.8;
+      filter: drop-shadow(0 0 6px var(--mint));
+      animation: signalSweep 4s ease-in-out infinite;
+    }
+
+    @keyframes signalSweep {
+      0% { transform: scaleX(0.2) translateX(-100%); }
+      50% { transform: scaleX(0.8) translateX(20%); }
+      100% { transform: scaleX(0.2) translateX(120%); }
+    }
+
+    .calibrated-ticks {
+      position: absolute;
+      top: -6px;
+      left: 0;
+      right: 0;
+      height: 14px;
+      background-image: repeating-linear-gradient(90deg, var(--border) 0px, var(--border) 1px, transparent 1px, transparent 20px);
+      opacity: 0.5;
+    }
+
+    /* Device Terminals */
+    .terminal-card {
+      width: 250px;
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 1px 0 var(--border-highlight) inset, var(--shadow-elevated);
+      z-index: 3;
+      position: relative;
+    }
+
+    .terminal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .terminal-tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--mint-text);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .terminal-sub {
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    .terminal-stat {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 6px;
+    }
+
+    .terminal-stat span {
+      color: var(--text-muted);
+      font-weight: 400;
+      font-size: 12px;
+    }
+
+    /* Floating Center Interactive Elements */
+    .interactive-hub {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      z-index: 4;
+    }
+
+    /* Understated Notification Visual */
+    .notification-visual {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 18px;
+      width: 440px;
+      box-shadow: 0 1px 0 var(--border-highlight) inset, var(--shadow-elevated);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .notif-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .notif-sender {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .notif-app-pill {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background: var(--surface-well);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    .notif-time {
+      font-size: 11px;
+      color: var(--text-dim);
+    }
+
+    .notif-body {
+      font-size: 13px;
+      line-height: 1.4;
+      color: var(--text-muted);
+    }
+
+    .notif-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .btn-notif-action {
+      background: var(--surface-well);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 1px 0 var(--border-highlight) inset, 0 1px 0 var(--border);
+      transition: all 0.1s ease;
+      outline: none;
+    }
+
+    .btn-notif-action:active {
+      transform: translateY(1px);
+      box-shadow: none;
+    }
+
+    .btn-notif-action:focus-visible {
+      outline: 2px solid var(--ring);
+    }
+
+    /* Tactile Physical Clipboard Keycap */
+    .clipboard-key-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--surface-well);
+      padding: 8px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-well);
+    }
+
+    .tactile-keycap {
+      appearance: none;
+      border: 1px solid var(--key-edge);
+      background: var(--key-face);
+      color: var(--text);
+      padding: 9px 16px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      box-shadow: 0 1px 0 var(--border-highlight) inset, var(--key-shadow);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      outline: none;
+      transform: translateY(0);
+      transition: all 0.1s ease;
+    }
+
+    .tactile-keycap:hover {
+      filter: brightness(1.03);
+    }
+
+    .tactile-keycap:active, .tactile-keycap.pressed {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 var(--border-highlight) inset, 0 1px 0 var(--key-base);
+    }
+
+    .tactile-keycap:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+
+    .key-indicator-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--mint);
+      box-shadow: 0 0 6px var(--mint);
+    }
+
+    .clipboard-preview-text {
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 12px;
+      color: var(--text-muted);
+      max-width: 220px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Footer / Metadata */
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 48px;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 12px;
+      color: var(--text-dim);
+      z-index: 10;
+    }
+
+    .spec-items {
+      display: flex;
+      gap: 24px;
+    }
+
+    .spec-item b {
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    /* Responsive */
+    @media (max-width: 950px) {
+      .hero-container {
+        height: auto;
+        min-height: 850px;
+        padding: 20px;
+      }
+      .headline {
+        font-size: 40px;
+      }
+      .lab-stage {
+        flex-direction: column;
+        height: auto;
+        gap: 20px;
+      }
+      .conduit-line-wrapper {
+        display: none;
+      }
+      .interactive-hub {
+        position: static;
+        transform: none;
+        width: 100%;
+      }
+      .notification-visual {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="hero-container">
+    <!-- Navigation Header -->
+    <header>
+      <div class="brand-group">
+        <div class="brand-logo" aria-hidden="true">
+          <div class="led-jewel"></div>
+        </div>
+        <span class="brand-title">Pingora</span>
+      </div>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#docs">Docs</a></li>
+          <li><a href="#github">GitHub</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-controls">
+        <span class="badge-dev">In Development</span>
+        <button class="tactile-toggle" id="theme-toggle" aria-label="Toggle theme mode" title="Toggle theme mode">
+          <span class="toggle-thumb" id="theme-light-label">Light</span>
+          <span class="toggle-thumb active" id="theme-dark-label">Dark</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Center Hero Copy -->
+    <main class="hero-center">
+      <div class="lab-ticker">
+        <span class="lab-ticker-pulse"></span>
+        <span>Local Area Transport • Zero Cloud Relay</span>
+      </div>
+      <h1 class="headline">Your phone. Your desktop.<br><span class="mint-accent">In sync.</span></h1>
+      <p class="subhead">Readable notifications, clipboard sharing, and local file sharing between Android and Linux. Crafted for precision and privacy.</p>
+
+      <div class="cta-row">
+        <button class="btn-tactile-primary" id="btn-explore">
+          <span>Explore Pingora</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <a href="#docs" class="btn-tactile-secondary">Read the docs</a>
+      </div>
+    </main>
+
+    <!-- Product Laboratory Visual Stage -->
+    <section class="lab-stage" aria-label="Interactive sync laboratory demo">
+      <!-- Signal Line Conduit -->
+      <div class="conduit-line-wrapper" aria-hidden="true">
+        <div class="conduit-active-beam"></div>
+        <div class="calibrated-ticks"></div>
+      </div>
+
+      <!-- Left Terminal: Android -->
+      <div class="terminal-card">
+        <div class="terminal-header">
+          <span class="terminal-tag">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></svg>
+            Mobile Node
+          </span>
+          <span class="terminal-sub">Android 14</span>
+        </div>
+        <div class="terminal-stat">
+          <span>Device</span>
+          <b>Pixel 8 Pro</b>
+        </div>
+        <div class="terminal-stat">
+          <span>Transport</span>
+          <b style="color:var(--mint-text);">LAN Wi-Fi 6</b>
+        </div>
+        <div class="terminal-stat">
+          <span>Battery</span>
+          <b>84% • Charging</b>
+        </div>
+      </div>
+
+      <!-- Center Floating Visuals: Tactile Keycap + Notification -->
+      <div class="interactive-hub">
+        <!-- Understated Notification Card -->
+        <div class="notification-visual" id="notif-card">
+          <div class="notif-top">
+            <div class="notif-sender">
+              <span class="notif-app-pill">WhatsApp</span>
+              <span>Alex Rivera</span>
+            </div>
+            <span class="notif-time">Just now</span>
+          </div>
+          <div class="notif-body" id="notif-body-text">
+            Pushed the audio driver patches to the staging branch. Tested Bluetooth routing on laptop speakers.
+          </div>
+          <div class="notif-actions">
+            <button class="btn-notif-action" id="btn-reply">Quick Reply</button>
+            <button class="btn-notif-action" id="btn-dismiss">Dismiss</button>
+          </div>
+        </div>
+
+        <!-- Tactile Clipboard Key Box -->
+        <div class="clipboard-key-box">
+          <button class="tactile-keycap" id="btn-clipboard" title="Preview clipboard interaction (demo only)">
+            <span class="key-indicator-dot"></span>
+            <span id="keycap-label">SYNC CLIPBOARD</span>
+          </button>
+          <span class="clipboard-preview-text" id="clipboard-preview">https://github.com/wrestle-R/Pingora</span>
+        </div>
+      </div>
+
+      <!-- Right Terminal: Linux -->
+      <div class="terminal-card">
+        <div class="terminal-header">
+          <span class="terminal-tag">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            Desktop Node
+          </span>
+          <span class="terminal-sub">Arch Linux</span>
+        </div>
+        <div class="terminal-stat">
+          <span>Client</span>
+          <b>Tauri + Rust</b>
+        </div>
+        <div class="terminal-stat">
+          <span>Daemon</span>
+          <b>Linux desktop</b>
+        </div>
+        <div class="terminal-stat">
+          <span>Security</span>
+          <b style="color:var(--mint-text);">Paired devices</b>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer metadata -->
+    <footer>
+      <div>Pingora Concept 06 — Mint Laboratory</div>
+      <div class="spec-items">
+        <span class="spec-item">Architecture: <b>LAN Socket</b></span>
+        <span class="spec-item">Calling: <b>Optional Bluetooth</b></span>
+        <span class="spec-item">Telemetry: <b>Zero / None</b></span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Theme toggle logic
+    const htmlEl = document.documentElement;
+    const themeBtn = document.getElementById('theme-toggle');
+    const lightLabel = document.getElementById('theme-light-label');
+    const darkLabel = document.getElementById('theme-dark-label');
+
+    function setTheme(theme) {
+      htmlEl.setAttribute('data-theme', theme);
+      if (theme === 'dark') {
+        darkLabel.classList.add('active');
+        lightLabel.classList.remove('active');
+      } else {
+        lightLabel.classList.add('active');
+        darkLabel.classList.remove('active');
+      }
+    }
+
+    themeBtn.addEventListener('click', () => {
+      const current = htmlEl.getAttribute('data-theme') || 'dark';
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    // Tactile Keycap Demo
+    const clipBtn = document.getElementById('btn-clipboard');
+    const clipLabel = document.getElementById('keycap-label');
+    const clipPreview = document.getElementById('clipboard-preview');
+
+    clipBtn.addEventListener('click', () => {
+      clipBtn.classList.add('pressed');
+      clipLabel.textContent = 'DEMO PREVIEW';
+      clipPreview.textContent = 'Demo only — clipboard unchanged';
+      clipPreview.style.color = 'var(--mint-text)';
+      setTimeout(() => {
+        clipBtn.classList.remove('pressed');
+        clipLabel.textContent = 'SYNC CLIPBOARD';
+        clipPreview.textContent = 'https://github.com/wrestle-R/Pingora';
+        clipPreview.style.color = 'var(--text-muted)';
+      }, 1800);
+    });
+
+    // Notification action demos
+    const dismissBtn = document.getElementById('btn-dismiss');
+    const notifCard = document.getElementById('notif-card');
+    const notifBody = document.getElementById('notif-body-text');
+
+    dismissBtn.addEventListener('click', () => {
+      notifBody.textContent = 'Demo: notification dismissed in this preview.';
+      notifBody.style.fontStyle = 'italic';
+      setTimeout(() => {
+        notifBody.textContent = 'Pushed the audio driver patches to the staging branch. Tested Bluetooth routing on laptop speakers.';
+        notifBody.style.fontStyle = 'normal';
+      }, 2500);
+    });
+
+    const replyBtn = document.getElementById('btn-reply');
+    replyBtn.addEventListener('click', () => {
+      notifBody.textContent = 'Demo: reply preview — no message was sent.';
+      setTimeout(() => {
+        notifBody.textContent = 'Pushed the audio driver patches to the staging branch. Tested Bluetooth routing on laptop speakers.';
+      }, 2500);
+    });
+  </script>
+</body>
+</html>

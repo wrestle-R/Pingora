@@ -1,0 +1,216 @@
+{
+  "desktopGallery": {
+    "width": 728,
+    "contentHeight": 847,
+    "capturedHeight": 847,
+    "consoleMessages": [
+      {
+        "level": "log",
+        "text": "CHOOSER_QA {\"tabs\":10,\"loaded\":20,\"selections\":true,\"lightLabel\":\"06L \u00b7 Light theme\",\"shortlist\":true,\"restored\":true,\"overflow\":false}"
+      }
+    ],
+    "screenshot": {
+      "mimeType": "image/png",
+      "width": 728,
+      "height": 847
+    }
+  },
+  "mobileGallery": {
+    "width": 390,
+    "contentHeight": 830,
+    "capturedHeight": 830,
+    "consoleMessages": [
+      {
+        "level": "log",
+        "text": "CHOOSER_QA {\"tabs\":10,\"loaded\":20,\"selections\":true,\"lightLabel\":\"06L \u00b7 Light theme\",\"shortlist\":true,\"restored\":true,\"overflow\":false}"
+      }
+    ],
+    "screenshot": {
+      "mimeType": "image/png",
+      "width": 390,
+      "height": 830
+    }
+  },
+  "codedThemes": [
+    {
+      "id": "06",
+      "theme": "dark",
+      "width": 1360,
+      "contentHeight": 866,
+      "capturedHeight": 866,
+      "consoleMessages": [
+        {
+          "level": "log",
+          "text": "HERO_QA {\"id\":\"06\",\"theme\":\"dark\",\"toggleFound\":true,\"toggles\":true,\"restored\":true,\"width\":1360,\"viewport\":1360}"
+        }
+      ],
+      "screenshot": {
+        "mimeType": "image/png",
+        "width": 1360,
+        "height": 866
+      }
+    },
+    {
+      "id": "06",
+      "theme": "light",
+      "width": 1360,
+      "contentHeight": 866,
+      "capturedHeight": 866,
+      "consoleMessages": [
+        {
+          "level": "log",
+          "text": "HERO_QA {\"id\":\"06\",\"theme\":\"light\",\"toggleFound\":true,\"toggles\":true,\"restored\":true,\"width\":1360,\"viewport\":1360}"
+        }
+      ],
+      "screenshot": {
+        "mimeType": "image/png",
+        "width": 1360,
+        "height": 866
+      }
+    },
+    {
+      "id": "07",
+      "theme": "dark",
+      "width": 1360,
+      "contentHeight": 866,
+      "capturedHeight": 866,
+      "consoleMessages": [
+        {
+          "level": "log",
+          "text": "HERO_QA {\"id\":\"07\",\"theme\":\"dark\",\"toggleFound\":true,\"toggles\":true,\"restored\":true,\"width\":1360,\"viewport\":1360}"
+        }
+      ],
+      "screenshot": {
+        "mimeType": "image/png",
+        "width": 1360,
+        "height": 866
+      }
+    },
+    {
+      "id": "07",
+      "theme": "light",
+      "width": 1360,
+      "contentHeight": 866,
+      "capturedHeight": 866,
+      "consoleMessages": [
+        {
+          "level": "log",
+          "text": "HERO_QA {\"id\":\"07\",\"theme\":\"light\",\"toggleFound\":true,\"toggles\":true,\"restored\":true,\"width\":1360,\"viewport\":1360}"
+        }
+      ],
+      "screenshot": {
+        "mimeType": "image/png",
+        "width": 1360,
+        "height": 866
+      }
+    },
+    {
+      "id": "08",
+      "theme": "dark",
+      "width": 1360,
+      "contentHeight": 866,
+      "capturedHeight": 866,
+      "consoleMessages": [
+        {
+          "level": "log",
+          "text": "HERO_QA {\"id\":\"08\",\"theme\":\"dark\",\"toggleFound\":true,\"toggles\":true,\"restored\":true,\"width\":1360,\"viewport\":1360}"
+        }
+      ],
+      "screenshot": {
+        "mimeType": "image/png",
+        "width": 1360,
+        "height": 866
+      }
+    },
+    {
+      "id": "08",
+      "theme": "light",
+      "width": 1360,
+      "contentHeight": 866,
+      "capturedHeight": 866,
+      "consoleMessages": [
+        {
+          "level": "log",
+          "text": "HERO_QA {\"id\":\"08\",\"theme\":\"light\",\"toggleFound\":true,\"toggles\":true,\"restored\":true,\"width\":1360,\"viewport\":1360}"
+        }
+      ],
+      "screenshot": {
+        "mimeType": "image/png",
+        "width": 1360,
+        "height": 866
+      }
+    },
+    {
+      "id": "09",
+      "theme": "dark",
+      "width": 1360,
+      "contentHeight": 866,
+      "capturedHeight": 866,
+      "consoleMessages": [
+        {
+          "level": "log",
+          "text": "HERO_QA {\"id\":\"09\",\"theme\":\"dark\",\"toggleFound\":true,\"toggles\":true,\"restored\":true,\"width\":1360,\"viewport\":1360}"
+        }
+      ],
+      "screenshot": {
+        "mimeType": "image/png",
+        "width": 1360,
+        "height": 866
+      }
+    },
+    {
+      "id": "09",
+      "theme": "light",
+      "width": 1360,
+      "contentHeight": 866,
+      "capturedHeight": 866,
+      "consoleMessages": [
+        {
+          "level": "log",
+          "text": "HERO_QA {\"id\":\"09\",\"theme\":\"light\",\"toggleFound\":true,\"toggles\":true,\"restored\":true,\"width\":1360,\"viewport\":1360}"
+        }
+      ],
+      "screenshot": {
+        "mimeType": "image/png",
+        "width": 1360,
+        "height": 866
+      }
+    },
+    {
+      "id": "10",
+      "theme": "dark",
+      "width": 1360,
+      "contentHeight": 866,
+      "capturedHeight": 866,
+      "consoleMessages": [
+        {
+          "level": "log",
+          "text": "HERO_QA {\"id\":\"10\",\"theme\":\"dark\",\"toggleFound\":true,\"toggles\":true,\"restored\":true,\"width\":1360,\"viewport\":1360}"
+        }
+      ],
+      "screenshot": {
+        "mimeType": "image/png",
+        "width": 1360,
+        "height": 866
+      }
+    },
+    {
+      "id": "10",
+      "theme": "light",
+      "width": 1360,
+      "contentHeight": 866,
+      "capturedHeight": 866,
+      "consoleMessages": [
+        {
+          "level": "log",
+          "text": "HERO_QA {\"id\":\"10\",\"theme\":\"light\",\"toggleFound\":true,\"toggles\":true,\"restored\":true,\"width\":1360,\"viewport\":1360}"
+        }
+      ],
+      "screenshot": {
+        "mimeType": "image/png",
+        "width": 1360,
+        "height": 866
+      }
+    }
+  ]
+}

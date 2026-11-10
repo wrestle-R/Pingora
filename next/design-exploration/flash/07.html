@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pingora — 07 Sunset Studio</title>
+  <style>
+    :root[data-theme="dark"] {
+      --bg: #131112;
+      --bg-accent-shape: #1c181a;
+      --surface: #1a1618;
+      --surface-raised: #231e21;
+      --surface-well: #0c0a0b;
+      --border: #322b2f;
+      --border-subtle: #241f22;
+      --border-highlight: rgba(255, 255, 255, 0.08);
+      --text: #faf5f3;
+      --text-muted: #9e8e93;
+      --text-dim: #6b5e63;
+      --vermilion: #ff5035;
+      --vermilion-base: #a62612;
+      --vermilion-glow: rgba(255, 80, 53, 0.25);
+      --coral: #ff7657;
+      --coral-subtle: rgba(255, 80, 53, 0.08);
+      --key-face: #2a2327;
+      --key-edge: #3d3439;
+      --key-base: #141113;
+      --key-shadow: 0 5px 14px rgba(0, 0, 0, 0.5), 0 2px 0 #141113;
+      --shadow-elevated: 0 18px 40px rgba(0, 0, 0, 0.45), 0 2px 6px rgba(0, 0, 0, 0.25);
+      --shadow-well: inset 0 2px 5px rgba(0,0,0,0.65), inset 0 0 0 1px rgba(0,0,0,0.5);
+      --ring: #ff5035;
+    }
+
+    :root[data-theme="light"] {
+      --bg: #f9f6f3;
+      --bg-accent-shape: #f1eae4;
+      --surface: #ffffff;
+      --surface-raised: #fbf9f7;
+      --surface-well: #ebe3dc;
+      --border: #d8ccc4;
+      --border-subtle: #e6ded7;
+      --border-highlight: rgba(255, 255, 255, 0.9);
+      --text: #1c1412;
+      --text-muted: #5e4d47;
+      --text-dim: #8c7770;
+      --vermilion: #ea3c1d;
+      --vermilion-base: #98220c;
+      --vermilion-glow: rgba(234, 60, 29, 0.22);
+      --coral: #f15b3b;
+      --coral-subtle: rgba(234, 60, 29, 0.07);
+      --key-face: #ffffff;
+      --key-edge: #e6ded7;
+      --key-base: #c7b8ad;
+      --key-shadow: 0 4px 12px rgba(28, 20, 18, 0.1), 0 2px 0 #c7b8ad;
+      --shadow-elevated: 0 16px 32px rgba(28, 20, 18, 0.09), 0 1px 3px rgba(28, 20, 18, 0.05);
+      --shadow-well: inset 0 2px 4px rgba(0,0,0,0.07), inset 0 0 0 1px rgba(0,0,0,0.04);
+      --ring: #ea3c1d;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      min-height: 850px;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: background-color 0.25s ease, color 0.25s ease;
+    }
+
+    .hero-container {
+      width: 100%;
+      max-width: 1360px;
+      min-height: 850px;
+      height: 850px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      padding: 24px 48px;
+      overflow: hidden;
+    }
+
+    /* Architectural Studio Backdrop Shapes */
+    .studio-shape-1 {
+      position: absolute;
+      top: -120px;
+      right: -80px;
+      width: 680px;
+      height: 680px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--coral-subtle) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .studio-shape-2 {
+      position: absolute;
+      bottom: -60px;
+      right: 120px;
+      width: 540px;
+      height: 480px;
+      background: var(--bg-accent-shape);
+      border-radius: 36px 36px 0 0;
+      border: 1px solid var(--border-subtle);
+      border-bottom: none;
+      transform: rotate(3deg);
+      pointer-events: none;
+      z-index: 0;
+      box-shadow: var(--shadow-elevated);
+    }
+
+    /* Navigation */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 58px;
+      z-index: 10;
+    }
+
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .brand-sun-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
+      background: linear-gradient(135deg, var(--coral) 0%, var(--vermilion) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 1px 0 rgba(255,255,255,0.4) inset, 0 3px 6px var(--vermilion-glow);
+    }
+
+    .brand-sun-icon span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 0 6px rgba(255,255,255,0.8);
+    }
+
+    .brand-name {
+      font-size: 21px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+    }
+
+    .nav-list {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-list a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      transition: color 0.15s ease;
+      padding: 4px 6px;
+      border-radius: 4px;
+    }
+
+    .nav-list a:hover, .nav-list a:focus-visible {
+      color: var(--text);
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+
+    .header-aside {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .studio-pill {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: var(--surface-well);
+      border: 1px solid var(--border);
+      color: var(--vermilion);
+    }
+
+    /* Skeuomorphic Theme Pill Switch */
+    .tactile-switch {
+      background: var(--surface-well);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 3px;
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      cursor: pointer;
+      box-shadow: var(--shadow-well);
+      outline: none;
+    }
+
+    .tactile-switch:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+
+    .switch-tab {
+      padding: 4px 10px;
+      border-radius: 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: all 0.18s ease;
+    }
+
+    .switch-tab.active {
+      background: var(--key-face);
+      color: var(--text);
+      border: 1px solid var(--border-highlight);
+      box-shadow: var(--key-shadow);
+    }
+
+    /* Main Grid: Graphic Typography Left + Off-Grid Visual Right */
+    .studio-main {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 40px;
+      align-items: center;
+      z-index: 5;
+      margin-top: 15px;
+    }
+
+    /* Left Editorial Column */
+    .editorial-col {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .studio-issue-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--vermilion);
+      margin-bottom: 20px;
+    }
+
+    .studio-issue-tag::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 2px;
+      background: var(--vermilion);
+    }
+
+    .editorial-title {
+      font-size: 64px;
+      font-weight: 900;
+      line-height: 0.98;
+      letter-spacing: -0.04em;
+      color: var(--text);
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    .editorial-title .highlight-line {
+      display: block;
+      color: var(--vermilion);
+      font-style: italic;
+      font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+      font-weight: 700;
+      text-transform: none;
+      letter-spacing: -0.02em;
+    }
+
+    .editorial-desc {
+      font-size: 17px;
+      line-height: 1.5;
+      color: var(--text-muted);
+      max-width: 480px;
+      margin-bottom: 30px;
+    }
+
+    .actions-group {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Tactile Studio Buttons */
+    .btn-sunset-primary {
+      appearance: none;
+      border: 1px solid var(--border-highlight);
+      background: linear-gradient(180deg, var(--coral) 0%, var(--vermilion) 100%);
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      padding: 13px 26px;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 1px 0 rgba(255,255,255,0.4) inset, 0 3px 0 var(--vermilion-base), 0 8px 18px var(--vermilion-glow);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transform: translateY(0);
+      transition: all 0.12s ease;
+      outline: none;
+    }
+
+    .btn-sunset-primary:hover {
+      filter: brightness(1.06);
+    }
+
+    .btn-sunset-primary:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.4) inset, 0 1px 0 var(--vermilion-base), 0 3px 8px var(--vermilion-glow);
+    }
+
+    .btn-sunset-primary:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 3px;
+    }
+
+    .btn-sunset-secondary {
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 13px 24px;
+      border-radius: 12px;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0 1px 0 var(--border-highlight) inset, 0 2px 0 var(--border), 0 4px 10px rgba(0,0,0,0.06);
+      transform: translateY(0);
+      transition: all 0.12s ease;
+      outline: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-sunset-secondary:hover {
+      background: var(--surface);
+    }
+
+    .btn-sunset-secondary:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 var(--border-highlight) inset, 0 0 0 var(--border);
+    }
+
+    .btn-sunset-secondary:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 3px;
+    }
+
+    /* Right Column: Off-Grid Product Visual */
+    .visual-col {
+      position: relative;
+      height: 480px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Device Silhouette Frame (Angled Base) */
+    .device-backdrop-frame {
+      width: 440px;
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 24px;
+      box-shadow: 0 1px 0 var(--border-highlight) inset, var(--shadow-elevated);
+      position: relative;
+      z-index: 2;
+      transform: rotate(-1.5deg);
+    }
+
+    .frame-status-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 18px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .channel-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--vermilion);
+    }
+
+    .channel-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--vermilion);
+      box-shadow: 0 0 6px var(--vermilion);
+    }
+
+    /* Off-grid overlapping card: breaks the container border */
+    .offgrid-card {
+      position: absolute;
+      top: 60px;
+      left: -40px;
+      width: 380px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 1px 0 var(--border-highlight) inset, 0 20px 44px rgba(0,0,0,0.4);
+      z-index: 4;
+      transform: rotate(3deg);
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .offgrid-card:hover {
+      transform: rotate(1deg) scale(1.02);
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .card-badge {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: var(--coral-subtle);
+      color: var(--vermilion);
+      border: 1px solid var(--vermilion-glow);
+    }
+
+    .card-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .card-body {
+      font-size: 13px;
+      line-height: 1.45;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    /* File Transfer Progress Bar */
+    .transfer-box {
+      background: var(--surface-well);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow-well);
+    }
+
+    .transfer-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 6px;
+      background: var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--coral), var(--vermilion));
+      border-radius: 3px;
+    }
+
+    /* Tactile Action Row inside off-grid card */
+    .card-button-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .tactile-key-small {
+      appearance: none;
+      background: var(--key-face);
+      border: 1px solid var(--key-edge);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 7px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 1px 0 var(--border-highlight) inset, var(--key-shadow);
+      outline: none;
+      transform: translateY(0);
+      transition: all 0.1s ease;
+    }
+
+    .tactile-key-small:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0 var(--border-highlight) inset, 0 1px 0 var(--key-base);
+    }
+
+    .tactile-key-small:focus-visible {
+      outline: 2px solid var(--ring);
+    }
+
+    /* Base Frame Content (Second Notification / Clipboard Strip) */
+    .base-content-strip {
+      margin-top: 150px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .strip-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .quick-clip-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface-well);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 14px;
+      box-shadow: var(--shadow-well);
+    }
+
+    .clip-content {
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 12px;
+      color: var(--text);
+    }
+
+    /* Footer */
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 48px;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 12px;
+      color: var(--text-dim);
+      z-index: 10;
+    }
+
+    .footer-tags {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-tags span b {
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 950px) {
+      .hero-container {
+        height: auto;
+        min-height: 850px;
+        padding: 24px 20px;
+      }
+      .studio-main {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      .editorial-title {
+        font-size: 44px;
+      }
+      .offgrid-card {
+        position: static;
+        transform: none;
+        width: 100%;
+        margin-bottom: 20px;
+      }
+      .base-content-strip {
+        margin-top: 20px;
+      }
+      .device-backdrop-frame {
+        width: 100%;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="hero-container">
+    <div class="studio-shape-1" aria-hidden="true"></div>
+    <div class="studio-shape-2" aria-hidden="true"></div>
+
+    <!-- Navigation Header -->
+    <header>
+      <a href="#" class="brand-mark">
+        <div class="brand-sun-icon" aria-hidden="true">
+          <span></span>
+        </div>
+        <span class="brand-name">Pingora</span>
+      </a>
+
+      <nav>
+        <ul class="nav-list">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#docs">Docs</a></li>
+          <li><a href="#github">GitHub</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-aside">
+        <span class="studio-pill">In Development</span>
+        <button class="tactile-switch" id="theme-switch" aria-label="Toggle theme">
+          <span class="switch-tab" id="label-light">Light</span>
+          <span class="switch-tab active" id="label-dark">Dark</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Grid -->
+    <main class="studio-main">
+      <!-- Left Column: Graphic Typographic Composition -->
+      <section class="editorial-col">
+        <div class="studio-issue-tag">Companion Protocol 2026</div>
+        <h1 class="editorial-title">
+          Your phone.<br>
+          Your desktop.<br>
+          <span class="highlight-line">In synchronized rhythm.</span>
+        </h1>
+        <p class="editorial-desc">
+          Readable notifications, clipboard sharing, and direct local file transfers between Android and your Linux workstation. Direct peer-to-peer security with no third-party cloud.
+        </p>
+
+        <div class="actions-group">
+          <button class="btn-sunset-primary" id="btn-see-works">
+            <span>See how it works</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+          <a href="#docs" class="btn-sunset-secondary">Read the docs</a>
+        </div>
+      </section>
+
+      <!-- Right Column: Off-Grid Product Visual -->
+      <section class="visual-col" aria-label="Off-grid device visual">
+        <!-- Angled Backing Device Frame -->
+        <div class="device-backdrop-frame">
+          <div class="frame-status-bar">
+            <span>Workstation • Hyprland</span>
+            <div class="channel-indicator">
+              <span class="channel-dot"></span>
+              <span>Encrypted LAN</span>
+            </div>
+          </div>
+
+          <!-- Base content strip beneath offgrid card -->
+          <div class="base-content-strip">
+            <span class="strip-label">Bi-Directional Clipboard Stream</span>
+            <div class="quick-clip-row">
+              <span class="clip-content" id="clip-val">git commit -m "feat: lan sync"</span>
+              <button class="tactile-key-small" id="btn-copy-clip">Copy</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Overlapping Off-Grid Card (Breaks frame) -->
+        <div class="offgrid-card" id="interactive-card">
+          <div class="card-meta">
+            <span class="card-badge">Incoming Transfer</span>
+            <span style="font-size:11px;color:var(--text-dim);">Pixel 8 Pro</span>
+          </div>
+          <h2 class="card-title">design_spec_v2.tar.gz</h2>
+          <p class="card-body">Sample file offered from Android. Accept before receiving.</p>
+
+          <div class="transfer-box">
+            <div class="transfer-info">
+              <span>Transfer preview</span>
+              <span id="transfer-pct">Awaiting your approval</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" id="progress-bar"></div>
+            </div>
+          </div>
+
+          <div class="card-button-row">
+            <button class="tactile-key-small" id="btn-accept" style="color:var(--vermilion);">Accept File</button>
+            <button class="tactile-key-small" id="btn-cancel">Decline</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div>Pingora Concept 07 — Sunset Studio</div>
+      <div class="footer-tags">
+        <span>Channel: <b>LAN Direct</b></span>
+        <span>Calling: <b>Optional SIM Audio</b></span>
+        <span>Accounts: <b>None Required</b></span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Theme toggle
+    const htmlNode = document.documentElement;
+    const themeBtn = document.getElementById('theme-switch');
+    const lightLbl = document.getElementById('label-light');
+    const darkLbl = document.getElementById('label-dark');
+
+    function applyTheme(t) {
+      htmlNode.setAttribute('data-theme', t);
+      if (t === 'dark') {
+        darkLbl.classList.add('active');
+        lightLbl.classList.remove('active');
+      } else {
+        lightLbl.classList.add('active');
+        darkLbl.classList.remove('active');
+      }
+    }
+
+    themeBtn.addEventListener('click', () => {
+      const cur = htmlNode.getAttribute('data-theme') || 'dark';
+      applyTheme(cur === 'dark' ? 'light' : 'dark');
+    });
+
+    // Tactile action interactions
+    const acceptBtn = document.getElementById('btn-accept');
+    const transferPct = document.getElementById('transfer-pct');
+    const progressBar = document.getElementById('progress-bar');
+    acceptBtn.addEventListener('click', () => {
+      progressBar.style.width = '100%';
+      transferPct.textContent = 'Demo accepted — no file saved';
+      acceptBtn.textContent = 'Demo accepted';
+      setTimeout(() => {
+        progressBar.style.width = '0%';
+        transferPct.textContent = 'Awaiting your approval';
+        acceptBtn.textContent = 'Accept File';
+      }, 2500);
+    });
+
+    const copyBtn = document.getElementById('btn-copy-clip');
+    const clipVal = document.getElementById('clip-val');
+    copyBtn.addEventListener('click', () => {
+      copyBtn.textContent = 'Demo only';
+      clipVal.style.color = 'var(--vermilion)';
+      setTimeout(() => {
+        copyBtn.textContent = 'Copy';
+        clipVal.style.color = 'var(--text)';
+      }, 1800);
+    });
+  </script>
+</body>
+</html>

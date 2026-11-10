@@ -14,7 +14,7 @@ Status: documentation and skill installation prepared; application implementatio
 
 ## Read-only environment evidence
 
-- Repository origin: wrestle-R/Pingora, verified private. Initial main commit remains the only commit. Preparation changes are local and uncommitted.
+- Repository origin: wrestle-R/Pingora, verified private. At preparation capture main had one initial commit. User subsequently authorized visual-exploration milestone commits/pushes; preparation baseline and hero assets are now being saved to main. App runtime claims remain unchanged.
 - Owner laptop: Arch Linux, Hyprland/Wayland from earlier inspection.
 - Tools present: GitHub CLI, ADB, C++ compiler, pkg-config, Java 17.0.21, CMake 4.4.5, Ninja 1.13.2; Qt6Core/Qt6DBus reported 6.12.0. Presence alone does not prove upstream dependency compatibility.
 - ADB shows an authorized connected Nothing A001; prior property inspection identifies Android 16/API 36. No grants, apps or device settings were changed.
