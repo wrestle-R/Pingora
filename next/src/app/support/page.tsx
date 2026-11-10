@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
+import { connection } from "next/server";
+import { getPublicGithub, statusMessage } from "../../lib/github";
 export const metadata: Metadata = { title: "Support" };
 const repo = "https://github.com/wrestle-R/Pingora";
-export default function Support() {
+export default async function Support() {
+  await connection();
+  const github = await getPublicGithub();
   return (
     <section className="section document">
       <div className="page-head">
@@ -45,6 +49,21 @@ export default function Support() {
         </article>
       </div>
       <div className="notice">
+        <h3>Public issue feed</h3>
+        <p>{statusMessage(github.issuesState)}</p>
+        {github.issues.length > 0 ? (
+          <ul>
+            {github.issues.map((issue) => (
+              <li key={issue.number}>
+                <a href={issue.url}>
+                  #{issue.number} · {issue.title} ({issue.state}) ↗
+                </a>
+              </li>
+            ))}
+          </ul>
+        ) : github.issuesState === "public" ? (
+          <p>No public issues to show.</p>
+        ) : null}
         <h3>Keep the private bits private.</h3>
         <p>
           Remove notification text, OTPs, clipboard contents, device identifiers

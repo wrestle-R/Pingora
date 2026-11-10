@@ -28,6 +28,8 @@ The original P01–P17 breakdown is approved; P18–P19 cover the requested webs
 
 - [P20: Native Slumber phone controls](issues/p20-native-slumber-phone-controls.md)
 
+- [P21: GitHub-connected Vercel Next.js server](issues/p21-github-connected-vercel-next-server.md)
+
 ## Updating progress
 
 Use `ready-for-agent`, `in-progress`, `blocked`, `done`. Put blockers in **Blocked by** and record evidence under Verification. Mark done only after actual acceptance checks; a documentation draft or successful compile does not prove runtime support. When blockers finish, promote affected blocked tickets. Do not maintain conflicting status lists in the backlog or GitHub.

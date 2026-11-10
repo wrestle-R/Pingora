@@ -18,7 +18,7 @@
 
 ## Verification
 
-Not started. Record actual commands, observed behavior and limitations here when work begins.
+P21 implements a server-only anonymous public GitHub read model/API, dynamic downloads/changelog/support pages, five-minute safe caching and private/rate-limit/unavailable states. Local private-repo response contains zero release/issue details; build/typecheck and 30page/theme/viewport checks pass. Actual release assets, signing validation and public-repo feed acceptance remain blocked by P15/public-data prerequisites. No authenticated private GitHub fetch is used.
 
 ## Comments
 

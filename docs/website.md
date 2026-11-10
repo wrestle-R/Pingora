@@ -20,12 +20,12 @@ Handle GitHub rate limits, network failures, empty results and missing release a
 
 ## Delivery
 
-Use Next.js App Router. Static or server-backed deployment choice follows GitHub freshness/private-preview needs; no hosting platform is authorized yet. Read-only public integration + GitHub-hosted report flow is the initial direction. Responsive, accessible pages, coherent typography, keyboard navigation and clear docs hierarchy. Version/dependency pins and design direction are selected during website implementation.
+Use Next.js App Router. The user selected GitHub-connected Vercel hosting with a Next.js server backend. Source deployments must come through GitHub pushes. Read-only public integration + GitHub-hosted report flow is the initial direction. Responsive, accessible pages, coherent typography, keyboard navigation and clear docs hierarchy. Version/dependency pins and design direction are selected during website implementation.
 
 Root next/ is the site directory; its src/app/ is a Next.js route tree, distinct from root app/ Android. Root tauri/ contains the desktop web UI/Rust bridge; it does not load the public site with desktop privileges.
 
 ## Status
 
-P18 implemented: Paper Airwave responsive home, public docs, downloads status, support navigation, changelog empty state and custom 404. Both themes work, with local fonts and a static export. No GitHub API integration, release artifacts or deployment is claimed. P19 remains blocked by real releases and public-data prerequisites. See [verification](progress/website-verification.md) and [run instructions](../next/README.md).
+P18 implemented: Paper Airwave responsive home, public docs, downloads status, support navigation, changelog empty state and custom 404. Both themes work, with local fonts. P21 adds Vercel hosting and a server-only anonymous public GitHub read model/API. Real release artifacts and live-deployment verification are separate acceptance gates. P19 remains blocked by real releases and public-data prerequisites. See [verification](progress/website-verification.md) and [run instructions](../next/README.md).
 
 The user’s selected direction is 05 in both themes. The later Slumber phone-control request is preserved as an undefined integration, not a shipped feature or permission to introduce arbitrary remote commands.

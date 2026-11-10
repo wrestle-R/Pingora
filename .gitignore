@@ -31,3 +31,6 @@ Thumbs.db
 
 # Python probe cache
 **/__pycache__/
+
+# Local Vercel linkage and pulled environment metadata
+**/.vercel/

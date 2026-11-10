@@ -1,10 +1,10 @@
 # Pingora website
 
-The Paper Airwave website, built with the Next.js App Router, TypeScript and locally hosted DM Sans / Manrope fonts. Home, docs, downloads, support, changelog and a custom 404 are implemented in `src/app/`. The only client component is the persistent theme toggle.
+Paper Airwave, implemented with the Next.js App Router, TypeScript and local DM Sans / Manrope fonts. Home, docs, downloads, support, changelog and a custom 404 live in `src/app/`. The theme switch is the only browser-side application component.
 
-## Run locally
+## Run
 
-Use Node.js 20.9 or newer and a compatible npm version.
+Use a compatible Node/npm combination (Vercel builds use Node 24):
 
 ```sh
 cd next
@@ -12,22 +12,26 @@ npm ci
 npm run dev
 ```
 
-Open http://localhost:3000. To verify and produce static files:
+Production checks and local server:
 
 ```sh
 npm run build
 npm run typecheck
-python3 -m http.server 3000 --directory out
+npm start
 ```
 
-Build output is in `out/`, with directory-style routes. A static host should serve `404.html` for unknown routes. No environment variables or credentials are needed. No hosting destination has been configured or deployed.
+This is now a Next.js server deployment, not a static export. Old ignored `out/` files are from the earlier static milestone and are not deployment input.
 
-## Content and data boundaries
+## Website backend
 
-This is the marketing/docs website, not the Android app or Tauri desktop UI. All device illustrations are labelled concepts. Public content is curated directly in the route files; no internal Markdown, local notes, GitHub API data or tokens are imported. The repository remains private. Downloads and changelog deliberately show no-release states; support links open GitHub’s signed-in issue flow and explain the access requirement. Live public GitHub integration remains P19, dependent on real releases and public-data approval.
+`src/lib/github.ts` is server-only. `/api/github/` and the downloads/changelog/support Server Components use the same cached public GitHub read model. Requests have a fixed repository, no Authorization header, a six-second timeout and a one-megabyte response cap. Data is narrowed to release names/dates/GitHub links/asset metadata and issue numbers/titles/states. No raw Markdown or HTML is rendered, PRs/drafts/prereleases are excluded, and private/empty/rate-limited/unavailable states remain explicit. Sanitized anonymous results are cached for five minutes; the public API can additionally be cached for one minute.
 
-Slumber phone control is recorded as a requested, undefined integration; it is not presented as shipped. Real-device Android testing is outside this website ticket.
+No API keys, database, accounts, diagnostic upload or notification relay are needed. Vercel’s GitHub integration owns its Git credentials; those credentials are not available to the public site. Even if a token were placed in the environment later, this backend does not use it. Private issues/releases and internal Markdown are never imported.
 
-The selected reference is **05 — Paper Airwave**, in both themes. The original hero gallery remains in `design-exploration/` and is not copied into the production static output. The website uses an original responsive SVG/CSS illustration rather than a screenshot of the reference. Font licenses are beside the font files in `src/fonts/`.
+Actual release signing/asset validation remains P15/P19. The site does not call an asset verified merely because it exists on GitHub; it links to public release pages for review. Native Android/Tauri build probes are not app releases.
 
-See [website scope](../docs/website.md) and [verification](../docs/progress/website-verification.md).
+## Hosting
+
+Vercel project `pingora` is connected to `wrestle-R/Pingora`, production branch `main`, Root Directory `next/`, framework Next.js, Node 24 and install command `npm ci`. Source deployment must come from GitHub pushes; do not use a CLI source upload or prebuilt deployment. No `.env` is required for the current site/backend, and no new secret has been provisioned. Use the owner’s Varte workflow for any future real environment files.
+
+See [deployment record](../docs/progress/website-deployment.md) for verified deployment state and [original UI verification](../docs/progress/website-verification.md). The hero exploration in `design-exploration/` is not a route or public asset directory. Font licenses are beside their files. Phone control for native Slumber is separately tracked and not shipped by the website.

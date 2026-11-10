@@ -1,19 +1,24 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { connection } from "next/server";
+import { getPublicGithub, statusMessage } from "../../lib/github";
 export const metadata: Metadata = { title: "Downloads" };
-export default function Downloads() {
+export default async function Downloads() {
+  await connection();
+  const github = await getPublicGithub();
   return (
     <section className="section document">
       <div className="page-head">
         <span className="eyebrow">NOT QUITE READY TO FLY</span>
         <h1>
-          The first release
+          The next version,
           <br />
-          is still taking shape.
+          when it’s ready.
         </h1>
         <p>
-          No APK, Linux package or signed installer is available yet. We’ll put
-          verified downloads here when there’s something ready to install.
+          No verified installers are served by this website yet. Public
+          releases, when available, link to GitHub for assets, signing and
+          compatibility details.
         </p>
       </div>
       <div className="platforms">
@@ -32,11 +37,19 @@ export default function Downloads() {
       </div>
       <div className="notice">
         <h3>About GitHub downloads</h3>
-        <p>
-          The project repository is private. This site does not fetch or publish
-          private release data. A GitHub link may require access and can show a
-          404 if you don’t have it.
-        </p>
+        <p>{statusMessage(github.state)}</p>
+        {github.releases.length > 0 && (
+          <ul>
+            {github.releases.map((release) => (
+              <li key={release.url}>
+                <a href={release.url}>
+                  {release.version} · View assets and verification details on
+                  GitHub ↗
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
         <Link className="text-link" href="/changelog">
           Release notes ↗
         </Link>
