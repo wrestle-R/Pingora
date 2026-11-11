@@ -11,6 +11,8 @@ build=root/'tauri/target/native/build'
 if not (build/'CMakeCache.txt').exists():raise SystemExit('Prepare native source first')
 subprocess.run(['cmake','-S',str(build.parent/('kdeconnect-kde-'+json.loads((root/'tauri/native/source.json').read_text())['revision'])),'-B',str(build),'-DKDE_SKIP_RPATH_SETTINGS=ON','-DCMAKE_INSTALL_RPATH_USE_LINK_PATH=OFF','-DCMAKE_BUILD_WITH_INSTALL_RPATH=ON','-DCMAKE_INSTALL_RPATH=$ORIGIN/lib;$ORIGIN'],check=True)
 subprocess.run(['cmake','--build',str(build),'--target','kdeconnectd','--parallel','3'],check=True)
+subprocess.run(['npm','--prefix',str(root/'tauri/frontend'),'ci','--no-audit','--no-fund'],check=True)
+subprocess.run(['npm','--prefix',str(root/'tauri/frontend'),'run','build'],check=True)
 subprocess.run(['cargo','build','--release','--locked','--manifest-path',str(root/'tauri/src-tauri/Cargo.toml')],check=True)
 native=root/'tauri/target/native/build/bin/kdeconnectd'
 if not native.is_file():raise SystemExit('Prepare the pinned native service first (tauri/native/README.md)')

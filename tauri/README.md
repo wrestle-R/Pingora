@@ -1,21 +1,25 @@
 # Pingora desktop
 
-Native Tauri 2 development shell with a local, bundled health view. Website code is not loaded into the webview. The Rust `health` command reports pairing/transport as unimplemented and reads the isolated LAN service’s paired-state summary and the existing QuickShell Slumber status through fixed, timed IPC arguments. It does not start Slumber, suspend, unlock or change settings. No shell plugin or remote web origins are enabled.
+Tauri 2 is the Linux application shell. Its frontend is React + TypeScript, built with Vite and Tailwind, with shadcn/ui Radix components. Rust retains native commands, pairing approval, per-device policy, privacy enforcement, file dialogs, diagnostics, calls and signed updates. The isolated native LAN service remains a separate process. The website is never loaded into the desktop webview.
 
-## Build and inspect
+## Build
 
-On Linux with Rust, GTK 3 and WebKitGTK 4.1 development libraries:
+Use Node 24, npm, Rust, GTK 3 and WebKitGTK 4.1 development libraries. From the repository root:
 
 ```sh
-cargo build --locked --manifest-path src-tauri/Cargo.toml
-cargo run --locked --manifest-path src-tauri/Cargo.toml -- --probe-health
-cargo run --locked --manifest-path src-tauri/Cargo.toml
+npm --prefix tauri/frontend ci
+npm --prefix tauri/frontend test
+npm --prefix tauri/frontend run build
+cargo test --locked --manifest-path tauri/src-tauri/Cargo.toml
+cargo run --locked --manifest-path tauri/src-tauri/Cargo.toml
 ```
 
-Run these commands from `tauri/`. The second command exercises the same native health function without opening a window or changing the session. Slumber is specific to the owner’s matching Arch/Hyprland/QuickShell configuration; other systems report unavailable.
+`tauri/frontend/` contains the React source and `components.json`. `tauri/ui/` is ignored generated output embedded by Tauri, so build the frontend before using Cargo directly. Tauri CLI hooks also run the Vite dev/build commands. Release tooling prepares the frontend before Rust checks and packaging.
 
-This is a P01 build/IPC probe, not a paired Android/Linux companion. No encrypted LAN session, native notification mirroring, phone control, release packaging or signing is implemented. KDE/Foner sources are separately evaluated at pinned revisions, not embedded into this binary. GPL-3.0-or-later licensing is declared for this new desktop source; upstream source-file notices and dependency obligations still require preserving if code is imported later.
+For frontend development run `npm --prefix tauri/frontend run dev`; it binds only to `127.0.0.1:1420`. Native commands require the Tauri shell. An ordinary browser reports connection errors and does not simulate devices. Production assets, fonts and scripts are local. The production CSP permits inline styles for Radix positioning but keeps scripts local and connection origins restricted to Tauri IPC; Vite/WebSocket origins are development-only.
 
-See [Slumber contract](../docs/slumber.md), [architecture](../docs/architecture.md) and [tracker](../docs/progress/README.md).
+## Native integration and limits
 
-See [isolated native service build](native/README.md) for the pinned source/checksum, isolation edits and build commands. This is a separately built native service probe, not a bundled release sidecar yet.
+See [isolated service build](native/README.md), [architecture](../docs/architecture.md), [Slumber contract](../docs/slumber.md), and [release tools](../docs/releases/README.md). Slumber depends on the matching QuickShell setup. Optional Bluetooth calls depend on a compatible PipeWire telephony backend; unavailable integrations report unavailable. No shell plugin or arbitrary remote commands are exposed.
+
+Pingora has its own identity and original logo. KDE-derived native components retain their original licenses and credits. GPL-3.0-or-later applies to the desktop source. Development builds and tests are available; physical device, desktop compatibility and beta qualification remain tracked separately in the [local progress tracker](../docs/progress/README.md).

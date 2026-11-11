@@ -38,3 +38,7 @@ History: 24h or 500 saved entries, first limit reached; up to 16 KiB per body is
 The Next.js site serves marketing/docs and approved GitHub release/issue information. It is not a notification relay, account requirement, clipboard store or pairing backend. Device sharing works on LAN independently of site availability. While the repo is private, public output must not reveal private issue/release metadata, credentials or private authenticated API caches. See website.md.
 
 Tauri serves local bundled UI. Do not navigate a privileged webview to the public site. Scope Rust commands narrowly; no arbitrary shell execution or unsanitized notification HTML. Reused service lifecycle/IPC and Tauri update packaging are explicit P01/P15 checks.
+
+## Desktop frontend decision, 2026-11-11
+
+The user explicitly chose React and shadcn for the desktop frontend while keeping Tauri. React/TypeScript/Vite source now lives in `tauri/frontend/`; `tauri/ui/` is generated and embedded locally. Rust and the isolated native service keep the existing commands and authorization boundaries. The Next.js website has its own shadcn initialization and no desktop IPC. See [ADR-0003](adr/0003-react-desktop-frontend.md) and [desktop build instructions](../tauri/README.md). This frontend implementation does not change the remaining physical compatibility/release qualification requirements.

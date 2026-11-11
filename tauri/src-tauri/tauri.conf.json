@@ -3,21 +3,32 @@
   "productName": "Pingora",
   "version": "0.1.1",
   "identifier": "io.github.wrestle-r.pingora",
-  "build": { "frontendDist": "../ui" },
+  "build": {
+    "frontendDist": "../ui",
+    "beforeDevCommand": "npm --prefix frontend run dev",
+    "devUrl": "http://127.0.0.1:1420",
+    "beforeBuildCommand": "npm --prefix frontend run build"
+  },
   "app": {
     "withGlobalTauri": true,
     "windows": [
       {
-        "title": "Pingora · Connection health",
-        "width": 1000,
-        "height": 720,
+        "title": "Pingora",
+        "width": 1120,
+        "height": 780,
         "minWidth": 600,
         "minHeight": 480
       }
     ],
     "security": {
-      "csp": "default-src 'self'; script-src 'self'; style-src 'self'; connect-src ipc: http://ipc.localhost; img-src 'self' data:; object-src 'none'; frame-src 'none'"
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src ipc: http://ipc.localhost; img-src 'self' data:; object-src 'none'; frame-src 'none'",
+      "devCsp": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src ipc: http://ipc.localhost http://127.0.0.1:1420 ws://127.0.0.1:1420; img-src 'self' data:; object-src 'none'; frame-src 'none'"
     }
   },
-  "bundle": { "active": false }
+  "bundle": {
+    "active": false,
+    "icon": [
+      "icons/icon.png"
+    ]
+  }
 }

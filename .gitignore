@@ -34,3 +34,6 @@ Thumbs.db
 
 # Local Vercel linkage and pulled environment metadata
 **/.vercel/
+
+# React frontend output embedded by Tauri
+/tauri/ui/

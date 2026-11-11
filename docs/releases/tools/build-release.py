@@ -18,6 +18,9 @@ if f'versionName = "{version}"' not in text or f'versionCode = {code}\n' not in 
 out=root/'release-private/unsigned';out.mkdir(parents=True,exist_ok=True)
 native=json.loads((root/'tauri/native/source.json').read_text());archive=out/'native-upstream.tar.gz'
 if stage in ['all','rust']:
+ run(['npm','--prefix','tauri/frontend','ci','--no-audit','--no-fund'])
+ run(['npm','--prefix','tauri/frontend','test'])
+ run(['npm','--prefix','tauri/frontend','run','build'])
  run(['cargo','test','--locked','--manifest-path','tauri/src-tauri/Cargo.toml'])
  run(['cargo','clippy','--locked','--manifest-path','tauri/src-tauri/Cargo.toml','--','-D','warnings'])
 if stage in ['all','android']:
