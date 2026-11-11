@@ -3,6 +3,7 @@
 import argparse,base64,hashlib,json,os,re,shutil,subprocess,tarfile,tempfile,urllib.request,urllib.parse
 from pathlib import Path
 p=argparse.ArgumentParser();p.add_argument('--tag');p.add_argument('--github-auth',action='store_true',help='Use gh for an authorized private repository');p.add_argument('--source',type=Path,help='Local directory of signed release assets');p.add_argument('--home',type=Path,default=Path.home());a=p.parse_args()
+if __import__('sys').version_info<(3,12):raise SystemExit('Python 3.12+ is required')
 if os.uname().sysname!='Linux' or os.uname().machine!='x86_64':raise SystemExit('Only Linux x86_64 is supported by this installer')
 repo='wrestle-R/Pingora'
 PUBLIC_KEY='20131ae1e757a3fb4cb029a7ad54f969f5db77e269e83e0545d7e7c4ad65535f'
@@ -61,9 +62,19 @@ with tempfile.TemporaryDirectory(prefix='pingora-install-') as temp:
   binary=staging/'Pingora/pingora-desktop';native=staging/'Pingora/native/kdeconnectd'
   if not binary.is_file() or not native.is_file():raise SystemExit('Incomplete Linux package')
   binary.chmod(0o755);native.chmod(0o755)
+  for executable in [binary,native]:
+   result=subprocess.run(['ldd',str(executable)],capture_output=True,text=True)
+   if result.returncode or 'not found' in result.stdout:raise SystemExit('Required host libraries are missing or incompatible; existing installation unchanged')
   os.rename(staging,destination)
  temporary=launcher.with_name('.pingora-new')
  if temporary.exists() or temporary.is_symlink():raise SystemExit('An installation is already pending; existing launcher retained')
  try:temporary.symlink_to(destination/'Pingora/pingora-desktop');os.replace(temporary,launcher)
  finally:temporary.unlink(missing_ok=True)
  print(f'Installed verified Pingora {version} at {destination}. Launch with {launcher}. Previous versions retained.')
+
+applications=home/'.local/share/applications';applications.mkdir(parents=True,exist_ok=True)
+entry=applications/'io.github.wrestle-r.pingora.desktop'
+if entry.exists() and 'X-Pingora-Installer=true' not in entry.read_text():raise SystemExit('Installed app, but preserved an existing unrelated desktop entry')
+quoted=str(launcher).replace('\\','\\\\').replace('"','\\"').replace('$','\\$').replace('`','\\`')
+entry.write_text('[Desktop Entry]\nType=Application\nName=Pingora\nComment=Connect your Android phone and Linux laptop\nExec="'+quoted+'"\nIcon=network-wireless\nTerminal=false\nCategories=Network;Utility;\nX-Pingora-Installer=true\n')
+print('Desktop menu entry installed. Open Pingora from your application menu.')

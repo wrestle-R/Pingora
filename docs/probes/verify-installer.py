@@ -3,7 +3,7 @@ import tempfile,subprocess,shutil,json,hashlib,tarfile,base64
 repo=Path(__file__).resolve().parents[2]
 with tempfile.TemporaryDirectory() as temporary:
  root=Path(temporary);assets=root/'assets';assets.mkdir();package=root/'package/Pingora';(package/'native').mkdir(parents=True)
- (package/'pingora-desktop').write_text('synthetic fixture, never executed');(package/'native/kdeconnectd').write_text('synthetic fixture, never executed')
+ shutil.copy2('/usr/bin/true',package/'pingora-desktop');shutil.copy2('/usr/bin/true',package/'native/kdeconnectd')
  name='pingora-0.2.0-linux-x86_64.tar.gz';artifact=assets/name
  with tarfile.open(artifact,'w:gz') as tar:tar.add(package,arcname='Pingora')
  manifest={'schema':1,'version':'0.2.0','version_code':2000,'targets':{'linux-x86_64':{'name':name,'size':artifact.stat().st_size,'sha256':hashlib.sha256(artifact.read_bytes()).hexdigest()}}}

@@ -19,6 +19,7 @@ run([str(tools/'apksigner'),'sign','--ks',str(keys/'android-release.p12'),'--ks-
 run([str(tools/'apksigner'),'verify',str(out/f'pingora-{version}.apk')])
 cert=subprocess.check_output(['keytool','-exportcert','-keystore',str(keys/'android-release.p12'),'-alias','pingora','-storepass:file',str(keys/'android-store-password')],stderr=subprocess.DEVNULL)
 run(['python3','docs/releases/tools/manifest.py','--version',version,'--version-code',str(info['version_code']),'--directory',str(out),'--signing-key',str(keys/'update-ed25519.pem'),'--android-cert',hashlib.sha256(cert).hexdigest()])
+run(['python3','docs/releases/tools/build-installer.py','--output',str(out/'install-app.sh')])
 # Reject any signer mismatch with the trust anchor embedded in both applications.
 import base64,tempfile
 with tempfile.TemporaryDirectory() as temporary:

@@ -6,19 +6,19 @@ Your Android phone and Linux laptop, a little closer. Share notifications, clipb
 
 ## Install on Linux
 
-For **Linux x86_64**, with Python 3.12+, OpenSSL and compatible GTK3, WebKitGTK4.1, Qt6 and KDE Frameworks6 libraries:
+For **Arch-based Linux x86_64**, this command installs missing runtime dependencies, verifies the signed release, installs Pingora and adds it to your application menu:
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/wrestle-R/Pingora/main/docs/releases/install.py | python3 - --tag v0.1.1
+curl -fsSL https://github.com/wrestle-R/Pingora/releases/latest/download/install-app.sh | bash
 ```
 
-Then open Pingora:
+Open Pingora from your application menu, or run:
 
 ```sh
 ~/.local/bin/pingora
 ```
 
-The installer verifies the pinned Ed25519 signature, size and SHA-256 before installing to `~/.local/share/pingora/versions/`. It creates `~/.local/bin/pingora`, preserves previous versions and refuses to overwrite an unrelated launcher. No root or GitHub login is needed. Add `~/.local/bin` to your PATH to run `pingora` anywhere.
+The installer verifies the pinned Ed25519 signature, size and SHA-256 before installing to `~/.local/share/pingora/versions/`. It creates `~/.local/bin/pingora`, preserves previous versions and refuses to overwrite an unrelated launcher. The app installs without root or GitHub login. Missing Arch runtime packages use your package manager’s normal sudo approval. Add `~/.local/bin` to your PATH to run `pingora` anywhere.
 
 Prefer downloading first? [Download the installer](https://raw.githubusercontent.com/wrestle-R/Pingora/main/docs/releases/install.py), inspect it, then run `python3 install.py --tag v0.1.1`. [Download the Linux archive](https://github.com/wrestle-R/Pingora/releases/download/v0.1.1/pingora-0.1.1-linux-x86_64.tar.gz).
 
@@ -54,7 +54,7 @@ Tauri and Rust power the desktop, with a React + shadcn interface. Android remai
 
 Signed updates preserve the existing installation on verification failures. Linux installs retain the previous executable and reject downgrades; active transfers defer app-driven installation. OS confirmations remain explicit.
 
-To uninstall the user-owned Linux installation, remove `~/.local/bin/pingora` and `~/.local/share/pingora/versions/`. Pairing/history are separate app data and are retained. Uninstall Android through system settings.
+To uninstall the user-owned Linux installation, remove `~/.local/bin/pingora`, `~/.local/share/pingora/versions/` and `~/.local/share/applications/io.github.wrestle-r.pingora.desktop`. Pairing/history are separate app data and are retained. Uninstall Android through system settings.
 
 [Release notes and checksums](https://github.com/wrestle-R/Pingora/releases/tag/v0.1.1) · [Build the desktop](tauri/README.md) · [Android source](app/) · [Security and update design](docs/releases.md)
 
