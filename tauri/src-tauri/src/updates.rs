@@ -456,6 +456,42 @@ mod tests {
     use super::*;
     use ed25519_dalek::{Signer, SigningKey};
     #[test]
+    fn approval_and_busy_gates_leave_the_staged_update_untouched() {
+        let directory = std::env::temp_dir().join(format!(
+            "pingora-update-gates-{}-{}",
+            std::process::id(),
+            crate::runtime::now()
+        ));
+        fs::create_dir_all(&directory).unwrap();
+        let staged = directory.join("staged");
+        fs::write(&staged, b"candidate").unwrap();
+        let key = SigningKey::from_bytes(&[42; 32]);
+        let data = br#"{"schema":1,"version":"0.2.0","version_code":2000,"targets":{}}"#;
+        let signature = STANDARD.encode(key.sign(data).to_bytes());
+        let candidate = Candidate {
+            manifest: verify(data, &signature, &key.verifying_key().to_bytes()).unwrap(),
+            asset: Asset {
+                id: 1,
+                name: "candidate.tar.gz".into(),
+                size: 9,
+            },
+            bytes: data.to_vec(),
+            signature,
+            staged: Some(staged.clone()),
+        };
+        assert_eq!(
+            install(&candidate, false, false).unwrap_err(),
+            "Installation requires explicit approval"
+        );
+        assert_eq!(fs::read(&staged).unwrap(), b"candidate");
+        assert_eq!(
+            install(&candidate, true, true).unwrap_err(),
+            "Finish active calls and transfers before installing"
+        );
+        assert_eq!(fs::read(&staged).unwrap(), b"candidate");
+        fs::remove_dir_all(directory).unwrap();
+    }
+    #[test]
     fn signatures_reject_tampering_and_untrusted_keys() {
         let key = SigningKey::from_bytes(&[42; 32]);
         let data = br#"{"schema":1,"version":"0.2.0","version_code":20099,"targets":{}}"#;

@@ -25,19 +25,30 @@ class HealthFragment : Fragment() {
     private val exportReport=registerForActivityResult(androidx.activity.result.contract.ActivityResultContracts.CreateDocument("application/json")) {uri->
         if(uri!=null) try {requireContext().contentResolver.openOutputStream(uri)?.use {it.write(org.kde.kdeconnect.pingora.DiagnosticReport.create(requireContext()).toByteArray(Charsets.UTF_8))}}catch(_:Exception){}
     }
-    private var stagedUpdate:org.kde.kdeconnect.pingora.SignedUpdate.Staged?=null
+    private val updateImport = org.kde.kdeconnect.pingora.UpdateImportCoordinator<org.kde.kdeconnect.pingora.SignedUpdate.Staged> { it.file.delete() }
+    private val mainHandler = android.os.Handler(android.os.Looper.getMainLooper())
     private var updateMessage="No signed update imported."
     private val importUpdate=registerForActivityResult(androidx.activity.result.contract.ActivityResultContracts.OpenDocument()) {uri->
-        if(uri!=null) {
-            updateMessage="Verifying signed update…";render()
-            val context=requireContext().applicationContext
+        if (uri != null) {
+            val ticket = updateImport.begin() ?: return@registerForActivityResult
+            updateMessage = "Verifying signed update…"
+            render()
+            val context = requireContext().applicationContext
             Thread {
-                try {val candidate=org.kde.kdeconnect.pingora.SignedUpdate.stage(context,uri);stagedUpdate?.file?.delete();stagedUpdate=candidate;updateMessage="Verified version ${candidate.version}. Installation needs approval and Android confirmation."}
-                catch(_:Exception){updateMessage="Update rejected. Check signing identity, bundle integrity and version."}
-                activity?.runOnUiThread {if(isAdded)render()}
+                val candidate = try {
+                    org.kde.kdeconnect.pingora.SignedUpdate.stage(context, uri)
+                } catch (_: Exception) { null }
+                mainHandler.post {
+                    if (updateImport.complete(ticket, candidate)) {
+                        updateMessage = if (candidate != null) "Verified version ${candidate.version}. Installation needs approval and Android confirmation."
+                            else "Update rejected. Check signing identity, bundle integrity and version."
+                        if (isAdded) render()
+                    }
+                }
             }.start()
         }
     }
+
     private var content: LinearLayout? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, state: Bundle?): View {
@@ -67,9 +78,10 @@ class HealthFragment : Fragment() {
                 setPadding(0, 16, 0, 16)
             })
         }
-        fun action(label: String, callback: () -> Unit) {
+        fun action(label: String, enabled: Boolean = true, callback: () -> Unit) {
             layout.addView(Button(context).apply {
                 text = label
+                isEnabled = enabled
                 setOnClickListener { callback() }
             })
         }
@@ -108,22 +120,28 @@ class HealthFragment : Fragment() {
         text("Signed updates")
         text("Use your own GitHub account for private releases. Download the Android update ZIP, then import it here. The signature, APK hash, package, signer and version are checked before the system installer opens.")
         action("Open GitHub releases") {startActivity(Intent(Intent.ACTION_VIEW,Uri.parse("https://github.com/wrestle-R/Pingora/releases")))}
-        action("Import signed Android update") {importUpdate.launch(arrayOf("application/zip","application/octet-stream"))}
+        action("Import signed Android update", !updateImport.isVerifying) {importUpdate.launch(arrayOf("application/zip","application/octet-stream"))}
         text(updateMessage)
         val approval=android.widget.CheckBox(context).apply{text="I approve installing this verified update"};layout.addView(approval)
-        action("Install approved update") {
+        action("Install approved update", !updateImport.isVerifying && updateImport.candidate != null) {
             try {
-                val candidate=stagedUpdate ?: error("Import a signed update first")
+                val candidate=updateImport.candidate ?: error("Import a signed update first")
                 require(approval.isChecked){"Approve the update first"}
                 if(ContextCompat.checkSelfPermission(context,Manifest.permission.READ_PHONE_STATE)!=PackageManager.PERMISSION_GRANTED){requestPermissions(arrayOf(Manifest.permission.READ_PHONE_STATE),73);error("Phone-state permission is needed to check for an active call. Retry after choosing.")}
                 @Suppress("DEPRECATION") val inCall=context.getSystemService(android.telephony.TelephonyManager::class.java).callState!=android.telephony.TelephonyManager.CALL_STATE_IDLE
                 val busy=inCall || KdeConnect.getInstance().devices.values.any{it.getPlugin<org.kde.kdeconnect.pingora.BridgePlugin>()?.files?.busy()==true}
                 val opened=org.kde.kdeconnect.pingora.SignedUpdate.install(context,candidate,true,busy)
+                if (opened) updateImport.handedToInstaller()
                 updateMessage=if(opened)"Android installer opened. Confirm there to finish." else "Allow Pingora to request installations, then return and retry."
             }catch(e:Exception){updateMessage=e.message ?: "Update could not be installed"}
             render()
         }
         action("Refresh health") { render() }
+    }
+
+    override fun onDestroy() {
+        updateImport.dispose()
+        super.onDestroy()
     }
 
     override fun onDestroyView() {
