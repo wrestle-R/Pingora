@@ -26,3 +26,7 @@ Preparation ticket only; status is not authorization to start implementation. No
 ## Implementation checkpoint (2026-11-11)
 
 Source paths now exist for this ticket; see [combined implementation evidence and remaining acceptance](../implementation-verification.md). Build/test evidence does not complete the real-device/desktop/release criteria above. Retain unfinished checkboxes until those exact outcomes are demonstrated.
+
+## Notification-version regression, 2026-11-11
+
+A public Android inbox test reproduced stale removal closing a newer conversation mirror. Mirror cancellation now checks the current active conversation version before removing its native slot. Unlocked Android mirrors show readable synthetic content while retaining private lock-screen visibility. The new Robolectric test failed before the fix and passes after it; full151JVMtests and debug build pass. Physical source-app action/lock checks remain separate.

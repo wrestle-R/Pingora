@@ -51,11 +51,16 @@ object LocalInbox {
         },250,TimeUnit.MILLISECONDS)
     }
     private fun tag(item:JSONObject)="pingora:${item.optString("peer")}:${item.optString("app")}:${item.optString("conversation")}"
+    private fun cancelMirror(item:JSONObject) {
+        // A conversation slot may now contain a newer source version.
+        val current=items.lastOrNull {it.optBoolean("active") && tag(it)==tag(item)}
+        if(current!=null && current!==item) return
+        context?.let {NotificationManagerCompat.from(it).cancel(tag(item),1)}
+    }
     private fun prune(){
         val now=System.currentTimeMillis();val expired=items.filter {now-it.optLong("received")>=DAY}
-        val manager=context?.let {NotificationManagerCompat.from(it)}
-        expired.forEach {manager?.cancel(tag(it),1)};items.removeAll(expired.toSet())
-        while(items.size>500) {val old=items.removeAt(0);manager?.cancel(tag(old),1)}
+        expired.forEach {cancelMirror(it)};items.removeAll(expired.toSet())
+        while(items.size>500) {val old=items.removeAt(0);cancelMirror(old)}
         pending.removeAll {now-it.optLong("created")>=DAY}
         if(expired.isNotEmpty())schedule()
     }
@@ -75,7 +80,7 @@ object LocalInbox {
     private fun show(item:JSONObject) {
         val context=context ?: return
         val peer=item.optString("peer")
-        val reveal=SharingPolicy.preferences(context).getBoolean("$peer.show_locked",false)
+        val reveal=!context.getSystemService(KeyguardManager::class.java).isDeviceLocked || SharingPolicy.preferences(context).getBoolean("$peer.show_locked",false)
         val title=if(reveal)item.optString("title").ifEmpty {item.optString("app")} else "New laptop notification"
         val body=if(reveal)item.optString("body") else "Open Pingora to view private content."
         val open=PendingIntent.getActivity(context,519,Intent(context,MainActivity::class.java).putExtra("pingora_inbox",true),PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
@@ -86,7 +91,7 @@ object LocalInbox {
         try {NotificationManagerCompat.from(context).notify(tag(item),1,notification)}catch(_:SecurityException){}
     }
     @Synchronized fun removed(context:Context,peer:String,source:String,version:String) {
-        init(context);items.filter {it.optString("peer")==peer&&it.optString("source")==source&&it.optString("version")==version}.forEach {it.put("active",false);NotificationManagerCompat.from(context).cancel(tag(it),1)};schedule()
+        init(context);items.filter {it.optString("peer")==peer&&it.optString("source")==source&&it.optString("version")==version}.forEach {it.put("active",false);cancelMirror(it)};schedule()
     }
     @Synchronized fun search(context:Context,query:String):List<JSONObject> {
         init(context);prune()
@@ -107,6 +112,6 @@ object LocalInbox {
         pending.filter {it.optString("peer")==peer && System.currentTimeMillis()-it.optLong("last_sent")>10_000}.forEach {if(bridge.send("notification_action",it))it.put("last_sent",System.currentTimeMillis())}
     }
     @Synchronized fun acknowledge(context:Context,peer:String,id:String) {init(context);pending.removeAll {it.optString("peer")==peer&&it.optString("action_id")==id};schedule()}
-    @Synchronized fun forget(context:Context,peer:String) {init(context);pending.removeAll {it.optString("peer")==peer};items.filter {it.optString("peer")==peer}.forEach {it.put("active",false);NotificationManagerCompat.from(context).cancel(tag(it),1)};schedule()}
+    @Synchronized fun forget(context:Context,peer:String) {init(context);pending.removeAll {it.optString("peer")==peer};items.filter {it.optString("peer")==peer}.forEach {it.put("active",false);cancelMirror(it)};schedule()}
     private const val DAY=86_400_000L
 }
