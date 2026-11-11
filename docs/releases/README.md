@@ -8,9 +8,19 @@ No app release is published yet. See [current verification](../progress/implemen
 - `tools/release.py --tag vVERSION [--publish]`: exact clean-tag guard, matching Cargo/Tauri/Android versions, Android version-code mapping `major*1000000 + minor*1000 + patch`, tests/builds, pinned native source retrieval, signing and corresponding-source archives. `--publish` stages a complete draft only. Never clobbers an existing release.
 - `tools/slumber-adapter.py`: dry-run compatible-source check; explicit `--apply` writes a backed-up narrow lid setter. Does not restart the shell, change a preference, lock or unlock it.
 
-The GitHub workflow requires a dedicated qualified `pingora-release` self-hosted Linux x86_64 runner and a protected `native-release` environment. Runner custody and provisioning are still outstanding, so no successful CI run is claimed. The runner needs the toolchains/dependencies in the native build notes, ANDROID_HOME, Java21, Rust/Cargo, CMake/Ninja, Python3.12+, OpenSSL/keytool/apksigner, and protected ignored signing files. They are not uploaded by this source commit.
+The GitHub workflow uses GitHub-hosted Ubuntu24.04 runners. The keyless build job runs inside a digest-pinned Arch Linux container, installs Java21/native dependencies and the checksum-pinned Android SDK, runs Rust/Android checks, then uploads unsigned Android/Linux artifacts and corresponding source. Its package inventory is retained with the artifacts. Arch packages are updated at build time, so this is recorded build provenance rather than a bit-for-bit reproducibility claim.
 
-Private signing files: `release-private/android-release.p12`, `android-store-password`, and `update-ed25519.pem`. Keep secure backups outside Git; loss prevents ordinary signed updates. Public trust anchor: `trust/update-public-key.hex`. Never rotate identities silently. No signing passwords, keys, notification bodies or clipboard data belong in CI logs/artifacts.
+A separate signing job runs only for stable `vMAJOR.MINOR.PATCH` tags whose commit belongs to `main`. It uses the `native-release` environment, restricted to `v*` tags, with environment secrets `PINGORA_ANDROID_KEYSTORE_B64`, `PINGORA_ANDROID_STORE_PASSWORD` and `PINGORA_UPDATE_SIGNING_KEY`. These secrets have been provisioned. The job materializes private files temporarily, signs/verifies the finished artifacts against both tracked public identities, creates a complete GitHub Release draft, then removes the key files. No signing keys are available to the build job or included in artifacts. GitHub environment reviewer approval is not configured; tag restrictions are the current protection rule.
+
+A manual run on `main` validates the unsigned hosted build without releasing anything:
+
+```sh
+gh workflow run native-release.yml --ref main
+```
+
+Hosted validation is pending. Creating a tag does not prove device or desktop compatibility. Draft publication remains a separate acceptance decision; this workflow never publishes a draft automatically.
+
+Private signing files: `release-private/android-release.p12`, `android-store-password`, and `update-ed25519.pem`. Keep secure backups outside Git; loss prevents ordinary signed updates. Public identities: `trust/update-public-key.hex` and `trust/android-cert-sha256.hex`. Never rotate identities silently. No signing passwords, keys, notification bodies or clipboard data belong in CI logs/artifacts.
 
 After a qualified release exists, from a reviewed checkout authenticated for this repository:
 

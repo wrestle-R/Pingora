@@ -1,14 +1,53 @@
-name: Signed native release
+name: Native build and signed release
 on:
   push:
     tags: ['v*']
   workflow_dispatch:
 permissions:
   contents: read
+concurrency:
+  group: native-${{ github.ref }}
+  cancel-in-progress: false
 jobs:
-  release:
-    # Dedicated, qualified host; never run unreviewed pull requests with signing keys.
-    runs-on: [self-hosted, linux, x64, pingora-release]
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    container:
+      image: archlinux@sha256:fa2d4ce3310ddd90a4208e5168be8ad367da5129af1245f38fd2d803bcbe3239
+    env:
+      JAVA_HOME: /usr/lib/jvm/java-21-openjdk
+      JAVA_TOOL_OPTIONS: -Djava.net.preferIPv4Stack=true
+      CARGO_BUILD_JOBS: '2'
+      CARGO_PROFILE_DEV_DEBUG: '0'
+      CARGO_PROFILE_TEST_DEBUG: '0'
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Install host build dependencies (no signing credentials)
+        run: |
+          pacman -Syu --noconfirm --needed git cmake ninja rust pkgconf python jdk21-openjdk unzip curl openssl gettext gtk3 webkit2gtk-4.1 extra-cmake-modules qt6-base qt6-declarative qt6-wayland qt6-multimedia kcoreaddons kconfig kdbusaddons ki18n kiconthemes knotifications kio kcolorscheme kservice kirigami kpeople kwindowsystem kguiaddons kcrash kitemmodels kwidgetsaddons kpackage solid kirigami-addons qqc2-desktop-style wayland wayland-protocols libxkbcommon
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Install pinned Android SDK
+        run: python3 docs/releases/tools/setup-sdk.py
+      - name: Test and build unsigned artifacts
+        run: |
+          python3 docs/releases/tools/build-release.py
+          pacman -Q > release-private/unsigned/build-host-packages.txt
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: native-unsigned
+          path: release-private/unsigned/
+          retention-days: 7
+          if-no-files-found: error
+  sign:
+    if: startsWith(github.ref, 'refs/tags/v') && github.repository == 'wrestle-R/Pingora'
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
     environment: native-release
     permissions:
       contents: write
@@ -17,7 +56,36 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 0
-      - name: Build, verify and sign exact tag
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: native-unsigned
+          path: release-private/unsigned/
+      - name: Verify tag belongs to main
+        run: git merge-base --is-ancestor HEAD origin/main
+      - uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00 # v4.7.1
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install pinned signing SDK
+        run: python3 docs/releases/tools/setup-sdk.py
+      - name: Materialize protected signing files
+        env:
+          KEYSTORE: ${{ secrets.PINGORA_ANDROID_KEYSTORE_B64 }}
+          STORE_PASSWORD: ${{ secrets.PINGORA_ANDROID_STORE_PASSWORD }}
+          UPDATE_SIGNER: ${{ secrets.PINGORA_UPDATE_SIGNING_KEY }}
+        run: |
+          python3 - <<'PY'
+          import os,base64
+          from pathlib import Path
+          p=Path('release-private/keys');p.mkdir(parents=True,mode=0o700)
+          for name,content in [('android-release.p12',base64.b64decode(os.environ['KEYSTORE'],validate=True)),('android-store-password',os.environ['STORE_PASSWORD'].encode()),('update-ed25519.pem',os.environ['UPDATE_SIGNER'].encode())]:
+              if not content:raise SystemExit('Required signing secret is absent')
+              f=p/name;f.write_bytes(content);f.chmod(0o600)
+          PY
+      - name: Sign, verify and create complete draft
         env:
           GH_TOKEN: ${{ github.token }}
-        run: python3 docs/releases/tools/release.py --tag "$GITHUB_REF_NAME" --publish
+        run: python3 docs/releases/tools/sign-release.py
+      - name: Remove ephemeral signing files
+        if: always()
+        run: rm -rf release-private/keys
