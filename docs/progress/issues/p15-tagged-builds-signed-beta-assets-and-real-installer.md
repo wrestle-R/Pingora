@@ -17,11 +17,13 @@
 
 ## Verification
 
-Not started. Record actual commands, observed behavior and limitations here when work begins.
+2026-11-11: Android145tests and optimized APK build pass; Rust9tests/Clippy and Linux tar build pass. Candidate APK signature and Ed25519 metadata verify against tracked identities. The actual signed development Linux tar installed into an isolated temporary home using `docs/releases/install.py --source`; the installed executable health probe passed. This is not a tagged release or prior-version OS-upgrade qualification.
+
+User selected GitHub-hosted runners with protected signing secrets. Environment `native-release` is provisioned with the three named secrets documented in the release guide and restricted to `v*` tags; no reviewer gate is configured. Workflow separates a keyless digest-pinned Arch build from a hosted signing job and only creates complete drafts. Local actionlint/Python checks pass. First hosted unsigned run: https://github.com/wrestle-R/Pingora/actions/runs/42971092839 (in progress).
 
 ## Comments
 
-Preparation ticket only; status is not authorization to start implementation. No app/release artifact exists yet.
+Full implementation and milestone pushes are authorized. Keep exact-tag production, private-download and signing-backup/upgrade qualification distinct from candidate package checks.
 
 ## Implementation checkpoint (2026-11-11)
 
