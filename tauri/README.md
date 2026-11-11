@@ -11,7 +11,7 @@ npm --prefix tauri/frontend ci
 npm --prefix tauri/frontend test
 npm --prefix tauri/frontend run build
 cargo test --locked --manifest-path tauri/src-tauri/Cargo.toml
-cargo run --locked --manifest-path tauri/src-tauri/Cargo.toml
+cargo run --locked --features custom-protocol --manifest-path tauri/src-tauri/Cargo.toml
 ```
 
 `tauri/frontend/` contains the React source and `components.json`. `tauri/ui/` is ignored generated output embedded by Tauri, so build the frontend before using Cargo directly. Tauri CLI hooks also run the Vite dev/build commands. Release tooling prepares the frontend before Rust checks and packaging.
