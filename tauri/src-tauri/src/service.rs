@@ -30,8 +30,13 @@ impl NativeService {
             let _ = old.kill();
             let _ = old.wait();
         }
-        let binary = std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
-            .join("../target/native/build/bin/kdeconnectd");
+        let packaged = std::env::current_exe()
+            .ok()
+            .and_then(|p| p.parent().map(|p| p.join("native/kdeconnectd")));
+        let binary = packaged.filter(|p| p.is_file()).unwrap_or_else(|| {
+            std::path::Path::new(env!("CARGO_MANIFEST_DIR"))
+                .join("../target/native/build/bin/kdeconnectd")
+        });
         if !binary.is_file() {
             return Err("Build the native LAN service first (see tauri/native/README.md).".into());
         }
@@ -95,7 +100,7 @@ fn bus(arguments: &[&str]) -> Result<Value, String> {
                 .into(),
         );
     }
-    if output.stdout.len() > 65536 {
+    if output.stdout.len() > 524288 {
         return Err("The LAN service response exceeded its limit".into());
     }
     if output.stdout.is_empty() {
@@ -251,4 +256,55 @@ pub fn pairing(
         method,
     ])?;
     Ok(())
+}
+
+pub fn send(id: &str, envelope: &str) -> Result<(), String> {
+    if envelope.len() > 32768 {
+        return Err("Message exceeds transport limit".into());
+    }
+    let known = ids(true)?
+        .into_iter()
+        .find(|known| known == id)
+        .ok_or("Device is not paired")?;
+    let value = bus(&[
+        "call",
+        SERVICE,
+        &format!("{ROOT}/devices/{known}"),
+        DEVICE,
+        "sendEnvelope",
+        "s",
+        envelope,
+    ])?;
+    if value["data"][0].as_bool() != Some(true) {
+        return Err("Paired device is offline or incompatible".into());
+    }
+    Ok(())
+}
+pub fn take(id: &str) -> Result<Vec<String>, String> {
+    let known = ids(true)?
+        .into_iter()
+        .find(|known| known == id)
+        .ok_or("Device is not paired")?;
+    let value = bus(&[
+        "call",
+        SERVICE,
+        &format!("{ROOT}/devices/{known}"),
+        DEVICE,
+        "takeEnvelopes",
+    ])?;
+    let items = value["data"][0]
+        .as_array()
+        .ok_or("Invalid transport response")?;
+    if items.len() > 8 {
+        return Err("Transport batch exceeded its limit".into());
+    }
+    items
+        .iter()
+        .map(|v| {
+            v.as_str()
+                .filter(|s| s.len() <= 32768)
+                .map(str::to_owned)
+                .ok_or_else(|| "Invalid transport message".into())
+        })
+        .collect()
 }

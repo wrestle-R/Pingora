@@ -24,3 +24,7 @@
 ## Comments
 
 User identified the existing right-sidebar Slumber explicitly. This is a specific exception to the former blanket remote-command exclusion, not authorization for generic shell execution. Source snapshot provenance points to wrestle-R/Linux commit 6a3738a76feb748416cbde07ff7e17b0cd919be6; local Hyprland-stuff directory is not a Git checkout. Pairing and capability enforcement must precede phone-triggered side effects.
+
+## Implementation checkpoint (2026-11-11)
+
+Source paths now exist for this ticket; see [combined implementation evidence and remaining acceptance](../implementation-verification.md). Build/test evidence does not complete the real-device/desktop/release criteria above. Retain unfinished checkboxes until those exact outcomes are demonstrated.

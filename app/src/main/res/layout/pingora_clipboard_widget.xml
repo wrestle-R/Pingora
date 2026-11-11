@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="16dp" android:background="#19352F">
+    <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Pingora" android:textColor="#FFFFFF" android:textSize="20sp" />
+    <TextView android:id="@+id/pingora_widget_status" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Open to check connection" android:textColor="#FFFFFF" android:textSize="14sp" />
+    <Button android:id="@+id/pingora_widget_send" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Send clipboard" />
+</LinearLayout>

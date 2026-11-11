@@ -1,0 +1,23 @@
+name: Signed native release
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  release:
+    # Dedicated, qualified host; never run unreviewed pull requests with signing keys.
+    runs-on: [self-hosted, linux, x64, pingora-release]
+    environment: native-release
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Build, verify and sign exact tag
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 docs/releases/tools/release.py --tag "$GITHUB_REF_NAME" --publish

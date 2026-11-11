@@ -55,6 +55,8 @@ start = s.index('add_subdirectory(core)')
 end = s.index('ki18n_install(po)')
 s = s[:start] + 'add_subdirectory(core)\nadd_subdirectory(dbusinterfaces)\nadd_subdirectory(daemon)\n\n' + s[end:]
 p.write_text(s)
+from bridge import apply as apply_bridge
+apply_bridge(source)
 build = work / 'build'
 subprocess.run(['cmake', '-S', str(source), '-B', str(build), '-G', 'Ninja',
                 '-DBLUETOOTH_ENABLED=OFF', '-DBUILD_TESTING=OFF',

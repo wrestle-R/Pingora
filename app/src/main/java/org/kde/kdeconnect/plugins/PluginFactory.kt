@@ -18,8 +18,8 @@ object PluginFactory {
         try {
             pluginInfo = com.albertvaka.classindexksp.LoadablePlugin
                 .asSequence()
-                // Build-path probe: advertise no device features before their ticket is verified.
-                .filter { it.qualifiedName in emptySet<String>() }
+                // Only Pingora’s bounded paired channel is loadable; every feature defaults off.
+                .filter { it.qualifiedName == "org.kde.kdeconnect.pingora.BridgePlugin" }
                 .map { it.java.getDeclaredConstructor().newInstance() as Plugin }
                 .onEach { it.setContext(context, null) }
                 .associate { Pair(it.pluginKey, PluginInfo(it)) }

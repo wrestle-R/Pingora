@@ -22,6 +22,22 @@ import org.kde.kdeconnect.KdeConnect
 
 /** Local observations only. No permission grants, feature activation or private payloads. */
 class HealthFragment : Fragment() {
+    private val exportReport=registerForActivityResult(androidx.activity.result.contract.ActivityResultContracts.CreateDocument("application/json")) {uri->
+        if(uri!=null) try {requireContext().contentResolver.openOutputStream(uri)?.use {it.write(org.kde.kdeconnect.pingora.DiagnosticReport.create(requireContext()).toByteArray(Charsets.UTF_8))}}catch(_:Exception){}
+    }
+    private var stagedUpdate:org.kde.kdeconnect.pingora.SignedUpdate.Staged?=null
+    private var updateMessage="No signed update imported."
+    private val importUpdate=registerForActivityResult(androidx.activity.result.contract.ActivityResultContracts.OpenDocument()) {uri->
+        if(uri!=null) {
+            updateMessage="Verifying signed update…";render()
+            val context=requireContext().applicationContext
+            Thread {
+                try {val candidate=org.kde.kdeconnect.pingora.SignedUpdate.stage(context,uri);stagedUpdate?.file?.delete();stagedUpdate=candidate;updateMessage="Verified version ${candidate.version}. Installation needs approval and Android confirmation."}
+                catch(_:Exception){updateMessage="Update rejected. Check signing identity, bundle integrity and version."}
+                activity?.runOnUiThread {if(isAdded)render()}
+            }.start()
+        }
+    }
     private var content: LinearLayout? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, state: Bundle?): View {
@@ -71,7 +87,7 @@ class HealthFragment : Fragment() {
         val devices = KdeConnect.getInstance().devices.values.toList()
         val paired = devices.filter { it.isPaired }
         text("Paired devices: ${paired.size}. Reachable paired devices: ${paired.count { it.isReachable }}.")
-        text("Pairing grants trust to a device. Sharing features remain unavailable in this development build.")
+        text("Pairing grants trust to a device. Enable each available sharing feature in Sharing controls on both devices.")
         val notifications = Build.VERSION.SDK_INT < 33 || ContextCompat.checkSelfPermission(
             context, Manifest.permission.POST_NOTIFICATIONS
         ) == PackageManager.PERMISSION_GRANTED
@@ -86,7 +102,27 @@ class HealthFragment : Fragment() {
         text(if (power.isIgnoringBatteryOptimizations(context.packageName)) "Battery optimization: unrestricted." else "Battery optimization: active. Android may interrupt background connections. Review battery settings if disconnects occur.")
         action("Battery optimization settings") { settings(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS) }
         text("Discovery: keep both devices on the same trusted local network. Review Trusted networks in Pingora settings if discovery is restricted.")
-        text("Notification mirroring, clipboard, files, shared folders, calls and phone Slumber controls: not implemented. App notification permission does not grant access to other apps’ notifications.")
+        text("Notification sharing needs separate notification access and selected phone apps in Sharing controls. Clipboard uses an explicit foreground send. Files, shared folders, calls and Slumber phone controls are still under development. App notification permission does not grant access to other apps’ notifications.")
+        action("Preview sanitized diagnostics") {text(org.kde.kdeconnect.pingora.DiagnosticReport.create(context))}
+        action("Export sanitized diagnostics") {exportReport.launch("pingora-diagnostics.json")}
+        text("Signed updates")
+        text("Use your own GitHub account for private releases. Download the Android update ZIP, then import it here. The signature, APK hash, package, signer and version are checked before the system installer opens.")
+        action("Open GitHub releases") {startActivity(Intent(Intent.ACTION_VIEW,Uri.parse("https://github.com/wrestle-R/Pingora/releases")))}
+        action("Import signed Android update") {importUpdate.launch(arrayOf("application/zip","application/octet-stream"))}
+        text(updateMessage)
+        val approval=android.widget.CheckBox(context).apply{text="I approve installing this verified update"};layout.addView(approval)
+        action("Install approved update") {
+            try {
+                val candidate=stagedUpdate ?: error("Import a signed update first")
+                require(approval.isChecked){"Approve the update first"}
+                if(ContextCompat.checkSelfPermission(context,Manifest.permission.READ_PHONE_STATE)!=PackageManager.PERMISSION_GRANTED){requestPermissions(arrayOf(Manifest.permission.READ_PHONE_STATE),73);error("Phone-state permission is needed to check for an active call. Retry after choosing.")}
+                @Suppress("DEPRECATION") val inCall=context.getSystemService(android.telephony.TelephonyManager::class.java).callState!=android.telephony.TelephonyManager.CALL_STATE_IDLE
+                val busy=inCall || KdeConnect.getInstance().devices.values.any{it.getPlugin<org.kde.kdeconnect.pingora.BridgePlugin>()?.files?.busy()==true}
+                val opened=org.kde.kdeconnect.pingora.SignedUpdate.install(context,candidate,true,busy)
+                updateMessage=if(opened)"Android installer opened. Confirm there to finish." else "Allow Pingora to request installations, then return and retry."
+            }catch(e:Exception){updateMessage=e.message ?: "Update could not be installed"}
+            render()
+        }
         action("Refresh health") { render() }
     }
 

@@ -46,6 +46,8 @@ import org.kde.kdeconnect_tp.databinding.ActivityMainBinding
 
 private const val MENU_ENTRY_ADD_DEVICE = 1 //0 means no-selection
 private const val MENU_ENTRY_SETTINGS = 2
+private const val MENU_ENTRY_INBOX = 6
+private const val MENU_ENTRY_SHARING = 5
 private const val MENU_ENTRY_HEALTH = 4
 private const val MENU_ENTRY_ABOUT = 3
 private const val MENU_ENTRY_DEVICE_FIRST_ID = 1000 //All subsequent ids are devices in the menu
@@ -151,6 +153,9 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
                     setContentFragment(SettingsFragment())
                 }
 
+                MENU_ENTRY_INBOX -> {setContentFragment(InboxFragment())}
+                MENU_ENTRY_SHARING -> { setContentFragment(SharingFragment()) }
+
                 MENU_ENTRY_HEALTH -> {
                     setContentFragment(HealthFragment())
                 }
@@ -214,6 +219,13 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
         if (savedInstanceState != null) {
             val frag = supportFragmentManager.findFragmentById(R.id.container)
             if (frag !is DeviceFragment || frag.deviceId == savedDevice) return
+        }
+
+        if(intent.getBooleanExtra("pingora_inbox",false)) {mCurrentMenuEntry=MENU_ENTRY_INBOX;setContentFragment(InboxFragment());return}
+        if(intent.getBooleanExtra("pingora_sharing",false)) {
+            mCurrentMenuEntry=MENU_ENTRY_SHARING
+            setContentFragment(SharingFragment())
+            return
         }
 
         // Activate the chosen fragment and select the entry in the menu
@@ -306,6 +318,8 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
         val addDeviceItem = devicesMenu.add(Menu.FIRST, MENU_ENTRY_ADD_DEVICE, 1000, R.string.pair_new_device)
         addDeviceItem.setIcon(R.drawable.ic_action_content_add_circle_outline_32dp)
         addDeviceItem.isCheckable = true
+        menu.add(Menu.FIRST,MENU_ENTRY_INBOX,997,"Inbox").isCheckable=true
+        menu.add(Menu.FIRST, MENU_ENTRY_SHARING, 998, "Sharing controls").isCheckable = true
         menu.add(Menu.FIRST, MENU_ENTRY_HEALTH, 999, "Connection health").isCheckable = true
         val settingsItem = menu.add(Menu.FIRST, MENU_ENTRY_SETTINGS, 1000, R.string.settings)
         settingsItem.setIcon(R.drawable.ic_settings_white_32dp)
