@@ -17,8 +17,8 @@
 
 ## Verification
 
-Not started. Record actual commands, observed behavior and limitations here when work begins.
+2026-11-11: fresh-profile startup regression reproduced/fixed and verified on the actual rebuilt tar. A short unpaired Wayland desktop idle sample is recorded in [profile data](../native-idle-profile.json) and [implementation evidence](../implementation-verification.md). Five-second warmup/twenty-second sample; no native daemon or sharing/calls. This is not long-run or paired-load qualification, so the resource criterion remains open.
 
 ## Comments
 
-Preparation ticket only; status is not authorization to start implementation. No app/release artifact exists yet.
+Full implementation is authorized; unfinished device/desktop/load acceptance remains explicit.

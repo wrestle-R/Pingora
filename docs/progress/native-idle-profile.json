@@ -1,0 +1,11 @@
+{
+  "artifact": "local rebuilt development 0.1.0 with Downloads fallback",
+  "seconds": 20.1,
+  "rss_sum_peak_mib": 551.8,
+  "cpu_one_core_percent": 1.04,
+  "process_count_peak": 3,
+  "scope": "Unpaired Wayland desktop and descendants; isolated home/session bus; five-second warmup then twenty-second sample; no daemon, sharing or calls. RSS sum includes shared pages; not paired/load qualification.",
+  "date": "2026-11-11",
+  "host": "Arch Linux, Hyprland/Wayland",
+  "artifact_sha256": "9173b483b3419791955f8eaeb184fcd7c72c796fa371765747eadbd3a075cdd8"
+}

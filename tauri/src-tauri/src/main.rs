@@ -358,11 +358,14 @@ fn main() {
     tauri::Builder::default()
         .manage(Arc::new(service::NativeService::default()))
         .setup(|app| {
-            let runtime = runtime::Runtime::open(
-                app.path().app_data_dir()?,
-                app.path().download_dir()?.join("Pingora"),
-            )
-            .map_err(std::io::Error::other)?;
+            // Minimal Linux profiles may not define XDG_DOWNLOAD_DIR yet.
+            let downloads = app
+                .path()
+                .download_dir()
+                .or_else(|_| app.path().home_dir().map(|home| home.join("Downloads")))?;
+            let runtime =
+                runtime::Runtime::open(app.path().app_data_dir()?, downloads.join("Pingora"))
+                    .map_err(std::io::Error::other)?;
             runtime.set_native(native::start(Arc::clone(&runtime), app.handle().clone()));
             observe::start(Arc::clone(&runtime));
             app.manage(Arc::clone(&runtime));
