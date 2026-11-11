@@ -174,7 +174,8 @@ impl Runtime {
     pub fn desktop_app_selected(&self, app: &str) -> bool {
         self.store.lock().ok().is_some_and(|s| {
             s.policies.values().any(|p| {
-                p.allows(Feature::Notifications) && p.desktop_apps.iter().any(|a| a == app)
+                p.allows(Feature::Notifications)
+                    && p.desktop_apps.iter().any(|a| a == "*" || a == app)
             })
         })
     }
@@ -204,7 +205,9 @@ impl Runtime {
                 s.policies
                     .iter()
                     .filter(|(_, p)| {
-                        p.allows(Feature::Notifications) && p.desktop_apps.contains(&notice.app)
+                        p.allows(Feature::Notifications)
+                            && (p.desktop_apps.iter().any(|a| a == "*")
+                                || p.desktop_apps.contains(&notice.app))
                     })
                     .map(|(id, _)| id.clone())
                     .collect()
@@ -913,6 +916,18 @@ impl Runtime {
                 }
             }
             if let Ok(peers) = service::peers() {
+                if let Ok(mut store) = self.store.lock() {
+                    let mut changed = false;
+                    for peer in peers.iter().filter(|peer| peer.paired) {
+                        if !store.policies.contains_key(&peer.id) {
+                            store.policies.insert(peer.id.clone(), Policy::default());
+                            changed = true;
+                        }
+                    }
+                    if changed {
+                        self.save(&store).ok();
+                    }
+                }
                 let reachable: Vec<_> = peers
                     .iter()
                     .filter(|p| p.paired && p.reachable)

@@ -249,7 +249,7 @@ export default function App() {
                   description="Start with a pair, then choose your features."
                 >
                   <p className="text-sm leading-relaxed text-muted-foreground">
-                    Sharing starts off. Enable notifications, clipboard, files
+                    Sharing features start enabled for new pairings. Review notifications, clipboard, files
                     or folders for each paired device in Sharing. Private inbox
                     content stays hidden when this laptop is locked.
                   </p>

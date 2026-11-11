@@ -5,4 +5,8 @@
 
     <!-- Whenever possible, don't hardcode colors here and rely on the default ones (eg: from the system or user theme) -->
 
+    <color name="pingora_primary">#087C72</color>
+    <color name="pingora_on_primary">#FFFFFF</color>
+    <color name="pingora_surface">#F5F8F7</color>
+    <color name="pingora_background">#F5F8F7</color>
 </resources>

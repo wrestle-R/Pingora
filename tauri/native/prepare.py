@@ -40,6 +40,18 @@ for path in source.rglob('*'):
         text = path.read_text()
         if '"org.kde.kdeconnect"' in text:
             path.write_text(text.replace('"org.kde.kdeconnect"', '"io.github.wrestle_r.pingora"'))
+# Separate discovery from KDE Connect, including when both daemons run.
+replace('core/backends/lan/lanlinkprovider.h', '1716', '1816')
+replace('core/backends/lan/lanlinkprovider.h', '1764', '1864')
+replace('core/backends/lan/avahidiscovery.cpp', '_kdeconnect._udp', '_pingora._udp')
+replace('core/backends/lan/mdnshdiscovery.cpp', '_kdeconnect._udp', '_pingora._udp')
+# Pairing stays in Pingora's comparison UI, never upstream KDE settings.
+pairing_source = source / 'daemon/desktop_daemon.cpp'
+pairing_text = pairing_source.read_text()
+start = pairing_text.index('void DesktopDaemon::askPairingConfirmation(Device *device)')
+end = pairing_text.index('\nvoid DesktopDaemon::', start + 1)
+pairing_text = pairing_text[:start] + "void DesktopDaemon::askPairingConfirmation(Device *device)\n{\n    Q_UNUSED(device); // Pingora frontend owns pairing confirmation.\n}\n" + pairing_text[end:]
+pairing_source.write_text(pairing_text)
 replace('daemon/kdeconnectd.cpp', 'QStringLiteral("kdeconnect.daemon")', 'QStringLiteral("pingora.daemon")')
 replace('daemon/kdeconnectd.cpp', 'i18n("KDE Connect Daemon")', 'i18n("Pingora service (development)")')
 # Never enumerate or instantiate system-installed KDE Connect plugins.

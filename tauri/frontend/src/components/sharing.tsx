@@ -126,10 +126,13 @@ function SharingPeer({
       <Collapsible className="section-divider">
         <CollapsibleTrigger asChild>
           <Button variant="outline">
-            Desktop notification apps · {policy.desktop_apps.length} selected
+            Desktop notification apps · {policy.desktop_apps.includes("*") ? "All apps" : `${policy.desktop_apps.length} selected`}
           </Button>
         </CollapsibleTrigger>
         <CollapsibleContent className="mt-4 flex flex-col gap-3">
+          <CheckField id={`${peer.id}-all-apps`} label="Share notifications from all desktop apps"
+            checked={policy.desktop_apps.includes("*")} disabled={busy}
+            onChange={(checked) => void save({ ...policy, desktop_apps: checked ? ["*"] : [] })} />
           <Input
             aria-label="Find a desktop app"
             placeholder="Find an app…"
@@ -147,8 +150,8 @@ function SharingPeer({
                   key={id}
                   id={`${peer.id}-app-${id}`}
                   label={name}
-                  checked={policy.desktop_apps.includes(id)}
-                  disabled={busy}
+                  checked={policy.desktop_apps.includes("*") || policy.desktop_apps.includes(id)}
+                  disabled={busy || policy.desktop_apps.includes("*")}
                   onChange={(checked) =>
                     void save({
                       ...policy,

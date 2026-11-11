@@ -9,7 +9,7 @@ object SharingPolicy {
     fun preferences(context: Context) = context.getSharedPreferences("pingora_sharing", Context.MODE_PRIVATE)
     fun allows(context: Context, peer: String, feature: String): Boolean {
         val p = preferences(context)
-        return !p.getBoolean("$peer.paused", false) && p.getBoolean("$peer.$feature", false)
+        return !p.getBoolean("$peer.paused", false) && p.getBoolean("$peer.$feature", feature in features)
     }
     fun set(context: Context, peer: String, feature: String, enabled: Boolean) {
         require(feature in features || feature == "paused")
@@ -26,5 +26,5 @@ object SharingPolicy {
             try {context.contentResolver.releasePersistableUriPermission(android.net.Uri.parse(uri),android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION)}catch(_:SecurityException){}
         }
     }
-    fun apps(context: Context): Set<String> = preferences(context).getStringSet("phone_apps", emptySet())?.toSet() ?: emptySet()
+    fun apps(context: Context): Set<String> = preferences(context).getStringSet("phone_apps", setOf("com.whatsapp", "com.whatsapp.w4b", "com.instagram.android", "com.google.android.gm", android.provider.Telephony.Sms.getDefaultSmsPackage(context) ?: "").filter { it.isNotEmpty() }.toSet())?.toSet() ?: emptySet()
 }

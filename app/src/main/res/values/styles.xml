@@ -6,8 +6,12 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
 
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- NoActionBar because we use a Toolbar widget as ActionBar -->
-    <style name="KdeConnectThemeBase" parent="Theme.Material3.DynamicColors.DayNight.NoActionBar">
-        <!-- The main color attributes -->
+    <style name="KdeConnectThemeBase" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/pingora_primary</item>
+        <item name="colorOnPrimary">@color/pingora_on_primary</item>
+        <item name="colorSurface">@color/pingora_surface</item>
+        <item name="android:colorBackground">@color/pingora_background</item>
+        <item name="android:windowBackground">@color/pingora_background</item>
         <!-- Drawable definitions and overrides -->
 
         <item name="materialCardViewStyle">@style/KdeConnectCardStyle</item>

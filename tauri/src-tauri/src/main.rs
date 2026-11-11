@@ -362,6 +362,10 @@ fn main() {
     tauri::Builder::default()
         .manage(Arc::new(service::NativeService::default()))
         .setup(|app| {
+            let lan = app.state::<Arc<service::NativeService>>().inner().clone();
+            std::thread::spawn(move || {
+                let _ = lan.start();
+            });
             // Minimal Linux profiles may not define XDG_DOWNLOAD_DIR yet.
             let downloads = app
                 .path()

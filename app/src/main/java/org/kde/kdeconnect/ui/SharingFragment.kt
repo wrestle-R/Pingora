@@ -10,8 +10,8 @@ import android.provider.Telephony
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CheckBox
+import com.google.android.material.button.MaterialButton as Button
+import com.google.android.material.materialswitch.MaterialSwitch as CheckBox
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
@@ -54,8 +54,8 @@ class SharingFragment : Fragment() {
     override fun onResume() { super.onResume(); render() }
     private fun render() {
         val context=requireContext(); val layout=content ?: return; layout.removeAllViews()
-        fun text(value:String) { layout.addView(TextView(context).apply { text=value; textSize=17f; setPadding(0,16,0,16) }) }
-        fun button(label:String, action:()->Unit) { layout.addView(Button(context).apply { text=label; setOnClickListener {action()} }) }
+        fun text(value:String) { layout.addView(TextView(context).apply { text=value; textSize=if(value=="Sharing controls") 30f else 16f; setPadding(0,16,0,16) }) }
+        fun button(label:String, action:()->Unit) { layout.addView(Button(context).apply { text=label; isAllCaps=false; minimumHeight=(56*resources.displayMetrics.density).toInt(); setOnClickListener {action()} }) }
         text("Sharing controls")
         text("Choose each feature on both devices. Pause rejects new sharing; pairing and saved history remain. Notification access is optional and can be revoked in Android Settings.")
         button("Notification access settings") { startActivity(Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)) }
@@ -91,7 +91,7 @@ class SharingFragment : Fragment() {
             for(feature in listOf("paused","notifications","clipboard","files","folders","battery","ring","slumber")) {
                 layout.addView(CheckBox(context).apply {
                     text=if(feature=="paused") "Pause sharing" else "Allow $feature"
-                    isChecked=preferences.getBoolean("${device.deviceId}.$feature",false)
+                    isChecked=preferences.getBoolean("${device.deviceId}.$feature",feature != "paused")
                     setOnCheckedChangeListener {_,enabled-> SharingPolicy.set(context,device.deviceId,feature,enabled); device.getPlugin<BridgePlugin>()?.policyChanged() }
                 })
             }

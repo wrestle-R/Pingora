@@ -20,24 +20,27 @@ Open Pingora from your application menu, or run:
 
 The installer verifies the pinned Ed25519 signature, size and SHA-256 before installing to `~/.local/share/pingora/versions/`. It creates `~/.local/bin/pingora`, preserves previous versions and refuses to overwrite an unrelated launcher. The app installs without root or GitHub login. Missing Arch runtime packages use your package manager’s normal sudo approval. Add `~/.local/bin` to your PATH to run `pingora` anywhere.
 
-Prefer downloading first? [Download the installer](https://raw.githubusercontent.com/wrestle-R/Pingora/main/docs/releases/install.py), inspect it, then run `python3 install.py --tag v0.1.2`. [Download the Linux archive](https://github.com/wrestle-R/Pingora/releases/download/v0.1.2/pingora-0.1.2-linux-x86_64.tar.gz).
+Prefer downloading first? [Download the installer](https://raw.githubusercontent.com/wrestle-R/Pingora/main/docs/releases/install.py), inspect it, then run `python3 install.py --tag v0.1.3`. [Download the Linux archive](https://github.com/wrestle-R/Pingora/releases/download/v0.1.3/pingora-0.1.3-linux-x86_64.tar.gz).
 
 **Supported-host limits:** the current package is tested on the owner's Arch Linux/Hyprland setup. It requires host libraries and is not a universal AppImage. GNOME, Plasma, other distributions and extended reliability checks are not fully qualified. This first public release should not be treated as a fully qualified production release.
 
 ## Install on Android
 
-**[Download Pingora 0.1.2 APK](https://github.com/wrestle-R/Pingora/releases/download/v0.1.2/pingora-0.1.2.apk)**
+**[Download Pingora 0.1.3 APK](https://github.com/wrestle-R/Pingora/releases/download/v0.1.3/pingora-0.1.3.apk)**
 
 Open the APK on your phone and approve Android's installation prompt. This is the signed release app; it installs separately from a development build. No root is required. Android16 on the Nothing A001 has been exercised; other devices remain subject to compatibility testing.
 
-For later updates, [download the signed Android update bundle](https://github.com/wrestle-R/Pingora/releases/download/v0.1.2/pingora-0.1.2-android-update.zip) and import it through Connection health. Pingora checks the package identity, version, signer and signed artifact before handing installation to Android.
+For later updates, [download the signed Android update bundle](https://github.com/wrestle-R/Pingora/releases/download/v0.1.3/pingora-0.1.3-android-update.zip) and import it through Connection health. Pingora checks the package identity, version, signer and signed artifact before handing installation to Android.
 
 ## Connect your devices
 
-1. Open Pingora on both devices and start the laptop's connection service.
+Pingora uses its own discovery (UDP 1816, TCP 1816–1864, mDNS `_pingora._udp`). **Close older Pingora windows, then update both Android and Linux to 0.1.3 or newer**; older builds use a different discovery channel. KDE Connect is not required. If a firewall is active, allow those ports only on your trusted LAN.
+
+
+1. Open Pingora on both devices. The laptop starts its connection service automatically.
 2. Use the same trusted Wi-Fi network, or USB tethering from your phone. USB debugging alone does not provide a shared network.
 3. Request pairing, compare the verification values on both screens and approve only if they match.
-4. Enable the features you want in Sharing controls on both devices. Sharing starts off.
+4. Enable the features you want in Sharing controls on both devices. Sharing features are enabled for new pairings; you can turn them off individually. Android system permissions and folder grants still require your approval.
 5. For notification mirroring, grant Android notification access and choose the phone apps to share. Battery restrictions can interrupt background connections; Connection health shows recovery guidance.
 
 ## What it does
@@ -56,7 +59,7 @@ Signed updates preserve the existing installation on verification failures. Linu
 
 To uninstall the user-owned Linux installation, remove `~/.local/bin/pingora`, `~/.local/share/pingora/versions/` and `~/.local/share/applications/io.github.wrestle-r.pingora.desktop`. Pairing/history are separate app data and are retained. Uninstall Android through system settings.
 
-[Release notes and checksums](https://github.com/wrestle-R/Pingora/releases/tag/v0.1.2) · [Build the desktop](tauri/README.md) · [Android source](app/) · [Security and update design](docs/releases.md)
+[Release notes and checksums](https://github.com/wrestle-R/Pingora/releases/tag/v0.1.3) · [Build the desktop](tauri/README.md) · [Android source](app/) · [Security and update design](docs/releases.md)
 
 ## Credits and source
 

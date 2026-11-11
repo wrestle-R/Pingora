@@ -14,13 +14,34 @@ pub enum Feature {
     Ring,
     Slumber,
 }
-#[derive(Clone, Default, Deserialize, Serialize)]
+#[derive(Clone, Deserialize, Serialize)]
 #[serde(default)]
 pub struct Policy {
     pub paused: bool,
     pub show_locked: bool,
     pub enabled: BTreeMap<Feature, bool>,
     pub desktop_apps: Vec<String>,
+}
+impl Default for Policy {
+    fn default() -> Self {
+        Self {
+            paused: false,
+            show_locked: false,
+            enabled: [
+                Feature::Notifications,
+                Feature::Clipboard,
+                Feature::Files,
+                Feature::Folders,
+                Feature::Battery,
+                Feature::Ring,
+                Feature::Slumber,
+            ]
+            .into_iter()
+            .map(|feature| (feature, true))
+            .collect(),
+            desktop_apps: vec!["*".into()],
+        }
+    }
 }
 impl Policy {
     pub fn allows(&self, feature: Feature) -> bool {
@@ -273,7 +294,7 @@ mod tests {
         assert!(session.accept(&packet));
         assert!(!session.accept(&packet));
         let mut p = Policy::default();
-        assert!(!p.allows(Feature::Ring));
+        assert!(p.allows(Feature::Ring));
         p.enabled.insert(Feature::Ring, true);
         assert!(p.allows(Feature::Ring));
         p.paused = true;

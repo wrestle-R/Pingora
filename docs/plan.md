@@ -32,7 +32,7 @@ User explicitly requests phone controls for the existing right-sidebar Slumber f
 
 - Connection-health page with feature-level permission/connection status and actionable fixes.
 - Pause sharing without unpairing. Proposed semantics: reject new LAN sharing and folder access while paused; keep pairing, settings and local history; calls are controlled separately. Active-transfer pause/cancel policy must be defined before implementation.
-- Per-feature toggles on each endpoint; a disabled capability cannot be invoked remotely. Pairing does not enable every feature implicitly.
+- Per-feature toggles on each endpoint; a disabled capability cannot be invoked remotely. Latest owner instruction (2026-11-11): enable sharing features by default for new pairings on this personal setup. Preserve explicit saved disables. System permissions and selected folder grants still require OS approval; locked previews remain private by default.
 - Explicit sanitized diagnostic export: versions, connection events, permission states and error categories, without message/OTP/clipboard contents, filenames, folder paths, URLs or credentials by default.
 - Inbox search over retained local text and Clear history. Clearing saved history is separate from dismissing active source notifications.
 

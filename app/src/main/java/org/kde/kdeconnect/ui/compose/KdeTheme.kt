@@ -7,27 +7,28 @@
 package org.kde.kdeconnect.ui.compose
 
 import android.content.Context
-import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 
 @Composable
 fun KdeTheme(context : Context, content: @Composable () -> Unit) {
-    val colorScheme = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-        when (isSystemInDarkTheme()) {
-            true -> dynamicDarkColorScheme(context)
-            false -> dynamicLightColorScheme(context)
-        }
+    val colorScheme = if (isSystemInDarkTheme()) {
+        darkColorScheme(
+            primary = androidx.compose.ui.graphics.Color(0xFF80E1C1),
+            onPrimary = androidx.compose.ui.graphics.Color(0xFF092D26),
+            background = androidx.compose.ui.graphics.Color(0xFF080B0E),
+            surface = androidx.compose.ui.graphics.Color(0xFF11171C),
+            surfaceVariant = androidx.compose.ui.graphics.Color(0xFF19232B),
+        )
     } else {
-        when (isSystemInDarkTheme()) {
-            true -> darkColorScheme()
-            false -> lightColorScheme()
-        }
+        lightColorScheme(
+            primary = androidx.compose.ui.graphics.Color(0xFF087C72),
+            background = androidx.compose.ui.graphics.Color(0xFFF5F8F7),
+            surface = androidx.compose.ui.graphics.Color(0xFFF5F8F7),
+        )
     }
     MaterialTheme(
         colorScheme = colorScheme,

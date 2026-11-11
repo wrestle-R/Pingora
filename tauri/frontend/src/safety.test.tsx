@@ -187,7 +187,7 @@ describe("native frontend safety boundaries", () => {
   });
   it("keeps entered text on refresh and preserves the last confirmed permission during a second save", async () => {
     const user = userEvent.setup();
-    render(<Sharing peers={[phone]} snapshot={snapshot} refresh={refresh} />);
+    render(<Sharing peers={[phone]} snapshot={{ ...snapshot, policies: { one: { paused: false, show_locked: false, enabled: {}, desktop_apps: [] } } }} refresh={refresh} />);
     await user.type(
       screen.getByLabelText("Link to send"),
       "https://example.com",

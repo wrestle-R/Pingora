@@ -660,9 +660,9 @@ class LanLinkProvider(private val context: Context) : BaseLinkProvider() {
     }
 
     companion object {
-        private const val UDP_PORT: Int = 1716
-        private const val MIN_PORT: Int = 1716
-        private const val MAX_PORT: Int = 1764
+        private const val UDP_PORT: Int = 1816
+        private const val MIN_PORT: Int = 1816
+        private const val MAX_PORT: Int = 1864
         const val PAYLOAD_TRANSFER_MIN_PORT: Int = 1739
 
         private const val MAX_IDENTITY_PACKET_SIZE: Int = 1024 * 512

@@ -6,7 +6,7 @@ const features = [
   [
     "01",
     "Notifications, with the words intact.",
-    "The plan: readable previews for WhatsApp, Instagram, Gmail and SMS. One conversation, its newest message, and room to read what the source actually shares.",
+    "Readable previews for WhatsApp, Instagram, Gmail and SMS. One conversation, its newest message, and room to read what the source actually shares.",
   ],
   [
     "02",
@@ -23,7 +23,7 @@ export default function Home() {
   return (
     <>
       <section className="hero">
-        <Badge variant="secondary">In development</Badge>
+        <Badge variant="secondary">Android + Linux · Early release</Badge>
         <h1>
           Your phone. Your
           <br className="wide" /> desktop. In sync.
@@ -33,9 +33,9 @@ export default function Home() {
           <br className="mobile" /> Android meets Linux.
         </p>
         <div className="actions">
-          <Button asChild variant="default" size="lg"><a href="#features">
-            Explore Pingora <span>↗</span>
-          </a></Button>
+          <Button asChild variant="default" size="lg"><Link href="/downloads">
+            Download Pingora <span>↗</span>
+          </Link></Button>
           <Button asChild variant="outline" size="lg"><Link href="/docs">
             Read the docs
           </Link></Button>
@@ -51,13 +51,13 @@ export default function Home() {
         </h2>
         <p>
           That message on your phone, that link on your laptop, that one file
-          you need over there. Pingora is being built for the little things that
+          you need over there. Pingora is built for the little things that
           keep interrupting everything else.
         </p>
       </section>
       <section className="section" id="features">
         <div className="section-heading">
-          <span className="eyebrow">WHAT WE’RE BUILDING</span>
+          <span className="eyebrow">WHAT YOU CAN SHARE</span>
           <span className="annotation">Just the useful bits ↙</span>
         </div>
         <div className="features">

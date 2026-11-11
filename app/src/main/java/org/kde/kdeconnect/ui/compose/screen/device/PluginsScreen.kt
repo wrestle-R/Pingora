@@ -83,6 +83,12 @@ private fun PluginsScreenContent(
                 .verticalScroll(state = rememberScrollState())
                 .padding(top = 16.dp, bottom = bottomPadding)
         ) {
+            Text("Your laptop, connected", style = MaterialTheme.typography.headlineMedium,
+                modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp))
+            Text("Open your inbox or choose what to share with this device.",
+                style = MaterialTheme.typography.bodyLarge,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(horizontal = 24.dp, vertical = 8.dp))
             val numColumns = LocalResources.current.getInteger(R.integer.plugins_columns)
 
             PluginButtons(

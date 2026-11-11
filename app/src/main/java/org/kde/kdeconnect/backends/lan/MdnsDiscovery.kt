@@ -294,7 +294,7 @@ class MdnsDiscovery {
     companion object {
         private const val TAG: String = "MdnsDiscovery"
 
-        private const val SERVICE_TYPE: String = "_kdeconnect._udp"
+        private const val SERVICE_TYPE: String = "_pingora._udp"
 
         private const val DISCOVERY_TIMEOUT_MILLIS: Long = 30000L
     }
