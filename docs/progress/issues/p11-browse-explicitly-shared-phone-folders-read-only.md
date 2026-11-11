@@ -23,3 +23,7 @@ Preparation ticket only; status is not authorization to start implementation. No
 ## Implementation checkpoint (2026-11-11)
 
 Source paths now exist for this ticket; see [combined implementation evidence and remaining acceptance](../implementation-verification.md). Build/test evidence does not complete the real-device/desktop/release criteria above. Retain unfinished checkboxes until those exact outcomes are demonstrated.
+
+## Public folder boundary check, 2026-11-11
+
+Added a Robolectric test using a selected synthetic tree and mocked document provider. Folder browsing issues opaque tokens instead of exposing provider URIs. Unknown/traversal tokens cause no provider query; revoking the read grant blocks previously issued list/read tokens without opening a stream. Full152AndroidJVMtests/debug build pass. This validates the API boundary, not an OEM provider or physical SAF picker.

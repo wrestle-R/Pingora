@@ -40,3 +40,7 @@ Android assembleDebug and complete testDebugUnitTest pass after the boundary cha
 ### Physical reconnect check, 2026-11-11
 
 After the user restored USB debugging and USB tethering, the Nothing A001 Android16 device tool opened the release app. Sharing controls reported archlinux reachable and default-off features. Connection health UI reported one paired/one reachable device, app notifications allowed, and correctly warned that battery optimization is active. The isolated native daemon was absent before this check and was started explicitly; native health then reported paired/service available. This proves reconnect/visible health for the saved pair, not revoke, new pairing, all feature permissions or source-app notification acceptance.
+
+## Paired-page navigation fix, 2026-11-11
+
+Physical testing exposed an empty paired page: the bridge had no plugin entry buttons. Added direct Sharing controls and Inbox buttons. Startup no longer assumes a restored fragment exists when FragmentManager returns null; saved health/sharing/inbox destinations now have explicit fallbacks. Full152Androidtests/debug build pass; updated release installation/physical navigation check follows.

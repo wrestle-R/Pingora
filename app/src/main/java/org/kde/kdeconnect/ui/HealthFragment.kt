@@ -114,7 +114,7 @@ class HealthFragment : Fragment() {
         text(if (power.isIgnoringBatteryOptimizations(context.packageName)) "Battery optimization: unrestricted." else "Battery optimization: active. Android may interrupt background connections. Review battery settings if disconnects occur.")
         action("Battery optimization settings") { settings(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS) }
         text("Discovery: keep both devices on the same trusted local network. Review Trusted networks in Pingora settings if discovery is restricted.")
-        text("Notification sharing needs separate notification access and selected phone apps in Sharing controls. Clipboard uses an explicit foreground send. Files, shared folders, calls and Slumber phone controls are still under development. App notification permission does not grant access to other apps’ notifications.")
+        text("Notification sharing needs separate notification access and selected phone apps in Sharing controls. Clipboard uses an explicit foreground send. Enable files and read-only folders per device in Sharing controls. Slumber requires the matching laptop integration. Optional calls are not part of this testing pass. App notification permission does not grant access to other apps’ notifications.")
         action("Preview sanitized diagnostics") {text(org.kde.kdeconnect.pingora.DiagnosticReport.create(context))}
         action("Export sanitized diagnostics") {exportReport.launch("pingora-diagnostics.json")}
         text("Signed updates")

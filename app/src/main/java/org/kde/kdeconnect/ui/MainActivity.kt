@@ -218,7 +218,7 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
         //FragmentManager will restore whatever fragment was there
         if (savedInstanceState != null) {
             val frag = supportFragmentManager.findFragmentById(R.id.container)
-            if (frag !is DeviceFragment || frag.deviceId == savedDevice) return
+            if (frag != null && (frag !is DeviceFragment || frag.deviceId == savedDevice)) return
         }
 
         if(intent.getBooleanExtra("pingora_inbox",false)) {mCurrentMenuEntry=MENU_ENTRY_INBOX;setContentFragment(InboxFragment());return}
@@ -234,6 +234,9 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
         } else {
             when (mCurrentMenuEntry) {
                 MENU_ENTRY_SETTINGS -> setContentFragment(SettingsFragment())
+                MENU_ENTRY_INBOX -> setContentFragment(InboxFragment())
+                MENU_ENTRY_SHARING -> setContentFragment(SharingFragment())
+                MENU_ENTRY_HEALTH -> setContentFragment(HealthFragment())
                 MENU_ENTRY_ABOUT -> setContentFragment(AboutFragment.newInstance())
                 else -> setContentFragment(PairingFragment())
             }

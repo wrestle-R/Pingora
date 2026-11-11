@@ -27,6 +27,15 @@ class BridgePlugin : Plugin() {
     override val supportedPacketTypes = arrayOf(TYPE)
     override val outgoingPacketTypes = arrayOf(TYPE)
     override val settingsScope = SettingsScope.PER_DEVICE
+    override fun getUiButtons(): List<PluginUiButton> = listOf(
+        PluginUiButton("Sharing controls", org.kde.kdeconnect_tp.R.drawable.pingora_icon) { activity ->
+            activity.startActivity(Intent(context, org.kde.kdeconnect.ui.MainActivity::class.java).putExtra("pingora_sharing", true))
+        },
+        PluginUiButton("Inbox", org.kde.kdeconnect_tp.R.drawable.pingora_icon) { activity ->
+            activity.startActivity(Intent(context, org.kde.kdeconnect.ui.MainActivity::class.java).putExtra("pingora_inbox", true))
+        }
+    )
+
     val files by lazy { FileTransfers(context,this) }
     @Volatile var laptopBattery:String="Laptop battery unavailable";private set
     @Volatile var slumberStatus: String = "Status unavailable"; private set
