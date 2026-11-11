@@ -36,3 +36,7 @@ Added Android Connection health navigation with observed paired/reachable counts
 Added explicit cancellation, payload cleanup and immediate return before feature dispatch for unpaired Android peers. Regression first failed on the missing cancellation assertion, then the implementation was applied. Desktop service stop now retains child ownership if stop fails and safely clears already-exited children. Clippy with warnings denied passes. Shared Device tool reports Android SDK not found despite the build SDK path; UI acceptance remains unavailable through that tool.
 
 Android assembleDebug and complete testDebugUnitTest pass after the boundary change. Desktop build and JS syntax pass; action failures now remain visible after the automatic refresh. Runtime device/UI and multi-desktop qualification remain pending.
+
+### Physical reconnect check, 2026-11-11
+
+After the user restored USB debugging and USB tethering, the Nothing A001 Android16 device tool opened the release app. Sharing controls reported archlinux reachable and default-off features. Connection health UI reported one paired/one reachable device, app notifications allowed, and correctly warned that battery optimization is active. The isolated native daemon was absent before this check and was started explicitly; native health then reported paired/service available. This proves reconnect/visible health for the saved pair, not revoke, new pairing, all feature permissions or source-app notification acceptance.
