@@ -1,21 +1,34 @@
 #!/usr/bin/env python3
-"""Verify and install a user-owned Linux package using the recipient's gh session."""
-import argparse,base64,hashlib,json,os,re,shutil,subprocess,tarfile,tempfile
+"""Verify and install a user-owned Linux package from signed public release assets."""
+import argparse,base64,hashlib,json,os,re,shutil,subprocess,tarfile,tempfile,urllib.request,urllib.parse
 from pathlib import Path
-p=argparse.ArgumentParser();p.add_argument('--tag');p.add_argument('--source',type=Path,help='Local directory of signed release assets');p.add_argument('--home',type=Path,default=Path.home());a=p.parse_args()
+p=argparse.ArgumentParser();p.add_argument('--tag');p.add_argument('--github-auth',action='store_true',help='Use gh for an authorized private repository');p.add_argument('--source',type=Path,help='Local directory of signed release assets');p.add_argument('--home',type=Path,default=Path.home());a=p.parse_args()
 if os.uname().sysname!='Linux' or os.uname().machine!='x86_64':raise SystemExit('Only Linux x86_64 is supported by this installer')
 repo='wrestle-R/Pingora'
+PUBLIC_KEY='20131ae1e757a3fb4cb029a7ad54f969f5db77e269e83e0545d7e7c4ad65535f'
+if a.tag and not re.fullmatch(r'v\d+\.\d+\.\d+(?:-[A-Za-z0-9.-]+)?',a.tag):raise SystemExit('Invalid release tag')
 with tempfile.TemporaryDirectory(prefix='pingora-install-') as temp:
  work=Path(temp)
  def obtain(name):
   if a.source:shutil.copy2(a.source/name,work/name)
-  else:
+  elif a.github_auth:
    args=['gh','release','download']+([a.tag] if a.tag else [])+['--repo',repo,'--pattern',name,'--dir',str(work)]
    subprocess.run(args,check=True,stdout=subprocess.DEVNULL)
+  else:
+   base=f'https://github.com/{repo}/releases/' + (f'download/{a.tag}/' if a.tag else 'latest/download/')
+   request=urllib.request.Request(base+urllib.parse.quote(name,safe=''),headers={'User-Agent':'Pingora-installer'})
+   limit=65536 if name.endswith('.json') else 256 if name.endswith('.sig') else 536870912
+   with urllib.request.urlopen(request,timeout=60) as response,(work/name).open('wb') as output:
+    if urllib.parse.urlparse(response.url).scheme!='https':raise SystemExit('Refusing an insecure download redirect')
+    size=0
+    while chunk:=response.read(1024*1024):
+     size+=len(chunk)
+     if size>limit:raise SystemExit('Release download exceeds its size limit')
+     output.write(chunk)
   return work/name
  metadata=obtain('pingora-update.json');signature=obtain('pingora-update.sig')
  if metadata.stat().st_size>65536 or signature.stat().st_size>256:raise SystemExit('Oversized update metadata')
- public=bytes.fromhex((Path(__file__).parent/'trust/update-public-key.hex').read_text().strip())
+ public=bytes.fromhex(PUBLIC_KEY)
  if len(public)!=32:raise SystemExit('Invalid trusted public key')
  (work/'public.der').write_bytes(bytes.fromhex('302a300506032b6570032100')+public)
  (work/'signature').write_bytes(base64.b64decode(signature.read_bytes(),validate=False))

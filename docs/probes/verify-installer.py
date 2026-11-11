@@ -12,7 +12,7 @@ with tempfile.TemporaryDirectory() as temporary:
  public=subprocess.check_output(['openssl','pkey','-in',str(root/'key'),'-pubout','-outform','DER'])[-32:]
  signature=subprocess.check_output(['openssl','pkeyutl','-sign','-rawin','-inkey',str(root/'key'),'-in',str(assets/'pingora-update.json')])
  (assets/'pingora-update.sig').write_text(base64.b64encode(signature).decode())
- tools=root/'installer';(tools/'trust').mkdir(parents=True);shutil.copy2(repo/'docs/releases/install.py',tools/'install.py');(tools/'trust/update-public-key.hex').write_text(public.hex())
+ tools=root/'installer';(tools/'trust').mkdir(parents=True);(tools/'install.py').write_text((repo/'docs/releases/install.py').read_text().replace("PUBLIC_KEY='"+(repo/'docs/releases/trust/update-public-key.hex').read_text().strip()+"'","PUBLIC_KEY='"+public.hex()+"'"));(tools/'trust/update-public-key.hex').write_text(public.hex())
  home=root/'home';home.mkdir();cmd=['python3',str(tools/'install.py'),'--source',str(assets),'--home',str(home)]
  subprocess.run(cmd,check=True,capture_output=True)
  launcher=home/'.local/bin/pingora';assert launcher.is_symlink();previous=launcher.resolve().read_bytes()
