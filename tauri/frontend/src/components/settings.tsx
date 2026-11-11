@@ -302,7 +302,7 @@ export function Settings() {
         <p className="text-sm leading-relaxed text-muted-foreground">
           Pingora is an independent app. Its native connectivity includes reused
           KDE Connect components, with their original licenses and credits
-          preserved. Development build 0.1.1.
+          preserved. Version 0.1.2.
         </p>
       </Panel>
     </div>

@@ -27,5 +27,6 @@ with tempfile.TemporaryDirectory(prefix='pingora-package-check-') as temporary:
     home=directory/'home';home.mkdir();environment.update(HOME=str(home),XDG_CONFIG_HOME=str(home/'config'),XDG_DATA_HOME=str(home/'data'),XDG_CACHE_HOME=str(home/'cache'))
     result=subprocess.run([str(package/'pingora-desktop'),'--probe-health'],env=environment,capture_output=True,text=True,check=True,timeout=15)
     health=json.loads(result.stdout)
+    if health.get('bundled_ui') is not True:raise SystemExit('Packaged application still expects a development server')
     if not isinstance(health.get('paired'),bool) or not isinstance(health.get('native_service'),bool) or not isinstance(health.get('slumber'),dict):raise SystemExit('Installed health probe returned an invalid schema')
 print('Portable artifact passed: required resources, matching public trust, host dependencies, bundled native-library resolution and headless health probe. No GUI or native service launched.')

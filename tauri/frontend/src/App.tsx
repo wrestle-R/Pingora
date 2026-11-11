@@ -199,7 +199,7 @@ export default function App() {
           <SidebarTrigger />
           <span className="text-sm text-muted-foreground">Your workspace</span>
           <Badge variant="outline" className="ml-auto">
-            Development · 0.1.1
+            Version 0.1.2
           </Badge>
         </header>
         <main className="workspace">

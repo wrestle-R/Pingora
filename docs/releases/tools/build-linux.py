@@ -13,7 +13,7 @@ subprocess.run(['cmake','-S',str(build.parent/('kdeconnect-kde-'+json.loads((roo
 subprocess.run(['cmake','--build',str(build),'--target','kdeconnectd','--parallel','3'],check=True)
 subprocess.run(['npm','--prefix',str(root/'tauri/frontend'),'ci','--no-audit','--no-fund'],check=True)
 subprocess.run(['npm','--prefix',str(root/'tauri/frontend'),'run','build'],check=True)
-subprocess.run(['cargo','build','--release','--locked','--manifest-path',str(root/'tauri/src-tauri/Cargo.toml')],check=True)
+subprocess.run(['cargo','build','--release','--locked','--features','custom-protocol','--manifest-path',str(root/'tauri/src-tauri/Cargo.toml')],check=True)
 native=root/'tauri/target/native/build/bin/kdeconnectd'
 if not native.is_file():raise SystemExit('Prepare the pinned native service first (tauri/native/README.md)')
 a.output.mkdir(parents=True,exist_ok=True)

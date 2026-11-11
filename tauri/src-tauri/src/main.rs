@@ -16,6 +16,7 @@ mod updates;
 
 #[derive(Serialize)]
 struct Health {
+    bundled_ui: bool,
     paired: bool,
     native_service: bool,
     transport: &'static str,
@@ -84,6 +85,7 @@ fn slumber_status() -> Slumber {
 fn read_health() -> Health {
     let count = service::paired_count();
     Health {
+        bundled_ui: !tauri::is_dev(),
         paired: count.is_some_and(|count| count > 0),
         native_service: count.is_some(),
         transport: if count.is_some() {
