@@ -33,7 +33,7 @@ The website, Android app and Tauri desktop/native-service source build locally. 
 
 ## Downloads and updates
 
-Version tags trigger GitHub-hosted Android/Linux builds and a separate protected signing job that creates a complete Release draft. Publication follows qualification. Repository remains private until the owner changes it. Private downloads require authorized GitHub access.
+Version tags trigger GitHub-hosted Android/Linux builds and a separate protected signing job that creates a complete Release draft. The `v0.1.0` build/signing run passed and produced a private development draft. Publication follows qualification. Repository remains private until the owner changes it. Private downloads require authorized GitHub access.
 
 The Linux installer exists and has been checked with a real signed development package, plus rejection fixtures for corruption and invalid signatures. After a qualified version is published, use an authenticated source checkout:
 
@@ -43,6 +43,6 @@ python3 docs/releases/install.py --tag vMAJOR.MINOR.PATCH
 
 Replace the placeholder with an actual published version; none is advertised yet. The installer requires Linux x86_64, Python3.12+, OpenSSL and an authorized `gh` login for this private repository. It verifies the pinned Ed25519 signature and artifact hash, installs under `~/.local/share/pingora/versions/`, updates `~/.local/bin/pingora` and retains previous versions. Compatible host GTK3/WebKitGTK4.1/Qt6/KF6 libraries are required; the tar is not a universal AppImage. It refuses unrelated launchers and same-version/downgrade installs. Remove the user-owned launcher and version directory to uninstall; pairing/history are separate app data and are retained.
 
-Android updates use the signed Android ZIP from the recipient’s own GitHub/browser session, imported through Connection health. Package/version/signature checks precede approval and the Android system installer. Active calls/transfers defer installation. Development/debug and release package identities are distinct.
+For a first Android install, download the signed APK through your authorized GitHub session and open it with the Android system installer. Later Android updates use the signed Android ZIP from the recipient’s own GitHub/browser session, imported through Connection health. Package/version/signature checks precede approval and the Android system installer. Active calls/transfers defer installation. Development/debug and release package identities are distinct.
 
 See [release tooling](docs/releases/README.md) for the signing workflow and [verification](docs/progress/implementation-verification.md) for remaining phone, desktop, call-audio and upgrade checks.

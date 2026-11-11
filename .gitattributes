@@ -1,0 +1,7 @@
+
+# Internal project tracking and agent instructions are not release source.
+/AGENTS.md export-ignore
+/docs/agents export-ignore
+/docs/agents/** export-ignore
+/docs/progress export-ignore
+/docs/progress/** export-ignore

@@ -30,7 +30,7 @@ Check/download in app, show version/release notes and request installation appro
 
 ## Distribution review
 
-Before importing KDE/Foner code, audit exact file/dependency licenses, record notices/modifications and package applicable corresponding-source delivery for recipients. Record which upstream patches were taken and establish a repeatable update procedure. Repository privacy does not substitute for the review.
+Before importing KDE/Foner code, audit exact file/dependency licenses, record notices/modifications and package applicable corresponding-source delivery for recipients. Record which upstream patches were taken and establish a repeatable update procedure. Repository privacy does not substitute for the review. Release source archives exclude internal progress and agent instructions via .gitattributes; retain all required application/build/license source.
 
 ## Website synchronization
 

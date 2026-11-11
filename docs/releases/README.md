@@ -1,6 +1,6 @@
 # Native release tooling
 
-No app release is published yet. See [current verification](../progress/implementation-verification.md).
+The `v0.1.0` signed development draft has been built successfully; no qualified app release is published yet. See [current verification](../progress/implementation-verification.md).
 
 - `tools/build-linux.py --version VERSION --output DIRECTORY`: optimized host-dependent Linux x86_64 tar with bundled own native service/libraries and installer. Host GTK3/WebKitGTK4.1/Qt6/KF6 dependencies remain required. Not an AppImage compatibility claim.
 - `tools/verify-linux.py ARTIFACT`: extracts the actual tar, checks required resources/trust, host dependencies and bundled native-library resolution, then runs only the headless health command. Every Linux package build invokes it before upload.
@@ -20,7 +20,9 @@ A manual run on `main` validates the unsigned hosted build without releasing any
 gh workflow run native-release.yml --ref main
 ```
 
-Hosted validation is pending. Creating a tag does not prove device or desktop compatibility. Draft publication remains a separate acceptance decision; this workflow never publishes a draft automatically.
+Hosted validation passed for `v0.1.0` at `7764207`: [build and protected signing run](https://github.com/wrestle-R/Pingora/actions/runs/42975982663). Downloaded signatures, hashes, APK identity, source/native pins and the private-download installer were independently checked; the installed Linux executable passed health and fresh-profile startup. Creating a tag does not prove device or desktop compatibility. Draft publication remains a separate acceptance decision; this workflow never publishes a draft automatically.
+
+Release source exports exclude internal progress and agent instructions through the root `.gitattributes`; app, desktop, native build and release source remain included. The initial unpublished `v0.1.0` draft source archive was explicitly re-exported from the same tag with those filters after the build. APK/Linux artifacts and signed metadata retain the exact verified job bytes. See the recorded source-export evidence before publishing this draft.
 
 Private signing files: `release-private/android-release.p12`, `android-store-password`, and `update-ed25519.pem`. Keep secure backups outside Git; loss prevents ordinary signed updates. Public identities: `trust/update-public-key.hex` and `trust/android-cert-sha256.hex`. Never rotate identities silently. No signing passwords, keys, notification bodies or clipboard data belong in CI logs/artifacts.
 
@@ -30,4 +32,4 @@ After a qualified release exists, from a reviewed checkout authenticated for thi
 python3 docs/releases/install.py --tag vMAJOR.MINOR.PATCH
 ```
 
-This is the actual installer entrypoint, not a claim that any example version exists. Android recipients download the signed Android update ZIP through their own GitHub session, then use Connection health → Import signed Android update. Android installation keeps its system confirmation and signing protections. Current development/debug installations cannot be replaced by a different release package identity.
+This is the actual installer entrypoint, not a claim that any example version exists. For a first Android install, recipients download the signed APK from an authorized GitHub release and use the Android system installer. For later versions, recipients download the signed Android update ZIP through their own GitHub session, then use Connection health → Import signed Android update. Android installation keeps its system confirmation and signing protections. Current development/debug installations cannot be replaced by a different release package identity.
