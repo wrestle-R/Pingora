@@ -20,6 +20,7 @@ pub struct Offer {
     pub received: u64,
     pub state: String,
     pub created: u64,
+    pub direction: &'static str,
 }
 struct Incoming {
     offer: Offer,
@@ -30,6 +31,8 @@ struct Incoming {
 }
 struct Outgoing {
     file: File,
+    name: String,
+    started: bool,
     offset: u64,
     size: u64,
     hash: String,
@@ -70,6 +73,23 @@ impl Transfers {
         self.incoming
             .values()
             .map(|x| x.offer.clone())
+            .chain(self.outgoing.iter().map(|((peer, id), item)| {
+                Offer {
+                    peer: peer.clone(),
+                    id: id.clone(),
+                    name: item.name.clone(),
+                    size: item.size,
+                    received: item.offset,
+                    state: if item.started {
+                        "sending"
+                    } else {
+                        "waiting_for_approval"
+                    }
+                    .into(),
+                    created: item.created,
+                    direction: "send",
+                }
+            }))
             .chain(self.completed.iter().cloned())
             .collect()
     }
@@ -110,6 +130,7 @@ impl Transfers {
                     received: 0,
                     state: "approval_required".into(),
                     created: now,
+                    direction: "receive",
                 },
                 hash: hash.to_ascii_lowercase(),
                 file: None,
@@ -268,6 +289,8 @@ impl Transfers {
             (peer.into(), id.into()),
             Outgoing {
                 file,
+                name: name.into(),
+                started: false,
                 offset: 0,
                 size: total,
                 hash: hash.clone(),
@@ -291,8 +314,34 @@ impl Transfers {
             .read_exact(&mut bytes)
             .map_err(|_| "Selected file changed or became unavailable")?;
         let offset = item.offset;
+        item.started = true;
         item.offset += len as u64;
         Ok(json!({"id":id,"offset":offset,"bytes":STANDARD.encode(bytes),"sha256":item.hash}))
+    }
+    pub fn complete(&mut self, peer: &str, id: &str) -> Result<(), String> {
+        let key = (peer.into(), id.into());
+        let item = self.outgoing.get(&key).ok_or("Outgoing transfer expired")?;
+        if !item.started || item.offset != item.size {
+            return Err("Transfer completion arrived before all bytes were sent".into());
+        }
+        let item = self
+            .outgoing
+            .remove(&key)
+            .ok_or("Outgoing transfer expired")?;
+        self.completed.push(Offer {
+            peer: peer.into(),
+            id: id.into(),
+            name: item.name,
+            size: item.size,
+            received: item.offset,
+            state: "sent".into(),
+            created: item.created,
+            direction: "send",
+        });
+        if self.completed.len() > 32 {
+            self.completed.remove(0);
+        }
+        Ok(())
     }
     pub fn cancel(&mut self, peer: &str, id: &str) {
         if let Some(mut item) = self.incoming.remove(&(peer.into(), id.into())) {
@@ -315,11 +364,30 @@ impl Transfers {
             self.cancel(peer, &id);
         }
     }
+    pub fn retain_connected(&mut self, peers: &[String]) {
+        let disconnected: Vec<_> = self
+            .incoming
+            .keys()
+            .chain(self.outgoing.keys())
+            .filter(|(peer, _)| !peers.contains(peer))
+            .map(|(peer, _)| peer.clone())
+            .collect();
+        for peer in disconnected {
+            self.cancel_peer(&peer);
+        }
+    }
     pub fn prune(&mut self, now: u64) {
         let ids: Vec<_> = self
             .incoming
             .iter()
-            .filter(|(_, v)| now.saturating_sub(v.offer.created) > 600_000)
+            .filter(|(_, v)| {
+                now.saturating_sub(v.offer.created)
+                    > if v.offer.state == "approval_required" {
+                        120_000
+                    } else {
+                        600_000
+                    }
+            })
             .map(|(k, _)| k.clone())
             .chain(
                 self.outgoing
@@ -352,6 +420,79 @@ mod tests {
             std::process::id(),
             TEST_DIRECTORY.fetch_add(1, std::sync::atomic::Ordering::Relaxed)
         ))
+    }
+    #[test]
+    fn outgoing_progress_cancel_and_completion_require_all_bytes() {
+        let directory = dir();
+        fs::create_dir_all(&directory).unwrap();
+        let source = directory.join("selected.txt");
+        fs::write(&source, vec![7u8; CHUNK + 3]).unwrap();
+        let mut transfers = Transfers::new(directory.clone());
+        transfers.prepare("phone", "send-one", &source, 1).unwrap();
+        assert_eq!(transfers.snapshot()[0].state, "waiting_for_approval");
+        assert_eq!(transfers.snapshot()[0].direction, "send");
+        assert!(transfers.complete("phone", "send-one").is_err());
+        transfers
+            .next("phone", &json!({"id":"send-one","offset":0}))
+            .unwrap();
+        assert_eq!(transfers.snapshot()[0].received, CHUNK as u64);
+        assert_eq!(transfers.snapshot()[0].state, "sending");
+        assert!(transfers.complete("phone", "send-one").is_err());
+        transfers
+            .next("phone", &json!({"id":"send-one","offset":CHUNK}))
+            .unwrap();
+        transfers.complete("phone", "send-one").unwrap();
+        assert_eq!(transfers.snapshot()[0].state, "sent");
+        assert!(!transfers.active());
+        transfers.prepare("phone", "send-two", &source, 2).unwrap();
+        transfers.cancel("phone", "send-two");
+        assert!(!transfers.active());
+        assert_eq!(transfers.snapshot().len(), 1);
+        assert_eq!(fs::read(source).unwrap(), vec![7u8; CHUNK + 3]);
+        fs::remove_dir_all(directory).unwrap();
+    }
+    #[test]
+    fn empty_file_still_needs_peer_approval_and_expired_offers_disappear() {
+        let directory = dir();
+        fs::create_dir_all(&directory).unwrap();
+        let source = directory.join("empty.txt");
+        fs::write(&source, []).unwrap();
+        let mut transfers = Transfers::new(directory.clone());
+        transfers.prepare("phone", "empty", &source, 1).unwrap();
+        assert!(transfers.complete("phone", "empty").is_err());
+        transfers
+            .next("phone", &json!({"id":"empty","offset":0}))
+            .unwrap();
+        transfers.complete("phone", "empty").unwrap();
+        transfers.offer("phone", &json!({"id":"pending","name":"incoming.txt","size":0,"sha256":format!("{:x}",Sha256::digest([]))}), 1).unwrap();
+        transfers.prune(120_002);
+        assert!(transfers.accept("phone", "pending", 120_002).is_err());
+        assert!(transfers
+            .snapshot()
+            .iter()
+            .all(|offer| offer.id != "pending"));
+        fs::remove_dir_all(directory).unwrap();
+    }
+    #[test]
+    fn disconnect_closes_transfers_and_removes_only_partial_files() {
+        let directory = dir();
+        fs::create_dir_all(&directory).unwrap();
+        let selected = directory.join("selected.txt");
+        fs::write(&selected, b"keep").unwrap();
+        let mut transfers = Transfers::new(directory.clone());
+        transfers
+            .prepare("phone", "outgoing", &selected, 1)
+            .unwrap();
+        transfers.offer("phone",&json!({"id":"incoming","name":"received.txt","size":3,"sha256":format!("{:x}",Sha256::digest(b"yes"))}),1).unwrap();
+        transfers.accept("phone", "incoming", 2).unwrap();
+        assert!(transfers.active());
+        assert_eq!(fs::read_dir(&directory).unwrap().count(), 2);
+        transfers.retain_connected(&[]);
+        assert!(!transfers.active());
+        assert!(transfers.snapshot().is_empty());
+        assert_eq!(fs::read_dir(&directory).unwrap().count(), 1);
+        assert_eq!(fs::read(selected).unwrap(), b"keep");
+        fs::remove_dir_all(directory).unwrap();
     }
     #[test]
     fn approval_traversal_integrity_and_collision_boundary() {

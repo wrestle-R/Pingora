@@ -550,7 +550,14 @@ impl Runtime {
             .lock()
             .map_err(|_| "Transfer state busy")?
             .prepare(id, &random()?, path, now())?;
-        self.send(id, "file_offer", data)
+        let transfer = data["id"].as_str().unwrap_or_default().to_owned();
+        let result = self.send(id, "file_offer", data);
+        if result.is_err() {
+            if let Ok(mut transfers) = self.transfers.lock() {
+                transfers.cancel(id, &transfer);
+            }
+        }
+        result
     }
     pub fn forget(&self, id: &str) {
         if let Ok(mut l) = self.live.lock() {
@@ -776,11 +783,28 @@ impl Runtime {
                     .lock()
                     .ok()
                     .map(|mut t| t.next(id, &packet.data));
-                if let Some(Ok(data)) = result {
-                    self.send(id, "file_chunk", data).ok();
+                let sent = if let Some(Ok(data)) = result {
+                    self.send(id, "file_chunk", data).is_ok()
+                } else {
+                    false
+                };
+                if !sent {
+                    if let Some(transfer) = packet.data["id"].as_str() {
+                        if let Ok(mut transfers) = self.transfers.lock() {
+                            transfers.cancel(id, transfer);
+                        }
+                        self.send(id, "file_cancel", json!({"id":transfer})).ok();
+                    }
                 }
             }
-            "file_cancel" | "file_done" => {
+            "file_done" => {
+                if let Some(transfer) = packet.data["id"].as_str() {
+                    if let Ok(mut transfers) = self.transfers.lock() {
+                        transfers.complete(id, transfer).ok();
+                    }
+                }
+            }
+            "file_cancel" => {
                 if let Some(transfer) = packet.data["id"].as_str() {
                     if let Ok(mut t) = self.transfers.lock() {
                         t.cancel(id, transfer);
@@ -896,7 +920,11 @@ impl Runtime {
                     }
                 }
                 if let Ok(mut t) = self.transfers.lock() {
+                    t.retain_connected(&reachable);
                     t.prune(now());
+                }
+                if let Ok(mut folders) = self.folders.lock() {
+                    folders.retain(|peer, _| reachable.contains(peer));
                 }
                 let revoked: Vec<String> = self
                     .store
@@ -993,12 +1021,20 @@ impl Runtime {
                         }
                     }
                 }
-            } else if let Ok(mut l) = self.live.lock() {
-                l.sessions.clear();
-                l.remote_policies.clear();
-                l.clipboard = None;
-                l.battery.clear();
-                l.errors = l.errors.saturating_add(1);
+            } else {
+                if let Ok(mut l) = self.live.lock() {
+                    l.sessions.clear();
+                    l.remote_policies.clear();
+                    l.clipboard = None;
+                    l.battery.clear();
+                    l.errors = l.errors.saturating_add(1);
+                }
+                if let Ok(mut transfers) = self.transfers.lock() {
+                    transfers.retain_connected(&[]);
+                }
+                if let Ok(mut folders) = self.folders.lock() {
+                    folders.clear();
+                }
             }
             std::thread::sleep(Duration::from_millis(500));
         }

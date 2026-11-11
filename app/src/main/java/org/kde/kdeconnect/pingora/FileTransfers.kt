@@ -16,9 +16,9 @@ import java.security.MessageDigest
 import java.util.UUID
 
 class FileTransfers(private val context: Context, private val bridge: BridgePlugin) {
-    data class Offer(val id: String, val name: String, val size: Long, var received: Long = 0, var state: String = "approval_required", val created: Long = System.currentTimeMillis())
+    data class Offer(val id: String, val name: String, val size: Long, var received: Long = 0, var state: String = "approval_required", val created: Long = System.currentTimeMillis(), val direction: String = "receive")
     private data class Incoming(val offer: Offer, val hash: String, var file: File? = null, var stream: OutputStream? = null, val digest: MessageDigest = MessageDigest.getInstance("SHA-256"))
-    private data class Outgoing(val stream: InputStream, val size: Long, var offset: Long = 0, val root: String? = null, val created: Long = System.currentTimeMillis())
+    private data class Outgoing(val stream: InputStream, val size: Long, val name: String, var started: Boolean = false, var offset: Long = 0, val root: String? = null, val created: Long = System.currentTimeMillis())
     private data class Node(val root: String, val uri: Uri)
     private val incoming = LinkedHashMap<String, Incoming>()
     private val outgoing = LinkedHashMap<String, Outgoing>()
@@ -30,7 +30,7 @@ class FileTransfers(private val context: Context, private val bridge: BridgePlug
     private fun safe(name: String) = name.isNotEmpty() && name.toByteArray().size <= 240 && !name.startsWith('.') && name.none { it.isISOControl() || it in "/\\:" }
     private fun identity(id: String) = id.isNotEmpty() && id.length <= 64 && id.all {it.isLetterOrDigit() && it.code < 128 || it == '-'}
     @Synchronized fun busy(): Boolean = incoming.isNotEmpty() || outgoing.isNotEmpty()
-    @Synchronized fun snapshot(): List<Offer> { prune(); return incoming.values.map {it.offer.copy()} + completed.toList() }
+    @Synchronized fun snapshot(): List<Offer> { prune(); return incoming.values.map {it.offer.copy()} + outgoing.map {(id,item)->Offer(id,item.name,item.size,item.offset,if(item.started) "sending" else "waiting_for_approval",item.created,"send")} + completed.toList() }
     private fun roots(): JSONObject = try {JSONObject(SharingPolicy.preferences(context).getString("folder_roots", "{}").orEmpty())} catch (_: Exception) {JSONObject()}
     private fun allowedRoot(id: String): Boolean {
         val value = roots().optString(id)
@@ -45,7 +45,7 @@ class FileTransfers(private val context: Context, private val bridge: BridgePlug
     @Synchronized fun close() { (incoming.keys + outgoing.keys).toList().forEach {cancel(it)}; nodes.clear() }
     @Synchronized fun prune() {
         val now=System.currentTimeMillis()
-        incoming.values.filter {now-it.offer.created>600_000}.map {it.offer.id}.forEach {cancel(it)}
+        incoming.values.filter {now-it.offer.created > if(it.offer.state=="approval_required") 120_000 else 600_000}.map {it.offer.id}.forEach {cancel(it)}
         outgoing.filter {(_,v)->now-v.created>600_000 || v.root?.let {!allowedRoot(it)} == true}.keys.toList().forEach {cancel(it)}
     }
     @Synchronized fun accept(id: String) {
@@ -73,13 +73,20 @@ class FileTransfers(private val context: Context, private val bridge: BridgePlug
             } ?: throw IllegalArgumentException()
             val hash=digest.digest().joinToString("") {"%02x".format(it)}
             val id=UUID.randomUUID().toString();opened=context.contentResolver.openInputStream(uri) ?: throw IllegalArgumentException()
-            outgoing[id]=Outgoing(opened,total,root=root);opened=null
+            outgoing[id]=Outgoing(opened,total,name,root=root);opened=null
             if(!bridge.send("file_offer",JSONObject().put("id",id).put("name",name).put("size",total).put("sha256",hash))) {cancel(id);status="Connection unavailable."} else status="File offered. Waiting for approval on the laptop."
         } catch (_: Exception) {try {opened?.close()}catch(_:Exception){};status="Could not read selected file, or it exceeds 100 MiB."}
     }
     @Synchronized fun handle(kind: String, data: JSONObject) {
         prune();val id=data.optString("id")
-        if(kind=="file_cancel" || kind=="file_done") {cancel(id);status=if(kind=="file_done") "Transfer completed." else "Transfer cancelled.";return}
+        if(kind=="file_cancel") {cancel(id);status="Transfer cancelled.";return}
+        if(kind=="file_done") {
+            val item=outgoing[id] ?: return
+            if(!item.started || item.offset!=item.size) return
+            completed.addLast(Offer(id,item.name,item.size,item.offset,"sent",item.created,"send"))
+            if(completed.size>32) completed.removeFirst()
+            cancel(id);status="Transfer completed.";return
+        }
         if(!bridge.allows("files") || !identity(id)) return
         try {
             when(kind) {
@@ -94,7 +101,7 @@ class FileTransfers(private val context: Context, private val bridge: BridgePlug
                     if(data.optLong("offset",-1)!=item.offset) {reject(id);return}
                     val bytes=ByteArray(minOf(CHUNK.toLong(),item.size-item.offset).toInt());var filled=0
                     while(filled<bytes.size){val n=item.stream.read(bytes,filled,bytes.size-filled);if(n<=0)throw IllegalStateException();filled+=n}
-                    val offset=item.offset;item.offset+=bytes.size
+                    val offset=item.offset;item.started=true;item.offset+=bytes.size
                     if(!bridge.send("file_chunk",JSONObject().put("id",id).put("offset",offset).put("bytes",Base64.encodeToString(bytes,Base64.NO_WRAP)))) {reject(id)}
                 }
                 "file_chunk" -> {

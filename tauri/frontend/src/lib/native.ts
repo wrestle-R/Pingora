@@ -48,6 +48,7 @@ export interface FeatureSnapshot {
     size: number;
     received: number;
     state: string;
+    direction: "send" | "receive";
   }[];
   folders: Record<
     string,

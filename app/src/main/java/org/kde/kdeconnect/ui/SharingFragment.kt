@@ -93,12 +93,12 @@ class SharingFragment : Fragment() {
             button("Choose a file to send to ${device.name}") { selectedPeer=device.deviceId;filePicker.launch(arrayOf("*/*")) }
             val bridge=device.getPlugin<BridgePlugin>()
             bridge?.files?.snapshot()?.forEach {offer->
-                text("${offer.name} · ${offer.received}/${offer.size} bytes · ${offer.state}")
+                text("${offer.name} · ${offer.received}/${offer.size} bytes ${if(offer.direction=="send") "sent" else "received"} · ${offer.state}")
                 if(offer.state=="approval_required") button("Accept ${offer.name}") {Thread {bridge.files.accept(offer.id)}.start();text("Transfer accepted. Refresh to check progress.")}
                 if(offer.state=="saved") button("Open saved ${offer.name}") {
                     try {bridge.files.savedUri(offer.id)?.let {uri->startActivity(Intent(Intent.ACTION_VIEW).setDataAndType(uri,java.net.URLConnection.guessContentTypeFromName(offer.name) ?: "application/octet-stream").addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION))}}catch(_:Exception){text("No app can open this file. It remains saved in Pingora.")}
                 }
-                if(offer.state!="saved") button("Reject or cancel ${offer.name}") {bridge.files.reject(offer.id);render()}
+                if(offer.state !in setOf("saved","sent")) button("Reject or cancel ${offer.name}") {bridge.files.reject(offer.id);render()}
             }
             bridge?.receivedLinks()?.forEach {value->
                 text(value)

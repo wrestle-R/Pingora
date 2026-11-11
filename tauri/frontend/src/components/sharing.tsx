@@ -185,7 +185,8 @@ function SharingPeer({
         .map((t) => (
           <div className="section-divider" key={t.id}>
             <p className="mb-3">
-              {t.name} · {t.received}/{t.size} bytes · {t.state}
+              {t.name} · {t.received}/{t.size} bytes{" "}
+              {t.direction === "send" ? "sent" : "received"} · {t.state}
             </p>
             <div className="action-row">
               {t.state === "approval_required" && (
@@ -193,13 +194,15 @@ function SharingPeer({
                   Accept transfer
                 </Action>
               )}
-              {t.state !== "saved" ? (
+              {t.state !== "saved" && t.state !== "sent" ? (
                 <Action action={() => act("file_cancel", { id: t.id })}>
                   Reject or cancel
                 </Action>
               ) : (
                 <p className="text-sm text-muted-foreground">
-                  Saved to Downloads/Pingora. Nothing was opened.
+                  {t.state === "sent"
+                    ? "Sent to your phone."
+                    : "Saved to Downloads/Pingora. Nothing was opened."}
                 </p>
               )}
             </div>

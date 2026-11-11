@@ -41,6 +41,45 @@ beforeEach(() => {
   native.mockResolvedValue([]);
 });
 describe("native frontend safety boundaries", () => {
+  it("exposes outgoing progress and cancellation without cancellation on sent receipts", async () => {
+    const user = userEvent.setup();
+    const outgoing = {
+      id: "out",
+      peer: "one",
+      name: "synthetic.txt",
+      size: 10,
+      received: 5,
+      state: "sending",
+      direction: "send" as const,
+    };
+    const view = render(
+      <Sharing
+        peers={[phone]}
+        snapshot={{ ...snapshot, transfers: [outgoing] }}
+        refresh={refresh}
+      />,
+    );
+    await user.click(screen.getByRole("button", { name: "Reject or cancel" }));
+    expect(native).toHaveBeenCalledWith("feature_action", {
+      deviceId: "one",
+      kind: "file_cancel",
+      data: { id: "out" },
+    });
+    view.rerender(
+      <Sharing
+        peers={[phone]}
+        snapshot={{
+          ...snapshot,
+          transfers: [{ ...outgoing, received: 10, state: "sent" }],
+        }}
+        refresh={refresh}
+      />,
+    );
+    expect(
+      screen.queryByRole("button", { name: "Reject or cancel" }),
+    ).toBeNull();
+    expect(screen.getByText("Sent to your phone.")).toBeTruthy();
+  });
   it("renders the React workspace and supports keyboard theme selection", async () => {
     const user = userEvent.setup();
     native.mockImplementation(async (command) =>
