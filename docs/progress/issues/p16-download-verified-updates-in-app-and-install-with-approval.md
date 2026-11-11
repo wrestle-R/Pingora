@@ -33,3 +33,5 @@ Full implementation and milestone pushes are authorized. Preserve the published-
 ## Implementation checkpoint (2026-11-11)
 
 Source paths now exist for this ticket; see [combined implementation evidence and remaining acceptance](../implementation-verification.md). Build/test evidence does not complete the real-device/desktop/release criteria above. Retain unfinished checkboxes until those exact outcomes are demonstrated.
+
+Re-tested the real signed0.1.0→latest rebuilt/signed0.1.1 Linux candidate: both installed GUIs start, saved paused/disabled policy survives, previous executable is retained and downgrade is rejected. Final Android candidate verifies/installs over current0.1.1; this same-version replacement is not a new prior-version OS-update acceptance claim.

@@ -31,3 +31,7 @@ Added a Robolectric test using a selected synthetic tree and mocked document pro
 ### Scoped grant management
 
 Added individual root revocation and a regression test: removing one reference preserves another reference to that URI and all unrelated grants. Selecting the same folder reuses its root; the32-root limit is checked before acquiring a persistent grant. Android153tests pass. The user selected only our synthetic test folder through the physical SAF picker. Scoped revoke/fixture cleanup awaits the updated APK installation.
+
+### Physical scoped revoke observation
+
+The user selected a test grant named Pingora and explicitly confirmed revocation. The final signed APK installed over the existing app; tapping only its individual revoke button removed that root row. Pairing stayed reachable and no global revoke was used. Only our own known synthetic fixture file/empty directory were cleaned up. Actual laptop listing/download through an OEM provider remains a separate unpassed check.

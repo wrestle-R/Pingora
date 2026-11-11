@@ -17,7 +17,7 @@ Calls are deferred. The user explicitly skipped real source-app notification/rep
 - Optimized desktop starts in an isolated fresh profile/session bus without XDG Downloads configuration. Test processes are stopped afterward.
 - Latest Linux package verifier passes required resources, public trust, host dependencies, bundled native-library resolution and headless health. Local development artifacts are not a new published release.
 - The shared native privacy guard reports `private_hidden=false` on the observed unlocked owner session. No physical locked-session pass is claimed.
-- Physical folder picker: user selected only the synthetic acceptance folder. Final scoped revocation/cleanup and updated navigation observation are recorded below when completed.
+- Physical folder picker: the user selected a test grant named Pingora and explicitly confirmed it was safe to revoke when its label differed from our fixture directory. On the updated signed app, its individual revoke button removed that row. No global revoke was used. Only our known45-byte fixture and its empty directory were removed; no selected-folder contents were read or deleted.
 
 ## Fixes found by testing
 
@@ -43,3 +43,9 @@ These results do not establish complete friend-beta or production qualification.
 ## Scoped folder cleanup implementation
 
 Individual folder revocation now removes only the selected root, preserving unrelated roots and duplicate references until their last grant reference is removed. Folder selection reuses an existing root ID and checks the32-root bound before persisting a new grant. This avoids acquiring untracked grants at the limit.
+
+## Final observed build/install checks
+
+The frozen-source Android release build and all153tests pass. The final APK verifies with the existing signer and installs normally over0.1.1 on the physical phone. The updated paired page visibly contains Sharing controls and Inbox; tapping Sharing controls opens it. After scoped grant revocation, the saved laptop remains reachable and sharing stays default-off.
+
+The final Linux package passes its verifier. Its signed0.1.0→rebuilt0.1.1 upgrade passes real installer execution and both installed GUI starts in an isolated home: saved paused/disabled policy survives, previous executable is retained and downgrade is rejected without changing the working installation. Test homes/processes are removed. Updated signed artifacts/metadata stay ignored under release-private/noncalls-checked-0.1.1; no tag or release was published.

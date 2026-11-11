@@ -44,3 +44,5 @@ After the user restored USB debugging and USB tethering, the Nothing A001 Androi
 ## Paired-page navigation fix, 2026-11-11
 
 Physical testing exposed an empty paired page: the bridge had no plugin entry buttons. Added direct Sharing controls and Inbox buttons. Startup no longer assumes a restored fragment exists when FragmentManager returns null; saved health/sharing/inbox destinations now have explicit fallbacks. Full152Androidtests/debug build pass; updated release installation/physical navigation check follows.
+
+Final signed build installed normally over0.1.1. Physical paired page now visibly contains Sharing controls and Inbox; tapping Sharing controls opens the correct screen. Saved pairing remains reachable after install and scoped folder revocation.
