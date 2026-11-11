@@ -36,7 +36,7 @@ function Device({ peer, refresh }: { peer: Peer; refresh: () => void }) {
       </div>
       <div className="min-w-0 flex-1">
         <div className="flex flex-wrap items-center gap-3">
-          <h3>{peer.name}</h3>
+          <h3>{peer.name}</h3><span className="text-xs text-muted-foreground">{peer.id.slice(-6)}</span>
           <Badge
             variant={peer.paired && peer.reachable ? "default" : "secondary"}
           >
@@ -127,8 +127,9 @@ export function Devices({
 }) {
   const list = uniquePeers(peers || []),
     pairedNames = new Set(list.filter((p) => p.paired).map((p) => p.name));
-  const primary = list.filter((p) => p.paired || !pairedNames.has(p.name)),
-    alternatives = list.filter((p) => !p.paired && pairedNames.has(p.name));
+  const activeNames = new Set(list.filter(p=>p.paired && p.reachable).map(p=>p.name));
+  const archived = (p: Peer) => (!p.paired && pairedNames.has(p.name)) || (p.paired && !p.reachable && activeNames.has(p.name));
+  const primary = list.filter(p=>!archived(p)), alternatives=list.filter(archived);
   return (
     <Panel
       title="Your devices"
@@ -180,7 +181,7 @@ export function Devices({
             <Collapsible className="mt-4">
               <CollapsibleTrigger asChild>
                 <Button variant="ghost">
-                  Other connections with the same name ({alternatives.length})
+                  Saved & alternative connections ({alternatives.length})
                   <ChevronDownIcon data-icon="inline-end" />
                 </Button>
               </CollapsibleTrigger>

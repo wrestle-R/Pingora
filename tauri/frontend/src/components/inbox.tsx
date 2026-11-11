@@ -40,8 +40,9 @@ function Notification({
         <Badge variant="secondary">{item.active ? "Live" : "History"}</Badge>
       </div>
       <h3 className="mt-3 font-medium">
-        {item.sender || item.title || item.app}
+        {item.title || item.sender || item.app}
       </h3>
+      {item.sender && item.sender !== item.title && <p className="text-sm text-muted-foreground">{item.sender}</p>}
       <p className="mt-2 whitespace-pre-wrap break-words text-sm leading-relaxed">
         {item.body}
       </p>

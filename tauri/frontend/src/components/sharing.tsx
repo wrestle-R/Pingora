@@ -39,7 +39,6 @@ function SharingPeer({
   const [busy, setBusy] = useState(false),
     [error, setError] = useState(""),
     [search, setSearch] = useState(""),
-    [url, setUrl] = useState(""),
     [text, setText] = useState("");
   const guard = useRef(false);
   const apps = usePoll<[string, string][]>("desktop_apps", {}, 60000);
@@ -73,6 +72,9 @@ function SharingPeer({
           : "Waiting for the phone’s feature session."
       }
     >
+      <Collapsible className="device-preferences">
+        <CollapsibleTrigger asChild><Button variant="ghost">Device permissions & privacy</Button></CollapsibleTrigger>
+        <CollapsibleContent className="pt-4">
       <FieldSet>
         <FieldLegend>Connection permissions</FieldLegend>
         <FieldGroup className="settings-grid">
@@ -122,6 +124,8 @@ function SharingPeer({
           ))}
         </FieldGroup>
       </FieldSet>
+        </CollapsibleContent>
+      </Collapsible>
       <Message>{error}</Message>
       <Collapsible className="section-divider">
         <CollapsibleTrigger asChild>
@@ -217,6 +221,7 @@ function SharingPeer({
           {listing.error && (
             <Message>Folder access is unavailable or was revoked.</Message>
           )}
+          {!listing.error && !listing.entries?.length && <Message>No accessible folders. On your phone, open Settings → Phone storage access, or choose a read-only folder.</Message>}
           {listing.entries?.map((entry) => (
             <div key={entry.id}>
               <Action
@@ -230,29 +235,10 @@ function SharingPeer({
               </Action>
             </div>
           ))}
+          {listing.next_offset != null && <Action action={() => act("folder_list", {node: listing.node || "", offset: listing.next_offset})}>Next page</Action>}
         </div>
       )}
       <FieldGroup className="section-divider">
-        <Field>
-          <FieldLabel htmlFor={`url-${peer.id}`}>Link to send</FieldLabel>
-          <Input
-            id={`url-${peer.id}`}
-            type="url"
-            maxLength={4096}
-            placeholder="https://…"
-            value={url}
-            onChange={(e) => setUrl(e.target.value)}
-          />
-        </Field>
-        <Action
-          disabled={!url}
-          action={async () => {
-            await act("url", { url });
-            setUrl("");
-          }}
-        >
-          Send link
-        </Action>
         <Field>
           <FieldLabel htmlFor={`clipboard-${peer.id}`}>
             Text to send to the phone clipboard
@@ -293,7 +279,7 @@ export function Sharing({
       ) : (
         <>
           {peers
-            .filter((p) => p.paired)
+            .filter((p) => p.paired && (p.reachable || !peers.some(other => other.paired && other.reachable && other.name === p.name)))
             .map((peer) => (
               <SharingPeer
                 key={peer.id}

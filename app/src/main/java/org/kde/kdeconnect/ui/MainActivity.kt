@@ -151,8 +151,8 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
                     setContentFragment(SettingsFragment())
                 }
 
-                MENU_ENTRY_INBOX -> {setContentFragment(InboxFragment())}
-                MENU_ENTRY_SHARING -> { setContentFragment(SharingFragment()) }
+                MENU_ENTRY_INBOX -> {setContentFragment(WorkspaceFragment().apply {arguments=Bundle().apply {putInt("destination",2)}})}
+                MENU_ENTRY_SHARING -> { setContentFragment(WorkspaceFragment()) }
 
                 MENU_ENTRY_HEALTH -> {
                     setContentFragment(HealthFragment())
@@ -216,13 +216,13 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
         //FragmentManager will restore whatever fragment was there
         if (savedInstanceState != null) {
             val frag = supportFragmentManager.findFragmentById(R.id.container)
-            if (frag != null && (frag !is DeviceFragment || frag.deviceId == savedDevice)) return
+            if (frag != null && frag !is SharingFragment && (frag !is DeviceFragment || frag.deviceId == savedDevice)) return
         }
 
-        if(intent.getBooleanExtra("pingora_inbox",false)) {mCurrentMenuEntry=MENU_ENTRY_INBOX;setContentFragment(InboxFragment());return}
+        if(intent.getBooleanExtra("pingora_inbox",false)) {mCurrentMenuEntry=MENU_ENTRY_INBOX;setContentFragment(WorkspaceFragment().apply {arguments=Bundle().apply {putInt("destination",2)}});return}
         if(intent.getBooleanExtra("pingora_sharing",false)) {
             mCurrentMenuEntry=MENU_ENTRY_SHARING
-            setContentFragment(SharingFragment())
+            setContentFragment(WorkspaceFragment())
             return
         }
 
@@ -232,8 +232,8 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
         } else {
             when (mCurrentMenuEntry) {
                 MENU_ENTRY_SETTINGS -> setContentFragment(SettingsFragment())
-                MENU_ENTRY_INBOX -> setContentFragment(InboxFragment())
-                MENU_ENTRY_SHARING -> setContentFragment(SharingFragment())
+                MENU_ENTRY_INBOX -> setContentFragment(WorkspaceFragment().apply {arguments=Bundle().apply {putInt("destination",2)}})
+                MENU_ENTRY_SHARING -> setContentFragment(WorkspaceFragment())
                 MENU_ENTRY_HEALTH -> setContentFragment(HealthFragment())
                 MENU_ENTRY_ABOUT -> setContentFragment(AboutFragment.newInstance())
                 else -> setContentFragment(PairingFragment())
@@ -310,7 +310,7 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
         val devices: Collection<Device> = KdeConnect.getInstance().devices.values
         for (device in devices) {
             if (device.isReachable && device.isPaired) {
-                val item = devicesMenu.add(Menu.FIRST, id++, 1, device.name)
+                val item = devicesMenu.add(Menu.FIRST, id++, 1, if(devices.count {it.name==device.name}>1) "${device.name} · ${device.deviceId.takeLast(6)}" else device.name)
                 item.icon = device.icon
                 item.isCheckable = true
                 mMapMenuToDeviceId[item] = device.deviceId
@@ -320,7 +320,7 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
         addDeviceItem.setIcon(R.drawable.ic_action_content_add_circle_outline_32dp)
         addDeviceItem.isCheckable = true
         menu.add(Menu.FIRST,MENU_ENTRY_INBOX,997,"Inbox").isCheckable=true
-        menu.add(Menu.FIRST, MENU_ENTRY_SHARING, 998, "Share").isCheckable = true
+        menu.add(Menu.FIRST, MENU_ENTRY_SHARING, 998, "Home").isCheckable = true
         menu.add(Menu.FIRST, MENU_ENTRY_HEALTH, 999, "Connection health").isCheckable = true
         val settingsItem = menu.add(Menu.FIRST, MENU_ENTRY_SETTINGS, 1000, R.string.settings)
         settingsItem.setIcon(R.drawable.ic_settings_white_32dp)
@@ -366,7 +366,7 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
             if(KdeConnect.getInstance().devices[deviceId]?.isPaired==true) {
                 mCurrentMenuEntry=MENU_ENTRY_SHARING
                 mNavigationView.setCheckedItem(MENU_ENTRY_SHARING)
-                setContentFragment(SharingFragment().apply {arguments=Bundle().apply {putString("peer",deviceId)}})
+                setContentFragment(WorkspaceFragment().apply {arguments=Bundle().apply {putString("peer",deviceId)}})
             } else setContentFragment(DeviceFragment.newInstance(deviceId, fromDeviceList))
         } else {
             mCurrentMenuEntry = MENU_ENTRY_ADD_DEVICE
@@ -380,10 +380,10 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
 
     fun openPingoraPage(page: String) {
         val (entry, fragment) = when(page) {
-            "inbox" -> MENU_ENTRY_INBOX to InboxFragment()
+            "inbox" -> MENU_ENTRY_INBOX to WorkspaceFragment().apply {arguments=Bundle().apply {putInt("destination",2)}}
             "health" -> MENU_ENTRY_HEALTH to HealthFragment()
             "devices" -> MENU_ENTRY_ADD_DEVICE to PairingFragment()
-            else -> MENU_ENTRY_SHARING to SharingFragment()
+            else -> MENU_ENTRY_SHARING to WorkspaceFragment()
         }
         mCurrentMenuEntry=entry
         mNavigationView.setCheckedItem(entry)
@@ -392,7 +392,7 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
 
     private fun setContentFragment(fragment: Fragment) {
         supportActionBar?.title = when(fragment) {
-            is SharingFragment -> "Share"
+            is WorkspaceFragment -> "Pingora"
             is InboxFragment -> "Inbox"
             is HealthFragment -> "Connection"
             is PairingFragment -> "Devices"

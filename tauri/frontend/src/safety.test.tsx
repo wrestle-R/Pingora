@@ -95,10 +95,17 @@ describe("native frontend safety boundaries", () => {
     await user.click(screen.getByRole("button", { name: "Appearance" }));
     await user.keyboard("{ArrowDown}{ArrowDown}{Enter}");
     expect(screen.queryByRole("menu")).toBeNull();
-    await user.click(screen.getByRole("button", { name: "Sharing" }));
+    await user.click(screen.getByRole("button", { name: "Files & clipboard" }));
     expect(
-      screen.getByRole("heading", { level: 1, name: "Sharing" }),
+      screen.getByRole("heading", { level: 1, name: "Files & clipboard" }),
     ).toBeTruthy();
+  });
+  it("shares only with the live identity when an offline saved peer has the same name", async () => {
+    const user=userEvent.setup();
+    render(<Sharing peers={[{...phone,id:"old",reachable:false},phone]} snapshot={snapshot} refresh={refresh} />);
+    expect(screen.getAllByRole("button",{name:"Browse phone folders"})).toHaveLength(1);
+    await user.click(screen.getByRole("button",{name:"Browse phone folders"}));
+    expect(native).toHaveBeenCalledWith("feature_action",{deviceId:phone.id,kind:"folder_list",data:{}});
   });
   it("deduplicates protocol identities without merging trust by display name", () => {
     const other = { ...phone, id: "two", paired: false };
@@ -189,9 +196,10 @@ describe("native frontend safety boundaries", () => {
     const user = userEvent.setup();
     render(<Sharing peers={[phone]} snapshot={{ ...snapshot, policies: { one: { paused: false, show_locked: false, enabled: {}, desktop_apps: [] } } }} refresh={refresh} />);
     await user.type(
-      screen.getByLabelText("Link to send"),
+      screen.getByLabelText("Text to send to the phone clipboard"),
       "https://example.com",
     );
+    await user.click(screen.getByRole("button", { name: "Device permissions & privacy" }));
     await user.click(screen.getByLabelText("Allow clipboard"));
     await waitFor(() =>
       expect(native).toHaveBeenCalledWith(
@@ -213,7 +221,7 @@ describe("native frontend safety boundaries", () => {
       ),
     );
     expect(
-      (screen.getByLabelText("Link to send") as HTMLInputElement).value,
+      (screen.getByLabelText("Text to send to the phone clipboard") as HTMLInputElement).value,
     ).toBe("https://example.com");
   });
   it("clears downloaded approval when a new update check fails", async () => {

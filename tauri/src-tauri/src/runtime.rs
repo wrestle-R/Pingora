@@ -762,7 +762,9 @@ impl Runtime {
                 if let Some(text) = packet.data["text"].as_str().filter(|s| s.len() <= 16384) {
                     if let Ok(mut l) = self.live.lock() {
                         l.clipboard = Some(text.into());
-                        crate::system::clipboard_write(text).ok();
+                        let copied = crate::system::clipboard_write(text).is_ok();
+                        drop(l);
+                        self.native(crate::native::Command::Clipboard(copied));
                     }
                 }
             }

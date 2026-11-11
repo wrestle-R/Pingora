@@ -86,6 +86,8 @@ class BridgePlugin : Plugin() {
     @Synchronized
     fun send(kind: String, data: JSONObject): Boolean = remote.isNotEmpty() && enqueue(kind, data, remote)
 
+    val isReady: Boolean get() = remote.isNotEmpty() && remotePolicy.has("enabled") && device.isReachable
+
     fun allows(feature: String): Boolean = device.isPaired && SharingPolicy.allows(context, device.deviceId, feature)
     @Synchronized
     fun canSend(feature: String): Boolean = allows(feature) && !remotePolicy.optBoolean("paused", true) && remotePolicy.optJSONObject("enabled")?.optBoolean(feature, false) == true
@@ -93,6 +95,7 @@ class BridgePlugin : Plugin() {
     fun stopLocalRing() { handler.post(stopRing) }
 
     fun policyChanged() {
+        ClipboardWidget.refresh(context)
         val enabled = JSONObject()
         SharingPolicy.features.forEach { enabled.put(it, allows(it)) }
         send("policy", JSONObject().put("enabled", enabled).put("paused", SharingPolicy.preferences(context).getBoolean("${device.deviceId}.paused", false)))
@@ -148,7 +151,7 @@ class BridgePlugin : Plugin() {
             "folder_list", "folder_read" -> files.folders(kind,data)
             "slumber" -> if (allows("slumber")) { slumberStatus=if(!data.optBoolean("available")) "Slumber unavailable on laptop" else if(data.optBoolean("active")) "Active · secure: ${data.optBoolean("secure")} · lid: ${data.optString("lid_action", "unknown")}" else "Available · inactive · lid: ${data.optString("lid_action", "unknown")}" }
 
-            "policy" -> { remotePolicy = data; if(data.optBoolean("paused",true)||data.optJSONObject("enabled")?.optBoolean("files",false)!=true) files.close(); if (canSend("notifications")) PingoraNotificationListener.instance?.sync(this) }
+            "policy" -> { remotePolicy = data; ClipboardWidget.refresh(context); if(data.optBoolean("paused",true)||data.optJSONObject("enabled")?.optBoolean("files",false)!=true) files.close(); if (canSend("notifications")) PingoraNotificationListener.instance?.sync(this) }
             "sync" -> { if (canSend("notifications")) PingoraNotificationListener.instance?.sync(this); battery() }
             "battery_request" -> battery()
             "battery" -> if(allows("battery")) {val level=data.optInt("level",-1);if(level in 0..100) laptopBattery="Laptop battery: $level%${if(data.optBoolean("charging")) " · charging" else ""}"}
@@ -159,7 +162,10 @@ class BridgePlugin : Plugin() {
             "clipboard" -> if (allows("clipboard") && unlocked()) {
                 val text = data.optString("text")
                 if (text.toByteArray(Charsets.UTF_8).size <= 16384) handler.post {
-                    if (allows("clipboard") && unlocked()) context.getSystemService(ClipboardManager::class.java).setPrimaryClip(ClipData.newPlainText("Pingora", text))
+                    if (allows("clipboard") && unlocked()) {
+                        val copied=runCatching {context.getSystemService(ClipboardManager::class.java).setPrimaryClip(ClipData.newPlainText("Pingora", text))}.isSuccess
+                        ClipboardNotice.received(context,copied)
+                    }
                 }
             }
             "ring" -> if (allows("ring")) handler.post {

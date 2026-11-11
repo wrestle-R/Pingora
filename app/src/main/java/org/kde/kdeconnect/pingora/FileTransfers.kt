@@ -33,6 +33,7 @@ class FileTransfers(private val context: Context, private val bridge: BridgePlug
     @Synchronized fun snapshot(): List<Offer> { prune(); return incoming.values.map {it.offer.copy()} + outgoing.map {(id,item)->Offer(id,item.name,item.size,item.offset,if(item.started) "sending" else "waiting_for_approval",item.created,"send")} + completed.toList() }
     private fun roots(): JSONObject = try {JSONObject(SharingPolicy.preferences(context).getString("folder_roots", "{}").orEmpty())} catch (_: Exception) {JSONObject()}
     private fun allowedRoot(id: String): Boolean {
+        if(id=="shared-storage") return android.os.Build.VERSION.SDK_INT>=30 && Environment.isExternalStorageManager()
         val value = roots().optString(id)
         if (value.isEmpty()) return false
         return context.contentResolver.persistedUriPermissions.any { it.uri.toString() == value && it.isReadPermission }
@@ -65,7 +66,8 @@ class FileTransfers(private val context: Context, private val bridge: BridgePlug
         if(!bridge.canSend("files") || outgoing.size>=4 || root?.let {!allowedRoot(it)} == true) {status="Enable files on both devices and reconnect.";return}
         var opened: InputStream? = null
         try {
-            val name=context.contentResolver.query(uri,arrayOf(OpenableColumns.DISPLAY_NAME),null,null,null)?.use {c->if(c.moveToFirst()) c.getString(0) else null} ?: "shared-file"
+            if(root=="shared-storage" && !sharedFile(uri).isFile) throw IllegalArgumentException()
+            val name=if(uri.scheme=="file") sharedFile(uri).name else context.contentResolver.query(uri,arrayOf(OpenableColumns.DISPLAY_NAME),null,null,null)?.use {c->if(c.moveToFirst()) c.getString(0) else null} ?: "shared-file"
             if(!safe(name)) {status="Unsupported filename.";return}
             val digest=MessageDigest.getInstance("SHA-256");var total=0L;val buffer=ByteArray(CHUNK)
             context.contentResolver.openInputStream(uri)?.use {stream->
@@ -133,28 +135,58 @@ class FileTransfers(private val context: Context, private val bridge: BridgePlug
             }
         } catch (_: Exception) {reject(id);status="Transfer stopped. Check connection, available storage and file access."}
     }
+    private fun sharedFile(uri: Uri): File {
+        require(uri.scheme=="file" && allowedRoot("shared-storage"))
+        return SharedStorageBoundary.resolve(Environment.getExternalStorageDirectory(),File(requireNotNull(uri.path)))
+    }
     @Synchronized fun folders(kind: String, data: JSONObject) {
         if(!bridge.allows("folders")) return
         val nodeId=data.optString("node")
         if(kind=="folder_read") {val node=nodes[nodeId] ?: return;if(allowedRoot(node.root)) offer(node.uri,node.root);return}
         if(kind!="folder_list") return
         val entries=JSONArray()
+        val offset=data.optInt("offset",0).coerceIn(0,1_000_000)
+        var nextOffset: Int? = null
+        if(nodes.size>700) {val parent=nodes[nodeId];nodes.clear();if(parent!=null) nodes[nodeId]=parent}
         try {
             if(nodeId.isEmpty()) {
                 nodes.clear();val selected=roots()
-                selected.keys().asSequence().take(32).forEach {root->if(allowedRoot(root)) {val uri=Uri.parse(selected.getString(root));val token=UUID.randomUUID().toString();nodes[token]=Node(root,uri);entries.put(JSONObject().put("id",token).put("name","Shared folder").put("directory",true).put("size",0))}}
+                if(allowedRoot("shared-storage")) {
+                    val token=UUID.randomUUID().toString();nodes[token]=Node("shared-storage",Uri.fromFile(Environment.getExternalStorageDirectory()))
+                    entries.put(JSONObject().put("id",token).put("name","Phone storage").put("directory",true).put("size",0))
+                }
+                selected.keys().asSequence().take(32).forEach {root->if(allowedRoot(root)) {val uri=Uri.parse(selected.getString(root));val token=UUID.randomUUID().toString();nodes[token]=Node(root,uri);entries.put(JSONObject().put("id",token).put("name",SharingPolicy.preferences(context).getString("folder_name.$root","Shared folder")).put("directory",true).put("size",0))}}
             } else {
                 val parent=nodes[nodeId] ?: return;if(!allowedRoot(parent.root)) return
+                if(parent.root=="shared-storage") {
+                    val directory=sharedFile(parent.uri)
+                    require(directory.isDirectory)
+                    // No remote paths: only bounded opaque node tokens leave the phone.
+                    val children=java.nio.file.Files.newDirectoryStream(directory.toPath()).use {stream->
+                        stream.iterator().asSequence().drop(offset).take(257).map {it.toFile()}.toList()
+                    }
+                    if(children.size>256) nextOffset=offset+256
+                    children.take(256).sortedWith(compareBy<File> {!it.isDirectory}.thenBy {it.name.lowercase()}).forEach {file->
+                        try {
+                            val child=sharedFile(Uri.fromFile(file));if(nodes.size>=1024)return@forEach
+                            val token=UUID.randomUUID().toString();nodes[token]=Node(parent.root,Uri.fromFile(child))
+                            entries.put(JSONObject().put("id",token).put("name",child.name.take(240)).put("directory",child.isDirectory).put("size",if(child.isFile)child.length() else 0))
+                        } catch (_: IllegalArgumentException) { }
+                    }
+                } else {
                 val documentId=if(DocumentsContract.isTreeUri(parent.uri)&&parent.uri.pathSegments.size==2) DocumentsContract.getTreeDocumentId(parent.uri) else DocumentsContract.getDocumentId(parent.uri)
                 val childUri=DocumentsContract.buildChildDocumentsUriUsingTree(parent.uri,documentId)
                 context.contentResolver.query(childUri,arrayOf(DocumentsContract.Document.COLUMN_DOCUMENT_ID,DocumentsContract.Document.COLUMN_DISPLAY_NAME,DocumentsContract.Document.COLUMN_MIME_TYPE,DocumentsContract.Document.COLUMN_SIZE),null,null,null)?.use {cursor->
+                    cursor.moveToPosition(offset-1)
                     while(entries.length()<256 && nodes.size<1024 && cursor.moveToNext()) {
                         val child=DocumentsContract.buildDocumentUriUsingTree(parent.uri,cursor.getString(0));val token=UUID.randomUUID().toString();nodes[token]=Node(parent.root,child)
                         entries.put(JSONObject().put("id",token).put("name",cursor.getString(1).take(240)).put("directory",cursor.getString(2)==DocumentsContract.Document.MIME_TYPE_DIR).put("size",cursor.getLong(3).coerceAtLeast(0)))
                     }
+                    if(cursor.moveToNext()) nextOffset=offset+entries.length()
+                }
                 }
             }
-            bridge.send("folder_entries",JSONObject().put("entries",entries).put("node",nodeId))
+            bridge.send("folder_entries",JSONObject().put("entries",entries).put("node",nodeId).put("next_offset",nextOffset))
         } catch (_: Exception) {status="Shared folder access was revoked or unavailable.";bridge.send("folder_entries",JSONObject().put("entries",JSONArray()).put("error","access_unavailable"))}
     }
     companion object {private const val CHUNK=12*1024;private const val MAX=100L*1024*1024}

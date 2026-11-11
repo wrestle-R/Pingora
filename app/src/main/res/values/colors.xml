@@ -9,4 +9,5 @@
     <color name="pingora_on_primary">#FFFFFF</color>
     <color name="pingora_surface">#F5F8F7</color>
     <color name="pingora_background">#F5F8F7</color>
+    <color name="pingora_widget_text">#172B27</color>
 </resources>

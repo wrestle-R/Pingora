@@ -17,6 +17,7 @@ use tauri::Manager;
 #[derive(Clone)]
 pub enum Command {
     Notice(Notice),
+    Clipboard(bool),
     Remove(String, String, String),
     ClearPeer(String),
     Ring(String, bool),
@@ -39,11 +40,19 @@ fn escape(text: &str) -> String {
 // every field sent to the native daemon, including actions and markup.
 fn presentation(notice: &Notice, reveal: bool, open: bool) -> (String, String, Vec<&'static str>) {
     let summary = if reveal {
-        escape(if notice.sender.is_empty() {
-            &notice.title
-        } else {
-            &notice.sender
-        })
+        escape(
+            &if notice.title.is_empty() || notice.title == notice.sender {
+                if notice.title.is_empty() {
+                    notice.sender.clone()
+                } else {
+                    notice.title.clone()
+                }
+            } else if notice.sender.is_empty() {
+                notice.title.clone()
+            } else {
+                format!("{} · {}", notice.title, notice.sender)
+            },
+        )
     } else {
         "New phone notification".into()
     };
@@ -184,6 +193,31 @@ pub fn start(runtime: Arc<Runtime>, app: tauri::AppHandle) -> SyncSender<Command
                                 }
                             }
                         }
+                    }
+                    Command::Clipboard(copied) => {
+                        let mut hints = PropMap::new();
+                        hints.insert(
+                            "desktop-entry".into(),
+                            Variant(Box::new("io.github.wrestle-r.pingora".to_string())),
+                        );
+                        let _: Result<(u32,), _> = proxy.method_call(
+                            "org.freedesktop.Notifications",
+                            "Notify",
+                            (
+                                "Pingora",
+                                0u32,
+                                "",
+                                "Clipboard received",
+                                if copied {
+                                    "Ready to paste on this laptop."
+                                } else {
+                                    "Open Pingora to copy the received text."
+                                },
+                                Vec::<String>::new(),
+                                hints,
+                                -1i32,
+                            ),
+                        );
                     }
                     Command::Notice(notice) => {
                         if !runtime.notifications_allowed(&notice.peer) {
@@ -480,6 +514,17 @@ mod tests {
         assert_eq!(*closed.lock().unwrap(), vec![id]);
     }
     #[test]
+    fn conversation_title_survives_and_dm_does_not_repeat_sender() {
+        let mut item = notice();
+        let (title, _, _) = presentation(&item, true, true);
+        assert!(title.contains("Private title") && title.contains("&lt;sender&gt;"));
+        item.title = item.sender.clone();
+        assert_eq!(presentation(&item, true, true).0, "&lt;sender&gt;");
+        assert!(!presentation(&item, false, false)
+            .0
+            .contains("Private title"));
+    }
+    #[test]
     fn native_payload_redacts_content_and_actions_when_locked_or_unknown() {
         let notice = notice();
         let (title, body, actions) = presentation(&notice, false, false);
@@ -487,7 +532,7 @@ mod tests {
         assert!(!body.contains("Secret"));
         assert_eq!(actions, vec!["default", "Open Pingora"]);
         let (title, body, actions) = presentation(&notice, true, true);
-        assert_eq!(title, "&lt;sender&gt;");
+        assert_eq!(title, "Private title · &lt;sender&gt;");
         assert_eq!(body, "Secret &amp; &lt;b&gt;markup&lt;/b&gt;");
         assert!(actions.contains(&"read"));
         assert!(actions.contains(&"dismiss"));

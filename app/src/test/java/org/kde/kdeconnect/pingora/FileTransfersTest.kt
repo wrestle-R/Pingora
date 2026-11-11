@@ -20,6 +20,7 @@ class FileTransfersTest {
     private val context=mockk<Context>()
     private val uri=mockk<Uri>()
     private fun transfers(bytes:ByteArray):FileTransfers {
+        every {uri.scheme} returns "content"
         every {context.filesDir} returns directory
         every {context.contentResolver} returns resolver
         every {resolver.query(uri,any(),null,null,null)} returns null

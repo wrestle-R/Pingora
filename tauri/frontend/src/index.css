@@ -387,3 +387,14 @@ h1 {
     scroll-behavior: auto !important;
   }
 }
+
+/* Compact application workspace, with quieter surfaces and stronger conversation hierarchy. */
+.workspace { max-width: 1000px; padding: 32px 40px 56px; }
+h1 { font-size: 30px; letter-spacing: -1px; font-weight: 600; }
+.page-heading { margin-bottom: 28px; align-items: flex-start; }
+.notice { padding: 22px 0; }
+.notice h3 { font-size: 18px; letter-spacing: -0.3px; }
+.device-preferences { margin-bottom: 16px; }
+.action-row button { border-radius: 10px; }
+.dark { --background: #0b0d0e; --card: #131617; --sidebar: #101213; --muted: #1a1e1f; --border: #292f30; --primary: #8cdbca; --primary-foreground: #102e28; }
+@media(max-width: 900px) { .workspace { padding: 24px 20px 40px; } }

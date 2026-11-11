@@ -8,6 +8,18 @@ if os.uname().sysname!='Linux' or os.uname().machine!='x86_64':raise SystemExit(
 repo='wrestle-R/Pingora'
 PUBLIC_KEY='20131ae1e757a3fb4cb029a7ad54f969f5db77e269e83e0545d7e7c4ad65535f'
 if a.tag and not re.fullmatch(r'v\d+\.\d+\.\d+(?:-[A-Za-z0-9.-]+)?',a.tag):raise SystemExit('Invalid release tag')
+# Resolve latest once, so metadata, signature and artifacts cannot cross releases.
+if not a.tag and not a.source:
+ if a.github_auth:
+  a.tag=subprocess.check_output(['gh','release','view','--repo',repo,'--json','tagName','--jq','.tagName'],text=True).strip()
+ else:
+  request=urllib.request.Request(f'https://api.github.com/repos/{repo}/releases/latest',headers={'User-Agent':'Pingora-installer','Accept':'application/vnd.github+json'})
+  with urllib.request.urlopen(request,timeout=30) as response:
+   release=response.read(262145)
+  if len(release)>262144:raise SystemExit('Oversized release response')
+  a.tag=json.loads(release)['tag_name']
+ if not isinstance(a.tag,str) or not re.fullmatch(r'v\d+\.\d+\.\d+(?:-[A-Za-z0-9.-]+)?',a.tag):raise SystemExit('Invalid published release tag')
+
 with tempfile.TemporaryDirectory(prefix='pingora-install-') as temp:
  work=Path(temp)
  def obtain(name):
@@ -41,7 +53,8 @@ with tempfile.TemporaryDirectory(prefix='pingora-install-') as temp:
  target=manifest['targets']['linux-x86_64'];name=target['name']
  if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._-]{0,159}\.tar\.gz',name):raise SystemExit('Invalid artifact name')
  artifact=obtain(name)
- if artifact.stat().st_size!=target['size'] or not 0<target['size']<=536870912 or hashlib.sha256(artifact.read_bytes()).hexdigest()!=target['sha256']:raise SystemExit('Artifact integrity verification failed; installation unchanged')
+ with artifact.open('rb') as stream:digest=hashlib.file_digest(stream,'sha256').hexdigest()
+ if artifact.stat().st_size!=target['size'] or not 0<target['size']<=536870912 or digest!=target['sha256']:raise SystemExit('Artifact integrity verification failed; installation unchanged')
  home=a.home.resolve();versions=home/'.local/share/pingora/versions';versions.mkdir(parents=True,exist_ok=True)
  destination=versions/version;launcher=home/'.local/bin/pingora';launcher.parent.mkdir(parents=True,exist_ok=True)
  if launcher.is_symlink() and launcher.resolve().is_relative_to(versions.resolve()):
@@ -50,6 +63,9 @@ with tempfile.TemporaryDirectory(prefix='pingora-install-') as temp:
  if destination.exists():raise SystemExit('This version is already installed; existing version retained')
  if launcher.exists() or launcher.is_symlink():
   if not launcher.is_symlink() or not launcher.resolve().is_relative_to(versions.resolve()):raise SystemExit('Refusing to replace an unrelated launcher')
+ applications=home/'.local/share/applications'
+ entry=applications/'io.github.wrestle-r.pingora.desktop'
+ if entry.exists() and 'X-Pingora-Installer=true' not in entry.read_text():raise SystemExit('Refusing to replace an unrelated desktop entry; installation unchanged')
  with tempfile.TemporaryDirectory(prefix='.staging-',dir=versions) as staging:
   staging=Path(staging)
   with tarfile.open(artifact,'r:gz') as archive:
@@ -76,5 +92,7 @@ applications=home/'.local/share/applications';applications.mkdir(parents=True,ex
 entry=applications/'io.github.wrestle-r.pingora.desktop'
 if entry.exists() and 'X-Pingora-Installer=true' not in entry.read_text():raise SystemExit('Installed app, but preserved an existing unrelated desktop entry')
 quoted=str(launcher).replace('\\','\\\\').replace('"','\\"').replace('$','\\$').replace('`','\\`')
-entry.write_text('[Desktop Entry]\nType=Application\nName=Pingora\nComment=Connect your Android phone and Linux laptop\nExec="'+quoted+'"\nIcon=network-wireless\nTerminal=false\nCategories=Network;Utility;\nX-Pingora-Installer=true\n')
+icon=destination/'Pingora/brand/pingora.svg'
+icon_name=str(icon) if icon.is_file() else 'network-wireless'
+entry.write_text('[Desktop Entry]\nType=Application\nName=Pingora\nComment=Connect your Android phone and Linux laptop\nExec="'+quoted+'"\nIcon='+icon_name+'\nTerminal=false\nCategories=Network;Utility;\nX-Pingora-Installer=true\n')
 print('Desktop menu entry installed. Open Pingora from your application menu.')

@@ -26,6 +26,10 @@ class SharingFragment : Fragment() {
     private var selectedPeer: String? = null
     private var page = 0
     private var advanced = false
+    private var showActivity = false
+    private val back = object : androidx.activity.OnBackPressedCallback(false) {
+        override fun handleOnBackPressed() {page=0;advanced=false;render()}
+    }
     private val linkDrafts = mutableMapOf<String, String>()
     private var snackbar: com.google.android.material.snackbar.Snackbar? = null
     private var lastLiveState = ""
@@ -41,6 +45,7 @@ class SharingFragment : Fragment() {
                 peer==null -> "Pair with Pingora on your laptop to start sharing."
                 peer?.isReachable!=true -> "Offline · Open Pingora on your laptop and use the same network."
                 SharingPolicy.preferences(requireContext()).getBoolean("${peer.deviceId}.paused",false) -> "Sharing paused · Resume in Settings."
+                bridge?.isReady != true -> "Connecting · Waiting for the laptop feature channel"
                 else -> "Connected · Sharing over your local network"
             }
             val liveState=liveState()
@@ -53,7 +58,7 @@ class SharingFragment : Fragment() {
     override fun onCreate(state: Bundle?) {
         super.onCreate(state)
         selectedPeer = state?.getString("peer") ?: arguments?.getString("peer")
-        page = state?.getInt("page") ?: 0
+        page = state?.getInt("page") ?: arguments?.getInt("page", 0) ?: 0
         state?.getBundle("drafts")?.let { b -> b.keySet().forEach { linkDrafts[it] = b.getString(it).orEmpty() } }
     }
     override fun onSaveInstanceState(state: Bundle) {
@@ -66,7 +71,7 @@ class SharingFragment : Fragment() {
         val peer=selectedPeer?.let {KdeConnect.getInstance().devices[it]}
         val bridge=peer?.getPlugin<BridgePlugin>()
         return "${peer?.deviceId}:${peer?.isReachable}:" + SharingPolicy.features.joinToString {bridge?.canSend(it).toString()} +
-            if(page==1) bridge?.files?.snapshot()?.joinToString {"${it.id}:${it.state}:${it.received}"}.orEmpty()+bridge?.receivedLinks()?.size else ""
+            if(page==0 && showActivity) bridge?.files?.snapshot()?.joinToString {"${it.id}:${it.state}:${it.received}"}.orEmpty()+bridge?.receivedLinks()?.size else ""
     }
     private fun message(value: String) {
         val layout = content ?: return
@@ -75,8 +80,8 @@ class SharingFragment : Fragment() {
     }
     private val filePicker=registerForActivityResult(androidx.activity.result.contract.ActivityResultContracts.OpenDocument()) {uri->
         if(uri!=null) selectedPeer?.let {id->KdeConnect.getInstance().devices[id]?.getPlugin<BridgePlugin>()?.let {bridge->
-            message("Preparing file. Track it in Activity.")
-            Thread {bridge.files.offer(uri);handler.post {if(content!=null) message(bridge.files.status.ifEmpty {"File prepared. Open Activity for progress."})}}.start()
+            message("Preparing file. See Transfers & received links.")
+            Thread {bridge.files.offer(uri);handler.post {if(content!=null) message(bridge.files.status.ifEmpty {"File prepared. See Transfers & received links."})}}.start()
         }}
     }
     private val folderPicker=registerForActivityResult(androidx.activity.result.contract.ActivityResultContracts.OpenDocumentTree()) {uri->
@@ -90,23 +95,29 @@ class SharingFragment : Fragment() {
                     return@registerForActivityResult
                 }
                 context.contentResolver.takePersistableUriPermission(uri,Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                roots.put(existing ?: java.util.UUID.randomUUID().toString(),uri.toString())
-                SharingPolicy.preferences(context).edit {putString("folder_roots",roots.toString())}
+                val rootId=existing ?: java.util.UUID.randomUUID().toString()
+                roots.put(rootId,uri.toString())
+                val name=androidx.documentfile.provider.DocumentFile.fromTreeUri(context,uri)?.name ?: "Shared folder"
+                SharingPolicy.preferences(context).edit {putString("folder_roots",roots.toString());putString("folder_name.$rootId",name)}
             }catch(_:Exception){message("Folder access was not granted. Choose the folder again.")}
             render()
         }
     }
 
+    private fun Int.dp() = (this*resources.displayMetrics.density).toInt()
     private var content: LinearLayout? = null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, state: Bundle?): View {
         val context=requireContext()
         content=LinearLayout(context).apply { orientation=LinearLayout.VERTICAL; val p=(24*resources.displayMetrics.density).toInt(); setPadding(p,p,p,p) }
         return ScrollView(context).apply { addView(content) }
     }
+    override fun onViewCreated(view: View, state: Bundle?) {
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, back)
+    }
     override fun onResume() { super.onResume(); render(); handler.removeCallbacks(refreshStatus); handler.post(refreshStatus) }
     override fun onPause() { handler.removeCallbacks(refreshStatus); super.onPause() }
     private fun render() {
-        val context=requireContext(); val layout=content ?: return; layout.removeAllViews(); batteryLabel=null; slumberLabel=null
+        val context=requireContext(); val layout=content ?: return; back.isEnabled=page==2; layout.removeAllViews(); batteryLabel=null; slumberLabel=null
         fun text(value:String, heading:Boolean=false): TextView {
             return TextView(context).apply {
                 text=value; textSize=if(heading) 26f else 15f
@@ -117,41 +128,54 @@ class SharingFragment : Fragment() {
         }
         fun button(label:String, enabled:Boolean=true, action:()->Unit) {
             layout.addView(Button(context).apply {
-                text=label; isAllCaps=false; isEnabled=enabled; alpha=if(enabled) 1f else 0.45f; strokeWidth=if(label=="Choose a file") 0 else (resources.displayMetrics.density).toInt().coerceAtLeast(1);
-                if(label!="Choose a file") {backgroundTintList=android.content.res.ColorStateList.valueOf(android.graphics.Color.TRANSPARENT);setTextColor(com.google.android.material.color.MaterialColors.getColor(this,androidx.appcompat.R.attr.colorPrimary));strokeColor=android.content.res.ColorStateList.valueOf(com.google.android.material.color.MaterialColors.getColor(this,com.google.android.material.R.attr.colorOutline))}; cornerRadius=(16*resources.displayMetrics.density).toInt()
+                text=label; isAllCaps=false; isEnabled=enabled; alpha=if(enabled) 1f else 0.45f; strokeWidth=0;
+                if(label!="Send file" && label!="Send clipboard") {backgroundTintList=android.content.res.ColorStateList.valueOf(com.google.android.material.color.MaterialColors.getColor(this,com.google.android.material.R.attr.colorSurfaceContainer));setTextColor(com.google.android.material.color.MaterialColors.getColor(this,com.google.android.material.R.attr.colorOnSurface))}; cornerRadius=(16*resources.displayMetrics.density).toInt()
                 minimumHeight=(56*resources.displayMetrics.density).toInt()
                 layoutParams=LinearLayout.LayoutParams(-1,-2).apply { topMargin=(8*resources.displayMetrics.density).toInt() }
                 setOnClickListener {action()}
             })
         }
         val devices=KdeConnect.getInstance().devices.values.filter {it.isPaired}.toList()
-        val current=devices.firstOrNull { it.deviceId==selectedPeer } ?: devices.firstOrNull()
+        val current=devices.firstOrNull { it.deviceId==selectedPeer } ?: devices.firstOrNull {it.isReachable} ?: devices.firstOrNull()
         selectedPeer=current?.deviceId
-        text(current?.name ?: "Connect your laptop", true)
+        if(page==0 || page==2) {
+            val card=com.google.android.material.card.MaterialCardView(context).apply {
+                radius=24*resources.displayMetrics.density
+                strokeWidth=0
+                setCardBackgroundColor(com.google.android.material.color.MaterialColors.getColor(layout,com.google.android.material.R.attr.colorSurfaceContainer))
+                layoutParams=LinearLayout.LayoutParams(-1,-2).apply {bottomMargin=(24*resources.displayMetrics.density).toInt()}
+            }
+            val cardContent=LinearLayout(context).apply {orientation=LinearLayout.VERTICAL;setPadding(24.dp(),16.dp(),24.dp(),20.dp())}
+            layout.addView(card)
+            card.addView(cardContent)
+            val heading=TextView(context).apply {text=current?.name ?: "Connect your laptop";textSize=24f;setTypeface(typeface,android.graphics.Typeface.BOLD)}
+            cardContent.addView(heading)
         connectionLabel=text(when {
             current==null -> "Pair with Pingora on your laptop to start sharing."
             !current.isReachable -> "Offline · Open Pingora on your laptop and use the same network."
             SharingPolicy.preferences(context).getBoolean("${current.deviceId}.paused",false) -> "Sharing paused · Resume in Settings."
+            current.getPlugin<BridgePlugin>()?.isReady != true -> "Connecting · Waiting for the laptop feature channel"
             else -> "Connected · Sharing over your local network"
         })
-        if(devices.size>1) button("Switch laptop") {
+            layout.removeView(connectionLabel)
+            cardContent.addView(connectionLabel)
+        } else text("Settings", true)
+        val visibleDevices=devices.filter {it.isReachable || devices.none {other->other.name==it.name && other.isReachable}}
+        if(visibleDevices.size>1) button("Switch laptop") {
             com.google.android.material.dialog.MaterialAlertDialogBuilder(context).setTitle("Choose a laptop")
-                .setItems(devices.map {it.name}.toTypedArray()) {_,index -> selectedPeer=devices[index].deviceId; render()}.show()
+                .setItems(visibleDevices.map {"${it.name} · ${if(it.isReachable) "Connected" else "Saved offline"} · ${it.deviceId.takeLast(6)}"}.toTypedArray()) {_,index -> selectedPeer=visibleDevices[index].deviceId; render()}.show()
         }
-        val tabs=com.google.android.material.tabs.TabLayout(context).apply {
-            tabMode=com.google.android.material.tabs.TabLayout.MODE_SCROLLABLE
-            tabGravity=com.google.android.material.tabs.TabLayout.GRAVITY_START
-            listOf("Share","Activity","Controls","Settings").forEach {addTab(newTab().setText(it))}
-            getTabAt(page)?.select()
-            addOnTabSelectedListener(object : com.google.android.material.tabs.TabLayout.OnTabSelectedListener {
-                override fun onTabSelected(tab: com.google.android.material.tabs.TabLayout.Tab) {page=tab.position; render()}
-                override fun onTabUnselected(tab: com.google.android.material.tabs.TabLayout.Tab) {}
-                override fun onTabReselected(tab: com.google.android.material.tabs.TabLayout.Tab) {}
-            })
-        }
-        layout.addView(tabs)
+        if(page==2) button("Back to Home") {page=0;render()}
+        if(page==0 && current!=null) button("Laptop details") {page=2;render()}
         lastLiveState=liveState()
         if(page==3) {
+        devices.filter {!it.isReachable}.forEach {saved->
+            button("Forget saved offline ${saved.name} · ${saved.deviceId.takeLast(6)}") {
+                com.google.android.material.dialog.MaterialAlertDialogBuilder(context).setTitle("Forget ${saved.name}?")
+                    .setMessage("This removes only the saved offline identity ending ${saved.deviceId.takeLast(6)}. The connected identity is kept.")
+                    .setPositiveButton("Forget") {_,_->saved.unpair();selectedPeer=null;render()}.setNegativeButton("Cancel",null).show()
+            }
+        }
         button("Connection & Android permissions") {(activity as? MainActivity)?.openPingoraPage("health")}
         text("Permissions & folders", true)
         text("Sharing features start enabled. Android still needs your approval for notification access and folders.")
@@ -163,6 +187,10 @@ class SharingFragment : Fragment() {
             text=label; isChecked=pkg in SharingPolicy.apps(context)
             setOnCheckedChangeListener { _,enabled-> val chosen=SharingPolicy.apps(context).toMutableSet(); if(enabled) chosen.add(pkg) else chosen.remove(pkg); SharingPolicy.preferences(context).edit {putStringSet("phone_apps",chosen)}; KdeConnect.getInstance().devices.values.forEach {it.getPlugin<BridgePlugin>()?.policyChanged()} }
         }) }
+        if(android.os.Build.VERSION.SDK_INT>=30) {
+            text(if(android.os.Environment.isExternalStorageManager()) "Phone storage browsing is available (read-only)." else "Allow storage access to browse phone folders from your laptop.")
+            button("Phone storage access") {startActivity(Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION,android.net.Uri.parse("package:${context.packageName}")))}
+        }
         button("Choose a read-only shared folder") {folderPicker.launch(null)}
         val selectedRoots=try {JSONObject(SharingPolicy.preferences(context).getString("folder_roots","{}").orEmpty())}catch(_:Exception){JSONObject()}
         selectedRoots.keys().asSequence().toList().forEach {root->
@@ -191,7 +219,7 @@ class SharingFragment : Fragment() {
             }
             }
             if(page==0) {
-            text("Send something", true)
+            text("Send to laptop", true)
             text("Pick a file, copy text, or send a link to your laptop.")
             if(bridge?.canSend("files")!=true || bridge.canSend("clipboard")!=true)
                 text("Some actions are unavailable. Check the connection and feature switches in Settings on both devices.")
@@ -205,11 +233,11 @@ class SharingFragment : Fragment() {
                 else if(value.toByteArray(Charsets.UTF_8).size>16384) message("Clipboard text is too large (16 KiB maximum).")
                 else message(if(bridge.send("clipboard",JSONObject().put("text",value))) "Clipboard queued for this connection." else "Could not queue clipboard. Reconnect and try again.")
             }
-            button("Choose a file", bridge?.canSend("files")==true) { selectedPeer=device.deviceId;filePicker.launch(arrayOf("*/*")) }
+            button("Send file", bridge?.canSend("files")==true) { selectedPeer=device.deviceId;filePicker.launch(arrayOf("*/*")) }
             }
-            if(page==1) {
-            button("Open notification inbox") {(activity as? MainActivity)?.openPingoraPage("inbox")}
-            text("Recent activity", true)
+            if(page==0 && showActivity) {
+
+            text("Transfers & links", true)
             if(bridge?.files?.snapshot().isNullOrEmpty() && bridge?.receivedLinks().isNullOrEmpty())
                 text("Nothing received yet. Incoming files and links will appear here. Files ask for your approval before downloading.")
             bridge?.files?.snapshot()?.forEach {offer->
@@ -235,28 +263,6 @@ class SharingFragment : Fragment() {
                 button("Open received link") {try {if(BridgePlugin.validUrl(value)) startActivity(Intent(Intent.ACTION_VIEW,android.net.Uri.parse(value)))}catch(_:Exception){message("No app could open this link.")}}
             }
             }
-            if(page==0) {
-            text("Send a link")
-            val link=com.google.android.material.textfield.TextInputEditText(context).apply {hint="https://example.com";setText(linkDrafts[device.deviceId].orEmpty());inputType=android.text.InputType.TYPE_CLASS_TEXT or android.text.InputType.TYPE_TEXT_VARIATION_URI;filters=arrayOf(android.text.InputFilter.LengthFilter(4096))}
-            link.addTextChangedListener(object: android.text.TextWatcher {
-                override fun beforeTextChanged(s:CharSequence?,start:Int,count:Int,after:Int) {}
-                override fun onTextChanged(s:CharSequence?,start:Int,before:Int,count:Int) {linkDrafts[device.deviceId]=s.toString()}
-                override fun afterTextChanged(s:android.text.Editable?) {}
-            })
-            layout.addView(com.google.android.material.textfield.TextInputLayout(context).apply {
-                hint="Link to send";boxBackgroundMode=com.google.android.material.textfield.TextInputLayout.BOX_BACKGROUND_OUTLINE
-                layoutParams=LinearLayout.LayoutParams(-1,-2).apply {topMargin=(12*resources.displayMetrics.density).toInt()}
-                addView(link)
-            })
-            button("Send link", bridge?.canSend("files")==true) {
-                val value=link.text.toString().trim()
-                if(!BridgePlugin.validUrl(value)) {link.error="Enter a complete http:// or https:// link";return@button}
-                if(bridge?.canSend("files")==true && bridge.send("url",JSONObject().put("url",value))) {
-                    link.text?.clear();message("Link sent to ${device.name}.")
-                } else message("Link was not sent. Check the connection and try again.")
-            }
-            bridge?.files?.status?.takeIf {it.isNotEmpty()}?.let {text(it)}
-            }
             if(page==2) {
             text("Laptop controls", true)
             batteryLabel=text(bridge?.laptopBattery ?: "Battery status unavailable")
@@ -277,7 +283,8 @@ class SharingFragment : Fragment() {
             button("Stop phone ringing") {device.getPlugin<BridgePlugin>()?.stopLocalRing()}
         }
             }
-        if(current!=null) button("Refresh connection") {render()}
+        if(page==0 && current!=null) button(if(showActivity) "Hide transfers & links" else "Transfers & received links") {showActivity=!showActivity;render()}
+        if(page==2) button("Reconnect") {org.kde.kdeconnect.BackgroundService.ForceRefreshConnections(context);render()}
         if(current!=null && !current.isReachable) button("Connection help") {(activity as? MainActivity)?.openPingoraPage("health")}
     }
     override fun onDestroyView() { handler.removeCallbacks(refreshStatus); snackbar?.dismiss(); snackbar=null; connectionLabel=null; batteryLabel=null; slumberLabel=null; content=null; super.onDestroyView() }

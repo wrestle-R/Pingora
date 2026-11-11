@@ -54,6 +54,8 @@ export interface FeatureSnapshot {
     string,
     {
       error?: string;
+      node?: string;
+      next_offset?: number;
       entries?: { name: string; id: string; directory: boolean }[];
     }
   >;

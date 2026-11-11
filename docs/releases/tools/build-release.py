@@ -26,6 +26,7 @@ if stage in ['all','rust']:
 if stage in ['all','android']:
  run(['app/gradlew','-p','app','--no-daemon','--max-workers=2','-Dorg.gradle.jvmargs=-Xmx3072m','testDebugUnitTest','assembleRelease'])
  shutil.copy2(root/'app/build/outputs/apk/release/pingora-android-release-unsigned.apk',out/f'pingora-{version}-unsigned.apk')
+ run(['python3','docs/releases/tools/verify-android.py',str(out/f'pingora-{version}-unsigned.apk'),'--version',version,'--version-code',str(code),'--unsigned'])
 if stage in ['all','native']:
  urllib.request.urlretrieve(native['archive_url'],archive)
  if hashlib.sha256(archive.read_bytes()).hexdigest()!=native['archive_sha256']:raise SystemExit('Native source digest mismatch')

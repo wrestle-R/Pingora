@@ -102,7 +102,7 @@ class HealthFragment : Fragment() {
         val devices = KdeConnect.getInstance().devices.values.toList()
         val paired = devices.filter { it.isPaired }
         text("Paired devices: ${paired.size}. Reachable paired devices: ${paired.count { it.isReachable }}.")
-        text("Pairing grants trust to a device. Sharing features start enabled for new pairings. Review them in Share → Settings.")
+        text("Pairing grants trust to a device. Sharing features start enabled for new pairings. Review them in Home → Settings.")
         val notifications = Build.VERSION.SDK_INT < 33 || ContextCompat.checkSelfPermission(
             context, Manifest.permission.POST_NOTIFICATIONS
         ) == PackageManager.PERMISSION_GRANTED
@@ -139,7 +139,7 @@ class HealthFragment : Fragment() {
             }catch(e:Exception){updateMessage=e.message ?: "Update could not be installed"}
             render()
         }
-        action("Refresh health") { render() }
+        action("Refresh connection") { org.kde.kdeconnect.BackgroundService.ForceRefreshConnections(context); render() }
     }
 
     override fun onDestroy() {

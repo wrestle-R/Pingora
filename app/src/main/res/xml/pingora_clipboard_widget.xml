@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android" android:minWidth="180dp" android:minHeight="100dp" android:initialLayout="@layout/pingora_clipboard_widget" android:resizeMode="horizontal|vertical" android:updatePeriodMillis="0" android:widgetCategory="home_screen" />
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android" android:minWidth="220dp" android:minHeight="160dp" android:minResizeWidth="180dp" android:minResizeHeight="148dp" android:targetCellWidth="3" android:targetCellHeight="2" android:initialLayout="@layout/pingora_clipboard_widget" android:resizeMode="horizontal|vertical" android:updatePeriodMillis="0" android:widgetCategory="home_screen" />

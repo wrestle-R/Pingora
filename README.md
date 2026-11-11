@@ -4,6 +4,8 @@ Your Android phone and Linux laptop, a little closer. Share notifications, clipb
 
 [Website](https://pingora-seven.vercel.app) · [Downloads](https://github.com/wrestle-R/Pingora/releases/latest) · [Report a problem](https://github.com/wrestle-R/Pingora/issues)
 
+**Already have a newer Pingora installed? Keep it.** Android rejects older APKs as downgrades and may show “package appears to be invalid.” Do not uninstall your working app to install an older download.
+
 **Latest public release: 0.1.3.** [Download the Android APK](https://github.com/wrestle-R/Pingora/releases/download/v0.1.3/pingora-0.1.3.apk). Version 0.1.4 is still a draft, so its download links do not work publicly. Version 0.1.5 is a local candidate.
 
 ## Install on Linux

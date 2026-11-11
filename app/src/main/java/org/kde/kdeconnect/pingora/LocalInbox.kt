@@ -82,7 +82,7 @@ object LocalInbox {
         val peer=item.optString("peer")
         val reveal=!context.getSystemService(KeyguardManager::class.java).isDeviceLocked || SharingPolicy.preferences(context).getBoolean("$peer.show_locked",false)
         val title=if(reveal)item.optString("title").ifEmpty {item.optString("app")} else "New laptop notification"
-        val body=if(reveal)item.optString("body") else "Open Pingora to view private content."
+        val body=if(reveal) (item.optString("sender").takeIf {it.isNotEmpty() && it!=item.optString("title")}?.let {"$it: "}.orEmpty()+item.optString("body")) else "Open Pingora to view private content."
         val open=PendingIntent.getActivity(context,519,Intent(context,MainActivity::class.java).putExtra("pingora_inbox",true),PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
         val identity=MessageDigest.getInstance("SHA-256").digest((peer+item.optString("source")+item.optString("version")).toByteArray()).joinToString("") {"%02x".format(it)}
         val dismiss=Intent(context,MirrorDismissReceiver::class.java).setData(Uri.parse("pingora://dismiss/$identity")).putExtra("peer",peer).putExtra("source",item.optString("source")).putExtra("version",item.optString("version"))

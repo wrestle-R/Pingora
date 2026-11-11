@@ -1,0 +1,4 @@
+<resources>
+    <item name="workspace_content" type="id" />
+    <style name="PingoraSendDialog" parent="Theme.Material3.DayNight.Dialog" />
+</resources>

@@ -50,7 +50,7 @@ import {
 const pages = [
   {
     id: "overview",
-    name: "Overview",
+    name: "Devices",
     icon: LayoutDashboardIcon,
     description: "One space for the devices you trust.",
   },
@@ -62,7 +62,7 @@ const pages = [
   },
   {
     id: "sharing",
-    name: "Sharing",
+    name: "Files & clipboard",
     icon: ArrowLeftRightIcon,
     description: "Send a little. Share what you choose.",
   },
@@ -178,6 +178,15 @@ export default function App() {
               </SidebarMenu>
             </SidebarGroupContent>
           </SidebarGroup>
+          <SidebarGroup>
+            <SidebarGroupLabel>Connected</SidebarGroupLabel>
+            <SidebarGroupContent><SidebarMenu>
+              {list.filter(peer=>peer.paired && peer.reachable).map(peer=><SidebarMenuItem key={peer.id}>
+                <SidebarMenuButton onClick={()=>setPage("sharing")}><span className="status-dot online" /><span>{peer.name}</span></SidebarMenuButton>
+              </SidebarMenuItem>)}
+              {!connected && <p className="px-3 py-2 text-xs text-muted-foreground">No device connected</p>}
+            </SidebarMenu></SidebarGroupContent>
+          </SidebarGroup>
         </SidebarContent>
         <SidebarFooter className="gap-4 p-5">
           <div className="connection-status">
@@ -199,13 +208,13 @@ export default function App() {
           <SidebarTrigger />
           <span className="text-sm text-muted-foreground">Your workspace</span>
           <Badge variant="outline" className="ml-auto">
-            Version 0.1.2
+            Local connection
           </Badge>
         </header>
         <main className="workspace">
           <div className="page-heading">
             <div>
-              <p className="eyebrow">PINGORA / {selected.name.toUpperCase()}</p>
+
               <h1>{selected.name}</h1>
               <p>{selected.description}</p>
             </div>
@@ -218,24 +227,6 @@ export default function App() {
           </div>
           {page === "overview" && (
             <>
-              <div className="overview-strip">
-                <div>
-                  <span className="metric">
-                    {connected.toString().padStart(2, "0")}
-                  </span>
-                  <p>connected devices</p>
-                </div>
-                <div>
-                  <span className="metric text-primary">
-                    {health.data?.native_service ? "Ready" : "Offline"}
-                  </span>
-                  <p>local connection service</p>
-                </div>
-                <p className="overview-note">
-                  A shared Wi-Fi or USB tethering network. Your own devices,
-                  with permissions you choose.
-                </p>
-              </div>
               <Devices
                 peers={peers.data}
                 health={health.data}
@@ -243,42 +234,6 @@ export default function App() {
                 error={peers.error || health.error}
                 refresh={refresh}
               />
-              <div className="mt-6">
-                <Panel
-                  title="A connection with boundaries"
-                  description="Start with a pair, then choose your features."
-                >
-                  <p className="text-sm leading-relaxed text-muted-foreground">
-                    Sharing features start enabled for new pairings. Review notifications, clipboard, files
-                    or folders for each paired device in Sharing. Private inbox
-                    content stays hidden when this laptop is locked.
-                  </p>
-                  <dl className="mt-5 grid gap-3 text-sm">
-                    <div>
-                      <dt className="text-muted-foreground">Transport</dt>
-                      <dd>
-                        {health.data?.transport ||
-                          "Checking connection health…"}
-                      </dd>
-                    </div>
-                    <div>
-                      <dt className="text-muted-foreground">Notifications</dt>
-                      <dd>
-                        {health.data?.notifications ||
-                          "Enable notification access on your phone and select apps in Sharing."}
-                      </dd>
-                    </div>
-                    <div>
-                      <dt className="text-muted-foreground">Native Slumber</dt>
-                      <dd>
-                        {health.data?.slumber?.available
-                          ? `${health.data.slumber.active ? "Active" : "Inactive"} · ${health.data.slumber.secure ? "secured" : "unlocked"} · lid action ${health.data.slumber.lid_action}`
-                          : "Unavailable on this setup"}
-                      </dd>
-                    </div>
-                  </dl>
-                </Panel>
-              </div>
             </>
           )}
           {page === "inbox" && (

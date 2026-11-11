@@ -1,7 +1,9 @@
 name: Native build and signed release
 on:
   push:
+    branches: [main]
     tags: ['v*']
+  pull_request:
   workflow_dispatch:
 permissions:
   contents: read
@@ -32,6 +34,13 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 0
+      - name: Verify installer boundary without release credentials
+        run: |
+          python3 docs/releases/tools/test-installer.py
+          pingora_bootstrap=$(mktemp)
+          trap 'rm -f "$pingora_bootstrap"' EXIT
+          python3 docs/releases/tools/build-installer.py --output "$pingora_bootstrap"
+          bash -n "$pingora_bootstrap"
       - name: Install pinned Android SDK
         run: python3 docs/releases/tools/setup-sdk.py
       - name: Verify checkout ownership
@@ -97,6 +106,45 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: python3 docs/releases/tools/sign-release.py
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: native-signed
+          path: release-private/signed/
+          retention-days: 7
+          if-no-files-found: error
       - name: Remove ephemeral signing files
         if: always()
         run: rm -rf release-private/keys
+
+  android-install:
+    needs: sign
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: native-signed
+          path: release-private/signed/
+      - uses: actions/setup-java@c5195efecf7bdfc987ee8bae7a71cb8b11521c00
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Install pinned Android SDK
+        run: python3 docs/releases/tools/setup-sdk.py
+      - name: Enable emulator acceleration
+        run: |
+          sudo chown "$USER":kvm /dev/kvm
+          sudo chmod 660 /dev/kvm
+      - uses: reactivecircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d # v2.38.0
+        with:
+          api-level: 36
+          target: google_apis
+          arch: x86_64
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          script: python3 docs/releases/tools/test-android-install.py --directory release-private/signed

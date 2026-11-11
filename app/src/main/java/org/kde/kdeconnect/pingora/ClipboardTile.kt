@@ -10,7 +10,7 @@ import org.kde.kdeconnect.ui.MainActivity
 class ClipboardTile:TileService() {
     @Suppress("DEPRECATION")
     override fun onClick() {
-        val intent=Intent(this,MainActivity::class.java).putExtra("pingora_sharing",true).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        val intent=Intent(this,ClipboardSendActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         unlockAndRun {
             if(Build.VERSION.SDK_INT>=34) startActivityAndCollapse(PendingIntent.getActivity(this,518,intent,PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE))
             else startActivityAndCollapse(intent)

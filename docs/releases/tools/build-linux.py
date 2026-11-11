@@ -19,6 +19,9 @@ if not native.is_file():raise SystemExit('Prepare the pinned native service firs
 a.output.mkdir(parents=True,exist_ok=True)
 with tempfile.TemporaryDirectory(prefix='pingora-package-') as temp:
  d=Path(temp)/'Pingora';(d/'native').mkdir(parents=True)
+ (d/'brand').mkdir()
+ shutil.copy2(root/'tauri/frontend/public/brand/pingora.svg',d/'brand/pingora.svg')
+ shutil.copy2(root/'tauri/src-tauri/icons/icon.png',d/'brand/pingora.png')
  shutil.copy2(root/'tauri/src-tauri/target/release/pingora-desktop',d/'pingora-desktop');shutil.copy2(native,d/'native/kdeconnectd')
  (d/'native/lib').mkdir()
  for folder in ['bin','lib']:
