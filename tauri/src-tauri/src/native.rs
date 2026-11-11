@@ -68,6 +68,7 @@ pub fn start(runtime: Arc<Runtime>, app: tauri::AppHandle) -> SyncSender<Command
             true
         });
         let mut ring_until = 0u64;
+        let mut ring_peer: Option<String> = None;
         let mut ringing: Option<std::process::Child> = None;
         while !runtime.stop.load(std::sync::atomic::Ordering::Relaxed) {
             while let Ok(command) = rx.try_recv() {
@@ -79,6 +80,7 @@ pub fn start(runtime: Arc<Runtime>, app: tauri::AppHandle) -> SyncSender<Command
                 match command {
                     Command::Ring(peer, on) => {
                         if !on || runtime.ring_allowed(&peer) {
+                            ring_peer = if on { Some(peer.clone()) } else { None };
                             ring_until = if on {
                                 crate::runtime::now() + 30_000
                             } else {
@@ -216,7 +218,28 @@ pub fn start(runtime: Arc<Runtime>, app: tauri::AppHandle) -> SyncSender<Command
             {
                 ringing = None;
             }
+            if ring_peer
+                .as_ref()
+                .is_some_and(|peer| !runtime.ring_allowed(peer))
+            {
+                ring_until = 0;
+            }
             if crate::runtime::now() >= ring_until {
+                ring_peer = None;
+                let notification = ring_id.swap(0, std::sync::atomic::Ordering::Relaxed);
+                if notification != 0 {
+                    let _: Result<(), _> = bus
+                        .with_proxy(
+                            "org.freedesktop.Notifications",
+                            "/org/freedesktop/Notifications",
+                            Duration::from_secs(1),
+                        )
+                        .method_call(
+                            "org.freedesktop.Notifications",
+                            "CloseNotification",
+                            (notification,),
+                        );
+                }
                 if let Some(mut child) = ringing.take() {
                     child.kill().ok();
                     child.wait().ok();
