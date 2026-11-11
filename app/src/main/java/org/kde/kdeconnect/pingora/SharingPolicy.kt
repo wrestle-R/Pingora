@@ -15,5 +15,16 @@ object SharingPolicy {
         require(feature in features || feature == "paused")
         preferences(context).edit { putBoolean("$peer.$feature", enabled) }
     }
+    fun revokeFolder(context: Context, root: String) {
+        val p=preferences(context)
+        val roots=try {org.json.JSONObject(p.getString("folder_roots","{}").orEmpty())} catch (_:Exception) {return}
+        val uri=roots.optString(root)
+        if(uri.isEmpty()) return
+        roots.remove(root)
+        p.edit {putString("folder_roots",roots.toString())}
+        if(roots.keys().asSequence().none {roots.optString(it)==uri}) {
+            try {context.contentResolver.releasePersistableUriPermission(android.net.Uri.parse(uri),android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION)}catch(_:SecurityException){}
+        }
+    }
     fun apps(context: Context): Set<String> = preferences(context).getStringSet("phone_apps", emptySet())?.toSet() ?: emptySet()
 }

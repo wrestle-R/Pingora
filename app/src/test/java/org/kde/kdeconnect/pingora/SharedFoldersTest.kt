@@ -19,6 +19,20 @@ import org.robolectric.annotation.Config
 @RunWith(RobolectricTestRunner::class)
 @Config(manifest=Config.NONE,application=Application::class,sdk=[23])
 class SharedFoldersTest {
+    @Test fun revokingOneFolderPreservesOtherGrantsAndDuplicateReferences(){
+        val context=spyk(ApplicationProvider.getApplicationContext<Application>())
+        val resolver=mockk<ContentResolver>(relaxed=true)
+        every {context.contentResolver} returns resolver
+        val one="content://synthetic.documents/tree/one";val two="content://synthetic.documents/tree/two"
+        SharingPolicy.preferences(context).edit().putString("folder_roots",JSONObject().put("a",one).put("b",one).put("c",two).toString()).commit()
+        SharingPolicy.revokeFolder(context,"a")
+        verify(exactly=0){resolver.releasePersistableUriPermission(any(),any())}
+        SharingPolicy.revokeFolder(context,"b")
+        verify(exactly=1){resolver.releasePersistableUriPermission(Uri.parse(one),android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION)}
+        val remaining=JSONObject(SharingPolicy.preferences(context).getString("folder_roots","{}").orEmpty())
+        assertEquals(1,remaining.length());assertEquals(two,remaining.getString("c"))
+        unmockkAll()
+    }
     @Test fun browsingUsesOpaqueTokensAndRevocationStopsCachedNodes(){
         val context=spyk(ApplicationProvider.getApplicationContext<Application>())
         val resolver=mockk<ContentResolver>()

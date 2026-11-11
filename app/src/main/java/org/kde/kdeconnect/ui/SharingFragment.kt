@@ -31,9 +31,15 @@ class SharingFragment : Fragment() {
         if(uri!=null) {
             val context=requireContext()
             try {
-                context.contentResolver.takePersistableUriPermission(uri,Intent.FLAG_GRANT_READ_URI_PERMISSION)
                 val roots=JSONObject(SharingPolicy.preferences(context).getString("folder_roots","{}").orEmpty())
-                if(roots.length()<32) {roots.put(java.util.UUID.randomUUID().toString(),uri.toString());SharingPolicy.preferences(context).edit {putString("folder_roots",roots.toString())}}
+                val existing=roots.keys().asSequence().firstOrNull {roots.optString(it)==uri.toString()}
+                if(existing==null && roots.length()>=32) {
+                    android.widget.Toast.makeText(context,"Revoke a shared folder before adding another (32 maximum).",android.widget.Toast.LENGTH_LONG).show()
+                    return@registerForActivityResult
+                }
+                context.contentResolver.takePersistableUriPermission(uri,Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                roots.put(existing ?: java.util.UUID.randomUUID().toString(),uri.toString())
+                SharingPolicy.preferences(context).edit {putString("folder_roots",roots.toString())}
             }catch(_:Exception){}
             render()
         }
@@ -61,6 +67,15 @@ class SharingFragment : Fragment() {
             setOnCheckedChangeListener { _,enabled-> val chosen=SharingPolicy.apps(context).toMutableSet(); if(enabled) chosen.add(pkg) else chosen.remove(pkg); SharingPolicy.preferences(context).edit {putStringSet("phone_apps",chosen)}; KdeConnect.getInstance().devices.values.forEach {it.getPlugin<BridgePlugin>()?.policyChanged()} }
         }) }
         button("Choose a read-only shared folder") {folderPicker.launch(null)}
+        val selectedRoots=try {JSONObject(SharingPolicy.preferences(context).getString("folder_roots","{}").orEmpty())}catch(_:Exception){JSONObject()}
+        selectedRoots.keys().asSequence().toList().forEach {root->
+            val name=try {androidx.documentfile.provider.DocumentFile.fromTreeUri(context,android.net.Uri.parse(selectedRoots.getString(root)))?.name}catch(_:Exception){null}
+            button("Revoke folder: ${name ?: "Shared folder"}") {
+                SharingPolicy.revokeFolder(context,root)
+                KdeConnect.getInstance().devices.values.forEach {it.getPlugin<BridgePlugin>()?.files?.prune()}
+                render()
+            }
+        }
         button("Revoke all shared folders") {
             val preferences=SharingPolicy.preferences(context)
             try {val roots=JSONObject(preferences.getString("folder_roots","{}").orEmpty());roots.keys().forEach {key->try {context.contentResolver.releasePersistableUriPermission(android.net.Uri.parse(roots.getString(key)),Intent.FLAG_GRANT_READ_URI_PERMISSION)}catch(_:Exception){}}}catch(_:Exception){}

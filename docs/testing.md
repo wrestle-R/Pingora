@@ -1,6 +1,6 @@
 # Approved core test boundaries
 
-The user approved these six public boundaries and listed real-device acceptance checks. No tests have been implemented or run; do not ask for the same approval again. New unrelated boundaries need their own review. Prefer a public behavior test at each boundary, then the minimum implementation; do not write tests for private helpers or cosmetic edits.
+The user approved these six public boundaries and listed real-device acceptance checks. Runnable tests now cover these boundaries; current observed results and explicit limits are recorded in [the non-call test report](progress/noncall-testing-2026-11-11.md). Do not ask for the same approval again. New unrelated boundaries need their own review. Prefer a public behavior test at each boundary, then the minimum implementation; do not write tests for private helpers or cosmetic edits.
 
 | Boundary | What it catches | What it misses |
 | --- | --- | --- |

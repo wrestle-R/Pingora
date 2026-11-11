@@ -1,0 +1,10 @@
+{
+  "sample_seconds": 60.4,
+  "warmup_seconds": 5,
+  "peak_summed_rss_mib": 373.2,
+  "cpu_percent_one_core": 0.27,
+  "maximum_process_count": 5,
+  "paired_load": false,
+  "shared_rss_pages_counted_more_than_once": true,
+  "scope": "isolated unpaired startup/idle baseline; not long-run qualification"
+}

@@ -20,6 +20,7 @@ struct Health {
     native_service: bool,
     transport: &'static str,
     notifications: &'static str,
+    private_hidden: bool,
     slumber: Slumber,
 }
 
@@ -92,6 +93,7 @@ fn read_health() -> Health {
         },
         notifications:
             "Enable notifications on both devices; Android notification access is required",
+        private_hidden: !runtime::unlocked(),
         slumber: slumber_status(),
     }
 }
