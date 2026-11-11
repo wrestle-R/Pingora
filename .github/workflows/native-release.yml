@@ -27,7 +27,7 @@ jobs:
       - name: Install host build dependencies (no signing credentials)
         run: |
           printf '%s\n' 'Server = https://archive.archlinux.org/repos/2026/11/10/$repo/os/$arch' > /etc/pacman.d/mirrorlist
-          pacman -Syyuu --noconfirm --needed git cmake ninja rust nodejs npm pkgconf python jdk21-openjdk unzip curl openssl gettext gtk3 webkit2gtk-4.1 extra-cmake-modules qt6-base qt6-declarative qt6-wayland qt6-multimedia kstatusnotifieritem kcoreaddons kconfig kdbusaddons ki18n kiconthemes knotifications kio kcolorscheme kservice kirigami kpeople kwindowsystem kguiaddons kcrash kitemmodels kwidgetsaddons kpackage solid kirigami-addons qqc2-desktop-style wayland wayland-protocols libxkbcommon
+          pacman -Syyuu --noconfirm --needed git cmake ninja rust nodejs npm dbus pkgconf python jdk21-openjdk unzip curl openssl gettext gtk3 webkit2gtk-4.1 extra-cmake-modules qt6-base qt6-declarative qt6-wayland qt6-multimedia kstatusnotifieritem kcoreaddons kconfig kdbusaddons ki18n kiconthemes knotifications kio kcolorscheme kservice kirigami kpeople kwindowsystem kguiaddons kcrash kitemmodels kwidgetsaddons kpackage solid kirigami-addons qqc2-desktop-style wayland wayland-protocols libxkbcommon
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           persist-credentials: false

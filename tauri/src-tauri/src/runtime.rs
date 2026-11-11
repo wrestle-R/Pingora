@@ -310,6 +310,14 @@ impl Runtime {
     pub fn ring_allowed(&self, id: &str) -> bool {
         self.permitted(id, Feature::Ring)
     }
+    pub fn notification_visibility(&self, id: &str) -> Option<bool> {
+        self.store.lock().ok().and_then(|s| {
+            s.policies
+                .get(id)
+                .filter(|p| p.allows(Feature::Notifications))
+                .map(|p| p.show_locked)
+        })
+    }
     pub fn notifications_allowed(&self, id: &str) -> bool {
         self.allowed(id, Feature::Notifications)
     }
@@ -700,11 +708,10 @@ impl Runtime {
                 if let Ok(mut notice) = serde_json::from_value::<Notice>(packet.data) {
                     notice.peer = id.into();
                     if let Ok(mut s) = self.store.lock() {
-                        let show = s.policies.get(id).is_some_and(|p| p.show_locked);
                         if s.receive(notice.clone(), now()) {
                             self.save(&s).ok();
                             if !snapshot {
-                                self.native(crate::native::Command::Notice(notice, show));
+                                self.native(crate::native::Command::Notice(notice));
                             }
                         }
                     }

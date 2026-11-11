@@ -4,7 +4,7 @@ Tauri 2 is the Linux application shell. Its frontend is React + TypeScript, buil
 
 ## Build
 
-Use Node 24, npm, Rust, GTK 3 and WebKitGTK 4.1 development libraries. From the repository root:
+Use Node 24, npm, Rust, GTK 3 and WebKitGTK 4.1 development libraries. The native notification integration test also requires `dbus-daemon`; it creates its own private bus and never claims the user session notification service. From the repository root:
 
 ```sh
 npm --prefix tauri/frontend ci
