@@ -1,6 +1,8 @@
 /* SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted-GPL */
 package org.kde.kdeconnect.ui
 
+import com.google.android.material.button.MaterialButton as Button
+
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -12,7 +14,6 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
@@ -81,6 +82,8 @@ class HealthFragment : Fragment() {
         fun action(label: String, enabled: Boolean = true, callback: () -> Unit) {
             layout.addView(Button(context).apply {
                 text = label
+                isAllCaps = false
+                minimumHeight = (52 * resources.displayMetrics.density).toInt()
                 isEnabled = enabled
                 setOnClickListener { callback() }
             })
@@ -99,7 +102,7 @@ class HealthFragment : Fragment() {
         val devices = KdeConnect.getInstance().devices.values.toList()
         val paired = devices.filter { it.isPaired }
         text("Paired devices: ${paired.size}. Reachable paired devices: ${paired.count { it.isReachable }}.")
-        text("Pairing grants trust to a device. Enable each available sharing feature in Sharing controls on both devices.")
+        text("Pairing grants trust to a device. Sharing features start enabled for new pairings. Review them in Share → Settings.")
         val notifications = Build.VERSION.SDK_INT < 33 || ContextCompat.checkSelfPermission(
             context, Manifest.permission.POST_NOTIFICATIONS
         ) == PackageManager.PERMISSION_GRANTED
@@ -118,7 +121,7 @@ class HealthFragment : Fragment() {
         action("Preview sanitized diagnostics") {text(org.kde.kdeconnect.pingora.DiagnosticReport.create(context))}
         action("Export sanitized diagnostics") {exportReport.launch("pingora-diagnostics.json")}
         text("Signed updates")
-        text("Use your own GitHub account for private releases. Download the Android update ZIP, then import it here. The signature, APK hash, package, signer and version are checked before the system installer opens.")
+        text("Download the signed update bundle from Pingora’s GitHub account for private releases. Download the Android update ZIP, then import it here. The signature, APK hash, package, signer and version are checked before the system installer opens.")
         action("Open GitHub releases") {startActivity(Intent(Intent.ACTION_VIEW,Uri.parse("https://github.com/wrestle-R/Pingora/releases")))}
         action("Import signed Android update", !updateImport.isVerifying) {importUpdate.launch(arrayOf("application/zip","application/octet-stream"))}
         text(updateMessage)

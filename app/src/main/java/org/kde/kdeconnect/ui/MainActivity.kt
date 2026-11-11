@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
         set(value) {
             field = value
             //Enabling "go to default fragment on back" callback when user in settings or "about" fragment
-            mainFragmentCallback.isEnabled = value == MENU_ENTRY_SETTINGS || value == MENU_ENTRY_ABOUT
+            mainFragmentCallback.isEnabled = value in setOf(MENU_ENTRY_SETTINGS, MENU_ENTRY_ABOUT, MENU_ENTRY_HEALTH, MENU_ENTRY_INBOX)
         }
     private val preferences: SharedPreferences by lazy { getSharedPreferences("stored_menu_selection", MODE_PRIVATE) }
     private val mMapMenuToDeviceId = HashMap<MenuItem, String>()
@@ -93,9 +93,7 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
 
     private val mainFragmentCallback = object : OnBackPressedCallback(false) {
         override fun handleOnBackPressed() {
-            mCurrentMenuEntry = mCurrentDevice?.let { deviceIdToMenuEntryId(it) } ?: MENU_ENTRY_ADD_DEVICE
-            mNavigationView.setCheckedItem(mCurrentMenuEntry)
-            setContentFragment(mCurrentDevice?.let { DeviceFragment.newInstance(it, false) } ?: PairingFragment())
+            openPingoraPage(if(KdeConnect.getInstance().devices.values.any {it.isPaired}) "share" else "devices")
         }
     }
 
@@ -208,7 +206,7 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
             else -> {
                 Log.i(TAG, "Loading selected device from persistent storage")
                 savedDevice = preferences.getString(STATE_SELECTED_DEVICE, null)
-                savedMenuEntry = if (savedDevice != null) MENU_ENTRY_DEVICE_UNKNOWN else MENU_ENTRY_ADD_DEVICE
+                savedMenuEntry = if (KdeConnect.getInstance().devices.values.any {it.isPaired}) MENU_ENTRY_SHARING else MENU_ENTRY_ADD_DEVICE
             }
         }
         mCurrentMenuEntry = savedMenuEntry
@@ -322,7 +320,7 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
         addDeviceItem.setIcon(R.drawable.ic_action_content_add_circle_outline_32dp)
         addDeviceItem.isCheckable = true
         menu.add(Menu.FIRST,MENU_ENTRY_INBOX,997,"Inbox").isCheckable=true
-        menu.add(Menu.FIRST, MENU_ENTRY_SHARING, 998, "Sharing controls").isCheckable = true
+        menu.add(Menu.FIRST, MENU_ENTRY_SHARING, 998, "Share").isCheckable = true
         menu.add(Menu.FIRST, MENU_ENTRY_HEALTH, 999, "Connection health").isCheckable = true
         val settingsItem = menu.add(Menu.FIRST, MENU_ENTRY_SETTINGS, 1000, R.string.settings)
         settingsItem.setIcon(R.drawable.ic_settings_white_32dp)
@@ -365,7 +363,11 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
             } else {
                 mNavigationView.setCheckedItem(mCurrentMenuEntry)
             }
-            setContentFragment(DeviceFragment.newInstance(deviceId, fromDeviceList))
+            if(KdeConnect.getInstance().devices[deviceId]?.isPaired==true) {
+                mCurrentMenuEntry=MENU_ENTRY_SHARING
+                mNavigationView.setCheckedItem(MENU_ENTRY_SHARING)
+                setContentFragment(SharingFragment().apply {arguments=Bundle().apply {putString("peer",deviceId)}})
+            } else setContentFragment(DeviceFragment.newInstance(deviceId, fromDeviceList))
         } else {
             mCurrentMenuEntry = MENU_ENTRY_ADD_DEVICE
             mNavigationView.setCheckedItem(mCurrentMenuEntry)
@@ -376,7 +378,26 @@ class MainActivity : AppCompatActivity(), OnSharedPreferenceChangeListener {
     private val currentFragment: Fragment?
         get() = supportFragmentManager.findFragmentById(R.id.container)
 
+    fun openPingoraPage(page: String) {
+        val (entry, fragment) = when(page) {
+            "inbox" -> MENU_ENTRY_INBOX to InboxFragment()
+            "health" -> MENU_ENTRY_HEALTH to HealthFragment()
+            "devices" -> MENU_ENTRY_ADD_DEVICE to PairingFragment()
+            else -> MENU_ENTRY_SHARING to SharingFragment()
+        }
+        mCurrentMenuEntry=entry
+        mNavigationView.setCheckedItem(entry)
+        setContentFragment(fragment)
+    }
+
     private fun setContentFragment(fragment: Fragment) {
+        supportActionBar?.title = when(fragment) {
+            is SharingFragment -> "Share"
+            is InboxFragment -> "Inbox"
+            is HealthFragment -> "Connection"
+            is PairingFragment -> "Devices"
+            else -> "Pingora"
+        }
         supportFragmentManager
             .beginTransaction()
             .replace(R.id.container, fragment)
