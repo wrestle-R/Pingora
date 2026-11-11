@@ -14,14 +14,15 @@ import org.kde.kdeconnect_tp.R
  */
 val applicationAboutData = AboutData(
         name = R.string.kde_connect,
-        icon = R.drawable.icon,
+        icon = R.drawable.pingora_icon,
         versionName = BuildConfig.VERSION_NAME,
-        bugURL = "https://bugs.kde.org/enter_bug.cgi?product=kdeconnect&amp;component=android-application",
-        websiteURL = "https://kdeconnect.kde.org/",
-        sourceCodeURL = "https://invent.kde.org/network/kdeconnect-android/",
-        donateURL = "https://kde.org/community/donations/?app=kdeconnect-android",
-        authorsFooterText = R.string.everyone_else,
+        bugURL = "https://github.com/wrestle-R/Pingora/issues/new/choose",
+        websiteURL = "https://pingora-seven.vercel.app/",
+        sourceCodeURL = "https://github.com/wrestle-R/Pingora",
+        donateURL = null,
+        authorsFooterText = R.string.pingora_upstream_credits,
         authors = listOf(
+            AboutPerson("Pingora contributors", R.string.developer, webAddress = "https://github.com/wrestle-R/Pingora"),
             // Have you made some contributions and think your name should be here? Open a MR to add yourself to the list :)
             AboutPerson("Albert Vaca Cintora", R.string.maintainer_and_developer, "albertvaka+kde@gmail.com"),
             AboutPerson("Aleix Pol", R.string.developer, "aleixpol@kde.org"),

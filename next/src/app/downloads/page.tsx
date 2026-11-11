@@ -1,3 +1,4 @@
+import DownloadPlatforms from "@/components/download-platforms";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { connection } from "next/server";
@@ -21,20 +22,7 @@ export default async function Downloads() {
           compatibility details.
         </p>
       </div>
-      <div className="platforms">
-        {["Android", "Linux"].map((name) => (
-          <article key={name}>
-            <span className="number">{name === "Android" ? "01" : "02"} /</span>
-            <h2>{name}</h2>
-            <p>
-              {name === "Android"
-                ? "Native phone companion."
-                : "Tauri desktop companion. Targeting Hyprland, Plasma and GNOME; support is not yet verified."}
-            </p>
-            <span className="status">In development · no release</span>
-          </article>
-        ))}
-      </div>
+      <DownloadPlatforms />
       <div className="notice">
         <h3>About GitHub downloads</h3>
         <p>{statusMessage(github.state)}</p>

@@ -5,13 +5,10 @@
  */
 package org.kde.kdeconnect.ui
 
-import android.Manifest
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.graphics.Color
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.InputFilter
@@ -21,29 +18,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import androidx.preference.EditTextPreference
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import androidx.activity.result.contract.ActivityResultContracts
 import org.kde.kdeconnect.BackgroundService
+import com.google.android.material.snackbar.Snackbar
 import org.kde.kdeconnect.extensions.setupBottomPadding
-import org.kde.kdeconnect.helpers.CreateFileParams
-import org.kde.kdeconnect.helpers.CreateFileResultContract
 import org.kde.kdeconnect.helpers.DeviceHelper
 import org.kde.kdeconnect.helpers.DeviceHelper.getDeviceName
 import org.kde.kdeconnect.helpers.NotificationHelper
 import org.kde.kdeconnect.ui.ThemeUtil.applyTheme
-import org.kde.kdeconnect_tp.BuildConfig
 import org.kde.kdeconnect_tp.R
 
 class SettingsFragment : PreferenceFragmentCompat() {
@@ -65,8 +52,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
             persistentNotificationPref(context),
             trustedNetworkPref(context),
             devicesByIpPref(context),
-            bluetoothSupportPref(context),
-            exportLogsPref(context),
             moreSettingsPref(context),
         ).forEach(screen::addPreference)
 
@@ -76,12 +61,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         listView.setupBottomPadding()
-    }
-
-    override fun onDestroyView() {
-        bluetoothPermissionsDialog?.dismiss()
-        bluetoothPermissionsDialog = null
-        super.onDestroyView()
     }
 
     private fun deviceNamePref(context: Context) = EditTextPreference(context).apply {
@@ -204,69 +183,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
             CustomDevicesActivity.getCustomDeviceList(requireContext()).size
         ))
     }
-
-    private var bluetoothPermissionsDialog: AlertDialog? = null
-
-    private val bluetoothPermissionsLauncher = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { results ->
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S &&
-            results[Manifest.permission.BLUETOOTH_CONNECT] == true &&
-            results[Manifest.permission.BLUETOOTH_SCAN] == true) {
-            findPreference<SwitchPreference>(KEY_BLUETOOTH_ENABLED)?.isChecked = true // Save the preference before BluetoothLinkProvider reads it
-            BackgroundService.ForceRefreshConnections(requireContext()) // Restarts the BluetoothLinkProvider
-        }
-    }
-
-    private fun bluetoothSupportPref(context: Context) = SwitchPreference(context).apply {
-        setDefaultValue(false)
-        key = KEY_BLUETOOTH_ENABLED
-        setTitle(R.string.enable_bluetooth)
-        onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _: Preference?, newValue: Any ->
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && newValue as Boolean) {
-                val permissions = arrayOf(Manifest.permission.BLUETOOTH_CONNECT, Manifest.permission.BLUETOOTH_SCAN)
-                val permissionsGranted = permissions.all { ContextCompat.checkSelfPermission(context, it) == PackageManager.PERMISSION_GRANTED }
-                if (!permissionsGranted) {
-                    bluetoothPermissionsDialog = MaterialAlertDialogBuilder(requireContext())
-                        .setTitle(R.string.location_permission_needed_title)
-                        .setMessage(R.string.bluetooth_permission_needed_desc)
-                        .setPositiveButton(R.string.ok) { _, _ -> bluetoothPermissionsLauncher.launch(permissions) }
-                        .setNegativeButton(R.string.cancel, null)
-                        .show()
-                    return@OnPreferenceChangeListener false
-                }
-            }
-            isChecked = newValue as Boolean // Save the preference before BluetoothLinkProvider reads it
-            BackgroundService.ForceRefreshConnections(context) // Restarts the BluetoothLinkProvider
-            true
-        }
-    }
-
-    private fun exportLogsPref(context: Context) = Preference(context).apply {
-        isPersistent = false
-        setTitle(R.string.settings_export_logs)
-        setSummary(R.string.settings_export_logs_text)
-        onPreferenceClickListener = Preference.OnPreferenceClickListener {
-            exportLogs.launch(CreateFileParams("text/plain", "kdeconnect-log.txt"))
-            true
-        }
-    }
-
-    private val exportLogs: ActivityResultLauncher<CreateFileParams> = registerForActivityResult(
-        CreateFileResultContract()
-    ) { uri: Uri? ->
-            val output = uri?.let { context?.contentResolver?.openOutputStream(it) }
-                ?: return@registerForActivityResult
-
-            CoroutineScope(Dispatchers.IO).launch {
-                val process = Runtime.getRuntime().exec(arrayOf("logcat", "-d"))
-                process.inputStream.reader(Charsets.UTF_8).use { reader ->
-                    output.writer(Charsets.UTF_8).use { writer ->
-                        writer.write("KDE Connect ${BuildConfig.VERSION_NAME}\n")
-                        writer.write("Android ${Build.VERSION.RELEASE} (${Build.MANUFACTURER} ${Build.MODEL})\n")
-                        reader.copyTo(writer)
-                    }
-                }
-            }
-        }
 
     private fun moreSettingsPref(context: Context) = Preference(context).apply {
         isPersistent = false

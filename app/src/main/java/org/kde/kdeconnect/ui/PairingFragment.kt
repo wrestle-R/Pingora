@@ -253,6 +253,9 @@ class PairingFragment : BaseFragment<DevicesListBinding>() {
             mActivity?.runOnUiThread { this.updateDeviceList() }
         }
         BackgroundService.ForceRefreshConnections(requireContext()) // force a network re-discover
+        // USB tethering may be a downstream interface without a ConnectivityManager callback.
+        // Refresh trust even when the non-cellular LiveData has not emitted a value yet.
+        updateConnectivityInfoHeader(BackgroundService.instance?.isConnectedToNonCellularNetwork?.value ?: false)
         updateDeviceList()
     }
 

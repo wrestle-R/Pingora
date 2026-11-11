@@ -3,7 +3,7 @@ export default function Airwave() {
     <div
       className="airwave"
       role="img"
-      aria-label="A folded orange paper ribbon connects an illustrated Android phone and Linux laptop. Concept illustration, not a working app."
+      aria-label="A folded teal paper ribbon connects an illustrated Android phone and Linux laptop. Concept illustration, not a working app."
     >
       <div className="phone">
         <div className="camera" />
@@ -18,9 +18,9 @@ export default function Airwave() {
       <svg className="ribbon" viewBox="0 0 1200 400" aria-hidden="true">
         <defs>
           <linearGradient id="paper" x1="0" y1="0" x2="0.8" y2="1">
-            <stop stopColor="#f39765" />
-            <stop offset=".5" stopColor="#da502e" />
-            <stop offset="1" stopColor="#a72f1c" />
+            <stop stopColor="#83dfbf" />
+            <stop offset=".5" stopColor="#239c82" />
+            <stop offset="1" stopColor="#08695f" />
           </linearGradient>
           <filter id="shadow">
             <feDropShadow dx="0" dy="15" stdDeviation="10" floodOpacity=".16" />
@@ -31,10 +31,10 @@ export default function Airwave() {
             d="M40 160 210 80 410 290 660 165 830 235 1120 80 1155 210 850 355 655 285 400 390 185 190 65 300Z"
             fill="url(#paper)"
           />
-          <path d="m210 80-25 110 225 100-10 100Z" fill="#f7bd93" />
-          <path d="m660 165-5 120 175-50 20 120Z" fill="#f9b484" />
-          <path d="m830 235 290-155-75 130-195 145Z" fill="#c53b23" />
-          <path d="m40 160 170-80-25 110-120 110Z" fill="#ea6b40" />
+          <path d="m210 80-25 110 225 100-10 100Z" fill="#b2efd9" />
+          <path d="m660 165-5 120 175-50 20 120Z" fill="#98e5cb" />
+          <path d="m830 235 290-155-75 130-195 145Z" fill="#0e8474" />
+          <path d="m40 160 170-80-25 110-120 110Z" fill="#55bfa1" />
         </g>
       </svg>
       <div className="laptop">

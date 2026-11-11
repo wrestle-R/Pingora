@@ -144,7 +144,7 @@ object DeviceHelper {
         return DeviceInfo(
             getDeviceId(context),
             SslHelper.certificate,
-            getDeviceName(context),
+            if (org.kde.kdeconnect_tp.BuildConfig.DEBUG) getDeviceName(context).take(18) + " · development" else getDeviceName(context),
             deviceType,
             PROTOCOL_VERSION,
             PluginFactory.incomingCapabilities,

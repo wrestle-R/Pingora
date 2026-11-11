@@ -1,4 +1,6 @@
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { Badge } from "@/components/ui/badge";
 import Airwave from "../components/airwave";
 const features = [
   [
@@ -21,9 +23,7 @@ export default function Home() {
   return (
     <>
       <section className="hero">
-        <span className="badge">
-          <span /> In development
-        </span>
+        <Badge variant="secondary">In development</Badge>
         <h1>
           Your phone. Your
           <br className="wide" /> desktop. In sync.
@@ -33,12 +33,12 @@ export default function Home() {
           <br className="mobile" /> Android meets Linux.
         </p>
         <div className="actions">
-          <a className="button primary" href="#features">
+          <Button asChild variant="default" size="lg"><a href="#features">
             Explore Pingora <span>↗</span>
-          </a>
-          <Link className="button" href="/docs">
+          </a></Button>
+          <Button asChild variant="outline" size="lg"><Link href="/docs">
             Read the docs
-          </Link>
+          </Link></Button>
         </div>
         <Airwave />
       </section>
@@ -125,18 +125,18 @@ export default function Home() {
         </div>
       </section>
       <section className="closing section">
-        <span className="badge">Still folding the first version.</span>
+        <Badge variant="secondary">Taking shape, together.</Badge>
         <h2>
           Good things take
           <br />a few folds.
         </h2>
         <p>
           The website is here. The Android and Linux apps are still in
-          development. No installers or signed releases yet.
+          development. Signed development builds exist; qualification is still in progress.
         </p>
-        <Link className="button primary" href="/downloads">
+        <Button asChild variant="default" size="lg"><Link href="/downloads">
           Check release status ↗
-        </Link>
+        </Link></Button>
       </section>
     </>
   );

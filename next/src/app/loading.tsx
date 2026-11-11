@@ -1,9 +1,2 @@
-export default function Loading() {
-  return (
-    <section className="section document" role="status">
-      <span className="eyebrow">ONE MOMENT</span>
-      <h2>Opening Pingora.</h2>
-      <p>Getting the next page ready.</p>
-    </section>
-  );
-}
+import { Skeleton } from "@/components/ui/skeleton";
+export default function Loading() { return <section className="section document" role="status" aria-label="Loading page" aria-busy="true"><Skeleton className="h-4 w-32"/><Skeleton className="mt-6 h-14 w-3/4"/><Skeleton className="mt-6 h-4 w-full"/><Skeleton className="mt-3 h-4 w-2/3"/><span className="sr-only">Loading Pingora.</span></section>; }

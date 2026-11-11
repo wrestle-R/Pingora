@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import type { Metadata } from "next";
 import { connection } from "next/server";
 import { getPublicGithub, statusMessage } from "../../lib/github";
@@ -29,12 +30,11 @@ export default async function Support() {
             Android version or Linux desktop involved. Add steps that reproduce
             it.
           </p>
-          <a
-            className="button primary"
+          <Button asChild variant="default" size="lg"><a
             href={repo + "/issues/new?title=Bug%3A%20"}
           >
             Open a bug report ↗
-          </a>
+          </a></Button>
         </article>
         <article>
           <span className="number">02 /</span>
@@ -43,9 +43,9 @@ export default async function Support() {
             Start with the thing you’re trying to do and where the current flow
             gets in the way. A small example helps.
           </p>
-          <a className="button" href={repo + "/issues/new?title=Feature%3A%20"}>
+          <Button asChild variant="outline" size="lg"><a href={repo + "/issues/new?title=Feature%3A%20"}>
             Suggest a feature ↗
-          </a>
+          </a></Button>
         </article>
       </div>
       <div className="notice">

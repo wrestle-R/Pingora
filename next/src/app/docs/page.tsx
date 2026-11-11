@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import type { Metadata } from "next";
 import Link from "next/link";
 export const metadata: Metadata = { title: "Docs" };
@@ -80,9 +81,9 @@ export default function Docs() {
               <p>{text}</p>
             </section>
           ))}
-          <Link className="button" href="/support">
+          <Button asChild variant="outline" size="lg"><Link href="/support">
             Need a hand? ↗
-          </Link>
+          </Link></Button>
         </div>
       </div>
     </div>

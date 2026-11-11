@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 export default function NotFound() {
   return (
@@ -9,9 +10,9 @@ export default function NotFound() {
         flew off.
       </h1>
       <p>There’s no page at this address.</p>
-      <Link className="button primary" href="/">
+      <Button asChild variant="default" size="lg"><Link href="/">
         Back to Pingora ↗
-      </Link>
+      </Link></Button>
     </section>
   );
 }

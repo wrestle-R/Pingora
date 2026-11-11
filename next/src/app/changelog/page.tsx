@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { connection } from "next/server";
@@ -29,9 +30,9 @@ export default async function Changelog() {
             ))}
           </ul>
         )}
-        <Link className="button" href="/downloads">
+        <Button asChild variant="outline" size="lg"><Link href="/downloads">
           Back to release status ↗
-        </Link>
+        </Link></Button>
       </div>
     </section>
   );
