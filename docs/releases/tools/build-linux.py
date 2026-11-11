@@ -27,4 +27,5 @@ with tempfile.TemporaryDirectory(prefix='pingora-package-') as temp:
  shutil.copy2(root/'tauri/COPYING',d/'COPYING');shutil.copy2(root/'tauri/native/source.json',d/'native-source.json')
  (d/'README.txt').write_text('Pingora Linux x86_64 development package. Requires compatible GTK3, WebKitGTK4.1, Qt6 and KDE Frameworks6 host libraries. Built-host compatibility only; not a universal AppImage. Native source provenance in native-source.json; corresponding source supplied separately.\n')
  with tarfile.open(a.output/f'pingora-{a.version}-linux-x86_64.tar.gz','w:gz') as archive:archive.add(d,arcname='Pingora')
+subprocess.run(['python3',str(root/'docs/releases/tools/verify-linux.py'),str(a.output/f'pingora-{a.version}-linux-x86_64.tar.gz')],check=True)
 print('Linux package built with native service. Verify host dependencies and runtime before release.')
