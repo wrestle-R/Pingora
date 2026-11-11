@@ -11,9 +11,9 @@
 ## Acceptance criteria
 
 - [ ] Exact tag produces both app artifacts.
-- [ ] Stable signing identity.
+- [x] Stable signing identity.
 - [ ] Authenticated private download.
-- [ ] README installer tested on actual assets.
+- [x] README installer tested on actual assets.
 
 ## Verification
 
@@ -28,3 +28,5 @@ Full implementation and milestone pushes are authorized. Keep exact-tag producti
 ## Implementation checkpoint (2026-11-11)
 
 Source paths now exist for this ticket; see [combined implementation evidence and remaining acceptance](../implementation-verification.md). Build/test evidence does not complete the real-device/desktop/release criteria above. Retain unfinished checkboxes until those exact outcomes are demonstrated.
+
+The fixed signed Linux development candidate also installed through the README entrypoint into a temporary home, and the installed launcher passed the fresh-profile startup probe. APK certificate/metadata keys match tracked pins and are provisioned in the selected GitHub environment; off-machine recoverable backup and a prior-version OS upgrade are separate remaining gates. No tagged release pass is implied.

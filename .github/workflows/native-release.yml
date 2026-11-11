@@ -34,10 +34,19 @@ jobs:
           fetch-depth: 0
       - name: Install pinned Android SDK
         run: python3 docs/releases/tools/setup-sdk.py
-      - name: Test and build unsigned artifacts
+      - name: Verify checkout ownership
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+      - name: Rust tests and Clippy
+        run: python3 docs/releases/tools/build-release.py --stage rust
+      - name: Android tests and optimized unsigned APK
+        run: python3 docs/releases/tools/build-release.py --stage android
+      - name: Build pinned native LAN service
+        run: python3 docs/releases/tools/build-release.py --stage native
+      - name: Build and verify Linux package
+        run: python3 docs/releases/tools/build-release.py --stage linux
+      - name: Assemble source and build provenance
         run: |
-          git config --global --add safe.directory "$GITHUB_WORKSPACE"
-          python3 docs/releases/tools/build-release.py
+          python3 docs/releases/tools/build-release.py --stage inventory
           pacman -Q > release-private/unsigned/build-host-packages.txt
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
