@@ -19,7 +19,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-export default function DownloadPlatforms() {
+import { Button } from "@/components/ui/button";
+import type { PublicRelease } from "@/lib/github";
+export default function DownloadPlatforms({ release }: { release: PublicRelease | null }) {
+  const asset = (name: string) => release?.assets.find((file) => file.name === name && file.bytes > 0);
+  const version = release?.version.replace(/^v/, "");
   const [platform, setPlatform] = useState("all");
   return (
     <>
@@ -58,12 +62,24 @@ export default function DownloadPlatforms() {
               </CardHeader>
               <CardContent>
                 <p>
-                  Signed development builds exist. Qualified public downloads
-                  will appear here when available.
+                  {release
+                    ? name === "Android"
+                      ? "Signed APK. Open it on your phone and approve Android’s installer. Android rejects downgrades; keep your existing app if it is newer than this release."
+                      : "Linux x86_64. Automatic dependency setup supports Arch-based systems; other distributions need compatible libraries."
+                    : "No complete published release is available right now. Check GitHub releases or try again later."}
                 </p>
               </CardContent>
-              <CardFooter>
-                <Badge variant="secondary">In development</Badge>
+              <CardFooter className="flex flex-wrap gap-3">
+                <Badge variant="secondary">{release?.version || "Unavailable"}</Badge>
+                {release && name === "Android" && asset(`pingora-${version}.apk`) && (
+                  <Button asChild><a href={asset(`pingora-${version}.apk`)!.url}>Download Android APK</a></Button>
+                )}
+                {release && name === "Linux" && asset("install-app.sh") && (
+                  <Button asChild><a href={asset("install-app.sh")!.url}>Download Linux installer</a></Button>
+                )}
+                {release && name === "Linux" && asset(`pingora-${version}-linux-x86_64.tar.gz`) && (
+                  <Button variant="outline" asChild><a href={asset(`pingora-${version}-linux-x86_64.tar.gz`)!.url}>Linux archive</a></Button>
+                )}
               </CardFooter>
             </Card>
           ))}

@@ -3,7 +3,21 @@ on:
   push:
     branches: [main]
     tags: ['v*']
+    paths:
+      - 'app/**'
+      - 'tauri/**'
+      - 'docs/releases/**'
+      - '.github/workflows/native-release.yml'
+      - '.gitattributes'
+      - '.gitignore'
   pull_request:
+    paths:
+      - 'app/**'
+      - 'tauri/**'
+      - 'docs/releases/**'
+      - '.github/workflows/native-release.yml'
+      - '.gitattributes'
+      - '.gitignore'
   workflow_dispatch:
 permissions:
   contents: read
