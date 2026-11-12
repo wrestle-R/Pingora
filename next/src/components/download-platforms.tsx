@@ -71,6 +71,7 @@ export default function DownloadPlatforms({ release }: { release: PublicRelease 
               </CardContent>
               <CardFooter className="flex flex-wrap gap-3">
                 <Badge variant="secondary">{release?.version || "Unavailable"}</Badge>
+                {!release && <Button variant="outline" asChild><a href="https://github.com/wrestle-R/Pingora/releases/latest">Open GitHub releases</a></Button>}
                 {release && name === "Android" && asset(`pingora-${version}.apk`) && (
                   <Button asChild><a href={asset(`pingora-${version}.apk`)!.url}>Download Android APK</a></Button>
                 )}
