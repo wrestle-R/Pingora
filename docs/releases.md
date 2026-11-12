@@ -1,6 +1,6 @@
 # Release and update preparation
 
-This is the release contract. Hosted workflow, signed metadata, installers and updater source are implemented; see [tooling](releases/README.md) and [observed verification](progress/implementation-verification.md). Full qualification and a published release remain outstanding.
+This is the release contract. Hosted workflow, signed metadata, installers and updater source are implemented; see [tooling](releases/README.md) and [observed verification](progress/implementation-verification.md). Signed public releases are available. Release 0.1.6 passed the hosted build/signing/install gates and owner-host package checks; broader platform and physical feature qualification remain outstanding.
 
 ## Tag pipeline
 
