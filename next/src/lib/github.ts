@@ -187,7 +187,7 @@ async function load(): Promise<GithubStatus> {
 // No credentials or user-specific responses are captured. Freshness target: five minutes.
 export const getPublicGithub = unstable_cache(
   load,
-  ["pingora-anonymous-github-v1"],
+  ["pingora-anonymous-github-v2"],
   { revalidate: 300 },
 );
 export function statusMessage(state: State): string {
