@@ -1,4 +1,4 @@
-# Android widgets (0.1.8 candidate)
+# Android widgets (0.1.8)
 
 Add widgets from Home → Settings or your launcher's widget picker. Update both devices to a matching release.
 

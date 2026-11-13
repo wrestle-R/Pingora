@@ -2,13 +2,13 @@
 
 ## Current public and local versions
 
-As verified on 2026-11-12, the latest published release is `v0.1.3` (nine expected assets). `v0.1.4` is still a draft. `0.1.5` is an installed local candidate and has not been published. README downloads must point only to published assets until publication is explicitly completed and anonymous downloads are verified.
+The current published default is `v0.1.8` (11 signed release assets). README and website downloads use the latest public release. Publish only after package verification; never link draft assets as public downloads.
 
 The Bash entrypoint uses the Python installer bundled at release time. Editing `docs/releases/install.py` does not change existing immutable release scripts. Rebuild `install-app.sh` for the next release; never replace old signed artifacts to make them appear current.
 
 Manual installs require Python 3.12+, OpenSSL, Linux x86_64 and compatible runtime libraries. Arch bootstrap installs missing runtime packages through normal package-manager approval. Close the app before manual updates; the in-app updater checks active work and asks for a restart after staging an installation. Existing versions and user data are retained. `--source` supports isolated signed-artifact checks without downloading or changing the real home.
 
-Public releases through `v0.1.3` are available. Their built-host checks do not establish full device/desktop qualification. See [current verification](../progress/implementation-verification.md).
+The current public release is `v0.1.8`. Their built-host checks do not establish full device/desktop qualification. See [current verification](../progress/implementation-verification.md).
 
 - `tools/build-linux.py --version VERSION --output DIRECTORY`: optimized host-dependent Linux x86_64 tar with bundled own native service/libraries and installer. Host GTK3/WebKitGTK4.1/Qt6/KF6 dependencies remain required. Not an AppImage compatibility claim.
 - `tools/verify-linux.py ARTIFACT`: extracts the actual tar, checks required resources/trust, host dependencies and bundled native-library resolution, then runs only the headless health command. Every Linux package build invokes it before upload.
