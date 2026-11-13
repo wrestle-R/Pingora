@@ -81,7 +81,7 @@ To uninstall the user-owned Linux installation, remove `~/.local/bin/pingora`, `
 
 ## Release checks
 
-The [0.1.7 hosted pipeline](https://github.com/wrestle-R/Pingora/actions/runs/43375836021) passed Android and Rust tests, desktop frontend checks, optimized packaging, signature verification and Android API 36 fresh-install/upgrade/reinstall checks. The published APK also upgraded the owner’s Android 16 phone normally. The Linux installer was checked with anonymous downloads and an isolated upgrade that preserved settings and the previous executable.
+The [0.1.7 hosted pipeline](https://github.com/wrestle-R/Pingora/actions/runs/43375836021) passed Android and Rust tests, desktop frontend checks, optimized packaging, signature verification and Android API 36 fresh-install/upgrade/reinstall checks. The published APK also installed normally over the owner’s existing Android 16 app. The Linux installer was checked with anonymous downloads and an isolated upgrade that preserved settings and the previous executable.
 
 Physical phone checks also passed clipboard widget delivery and launcher return, background/listener-recovery test notifications, battery reporting, power-profile changes and both lid-mode directions. Physical folder browsing and broader/overnight reliability qualification are still pending. See the [release notes](https://github.com/wrestle-R/Pingora/releases/tag/v0.1.7) for the tested limits.
 
