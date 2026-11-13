@@ -97,7 +97,7 @@ export interface Update {
 export const defaultPolicy = (): Policy => ({
   paused: false,
   show_locked: false,
-  enabled: { notifications: true, clipboard: true, files: true, folders: true, battery: true, ring: true, slumber: true },
+  enabled: { notifications: true, clipboard: true, files: true, folders: true, battery: true, ring: true, slumber: true, power: true },
   desktop_apps: ["*"],
 });
 // Stable protocol identities define a connection. Equal display names never merge trust.

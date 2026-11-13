@@ -5,7 +5,7 @@ import android.content.Context
 import androidx.core.content.edit
 
 object SharingPolicy {
-    val features = listOf("notifications", "clipboard", "files", "folders", "battery", "ring", "slumber")
+    val features = listOf("notifications", "clipboard", "files", "folders", "battery", "ring", "slumber", "power")
     fun preferences(context: Context) = context.getSharedPreferences("pingora_sharing", Context.MODE_PRIVATE)
     fun allows(context: Context, peer: String, feature: String): Boolean {
         val p = preferences(context)

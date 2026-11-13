@@ -50,7 +50,7 @@ class SharingFragment : Fragment() {
             }
             val liveState=liveState()
             if(page!=3 && lastLiveState!=liveState) render()
-            batteryLabel?.text = bridge?.laptopBattery ?: "Battery status unavailable"
+            batteryLabel?.text = bridge?.laptopBattery?.removePrefix("Laptop battery: ") ?: "Battery status unavailable"
             slumberLabel?.text = bridge?.slumberStatus ?: "Slumber is not connected"
             if (content != null) handler.postDelayed(this, 2000)
         }
@@ -114,13 +114,13 @@ class SharingFragment : Fragment() {
     override fun onViewCreated(view: View, state: Bundle?) {
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, back)
     }
-    override fun onResume() { super.onResume(); render(); handler.removeCallbacks(refreshStatus); handler.post(refreshStatus) }
+    override fun onResume() { super.onResume(); org.kde.kdeconnect.pingora.PingoraNotificationListener.ensureConnected(requireContext()); render(); selectedPeer?.let {KdeConnect.getInstance().devices[it]?.getPlugin<BridgePlugin>()?.apply {if(canSend("battery")) send("battery_request",JSONObject());requestLaptopStatus()}}; handler.removeCallbacks(refreshStatus); handler.post(refreshStatus) }
     override fun onPause() { handler.removeCallbacks(refreshStatus); super.onPause() }
     private fun render() {
         val context=requireContext(); val layout=content ?: return; back.isEnabled=page==2; layout.removeAllViews(); batteryLabel=null; slumberLabel=null
         fun text(value:String, heading:Boolean=false): TextView {
             return TextView(context).apply {
-                text=value; textSize=if(heading) 26f else 15f
+                text=value; textSize=if(heading) 20f else 15f
                 if(heading) setTypeface(typeface, android.graphics.Typeface.BOLD)
                 setPadding(0, (12*resources.displayMetrics.density).toInt(), 0, (8*resources.displayMetrics.density).toInt())
                 layout.addView(this)
@@ -129,7 +129,7 @@ class SharingFragment : Fragment() {
         fun button(label:String, enabled:Boolean=true, action:()->Unit) {
             layout.addView(Button(context).apply {
                 text=label; isAllCaps=false; isEnabled=enabled; alpha=if(enabled) 1f else 0.45f; strokeWidth=0;
-                if(label!="Send file" && label!="Send clipboard") {backgroundTintList=android.content.res.ColorStateList.valueOf(com.google.android.material.color.MaterialColors.getColor(this,com.google.android.material.R.attr.colorSurfaceContainer));setTextColor(com.google.android.material.color.MaterialColors.getColor(this,com.google.android.material.R.attr.colorOnSurface))}; cornerRadius=(16*resources.displayMetrics.density).toInt()
+                if(label!="Send file" && label!="Send clipboard") {backgroundTintList=android.content.res.ColorStateList.valueOf(android.graphics.Color.TRANSPARENT);setTextColor(com.google.android.material.color.MaterialColors.getColor(this,com.google.android.material.R.attr.colorOnSurface))}; cornerRadius=(16*resources.displayMetrics.density).toInt()
                 minimumHeight=(56*resources.displayMetrics.density).toInt()
                 layoutParams=LinearLayout.LayoutParams(-1,-2).apply { topMargin=(8*resources.displayMetrics.density).toInt() }
                 setOnClickListener {action()}
@@ -150,6 +150,13 @@ class SharingFragment : Fragment() {
             card.addView(cardContent)
             val heading=TextView(context).apply {text=current?.name ?: "Connect your laptop";textSize=24f;setTypeface(typeface,android.graphics.Typeface.BOLD)}
             cardContent.addView(heading)
+            batteryLabel=TextView(context).apply {
+                text=current?.getPlugin<BridgePlugin>()?.laptopBattery?.removePrefix("Laptop battery: ") ?: "Battery unavailable"
+                textSize=34f;setTypeface(typeface,android.graphics.Typeface.BOLD)
+                setTextColor(com.google.android.material.color.MaterialColors.getColor(this,androidx.appcompat.R.attr.colorPrimary))
+                setPadding(0,16.dp(),0,8.dp())
+            }
+            cardContent.addView(batteryLabel)
         connectionLabel=text(when {
             current==null -> "Pair with Pingora on your laptop to start sharing."
             !current.isReachable -> "Offline · Open Pingora on your laptop and use the same network."
@@ -169,16 +176,24 @@ class SharingFragment : Fragment() {
         if(page==0 && current!=null) button("Laptop details") {page=2;render()}
         lastLiveState=liveState()
         if(page==3) {
-        devices.filter {!it.isReachable}.forEach {saved->
-            button("Forget saved offline ${saved.name} · ${saved.deviceId.takeLast(6)}") {
-                com.google.android.material.dialog.MaterialAlertDialogBuilder(context).setTitle("Forget ${saved.name}?")
-                    .setMessage("This removes only the saved offline identity ending ${saved.deviceId.takeLast(6)}. The connected identity is kept.")
-                    .setPositiveButton("Forget") {_,_->saved.unpair();selectedPeer=null;render()}.setNegativeButton("Cancel",null).show()
-            }
+        val savedDevices=devices.filter {!it.isReachable}
+        if(savedDevices.isNotEmpty()) button("Saved laptops (${savedDevices.size})") {
+            com.google.android.material.dialog.MaterialAlertDialogBuilder(context).setTitle("Saved offline laptops")
+                .setItems(savedDevices.map {"${it.name} · ${it.deviceId.takeLast(6)}"}.toTypedArray()) {_,index ->
+                    val saved=savedDevices[index]
+                    com.google.android.material.dialog.MaterialAlertDialogBuilder(context).setTitle("Forget ${saved.name}?")
+                        .setMessage("Remove only the offline identity ending ${saved.deviceId.takeLast(6)}. Your connected laptop is kept.")
+                        .setPositiveButton("Forget") {_,_->saved.unpair();selectedPeer=null;render()}.setNegativeButton("Cancel",null).show()
+                }.show()
+        }
+        if(android.os.Build.VERSION.SDK_INT>=26) {
+            button("Add laptop status widget") { android.appwidget.AppWidgetManager.getInstance(context).requestPinAppWidget(android.content.ComponentName(context,org.kde.kdeconnect.pingora.LaptopWidget::class.java),null,null) }
+            button("Add clipboard widget") { android.appwidget.AppWidgetManager.getInstance(context).requestPinAppWidget(android.content.ComponentName(context,org.kde.kdeconnect.pingora.ClipboardWidget::class.java),null,null) }
         }
         button("Connection & Android permissions") {(activity as? MainActivity)?.openPingoraPage("health")}
         text("Permissions & folders", true)
         text("Sharing features start enabled. Android still needs your approval for notification access and folders.")
+        button("Test notification forwarding") { android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({org.kde.kdeconnect.pingora.PingoraNotificationListener.postProbe(context.applicationContext)},5000);message("Test in 5 seconds. You can return to the home screen.") }
         button("Notification access settings") { startActivity(Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS)) }
         val apps=linkedMapOf("com.whatsapp" to "WhatsApp", "com.whatsapp.w4b" to "WhatsApp Business", "com.instagram.android" to "Instagram", "com.google.android.gm" to "Gmail")
         Telephony.Sms.getDefaultSmsPackage(context)?.let { apps[it]="Default SMS app notifications" }
@@ -210,7 +225,7 @@ class SharingFragment : Fragment() {
             val bridge=device.getPlugin<BridgePlugin>()
             if(page==3) {
             val preferences=SharingPolicy.preferences(context)
-            for(feature in listOf("paused","notifications","clipboard","files","folders","battery","ring","slumber")) {
+            for(feature in listOf("paused","notifications","clipboard","files","folders","battery","ring","slumber","power")) {
                 layout.addView(CheckBox(context).apply {
                     text=if(feature=="paused") "Pause sharing" else "Allow $feature"
                     isChecked=preferences.getBoolean("${device.deviceId}.$feature",feature != "paused")
@@ -220,7 +235,7 @@ class SharingFragment : Fragment() {
             }
             if(page==0) {
             text("Send to laptop", true)
-            text("Pick a file, copy text, or send a link to your laptop.")
+            text("Send something. Keep going on your laptop.")
             if(bridge?.canSend("files")!=true || bridge.canSend("clipboard")!=true)
                 text("Some actions are unavailable. Check the connection and feature switches in Settings on both devices.")
             button("Send clipboard", bridge?.canSend("clipboard")==true) {

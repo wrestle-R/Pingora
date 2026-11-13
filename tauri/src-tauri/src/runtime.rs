@@ -80,6 +80,9 @@ impl Runtime {
         } else {
             Store::default()
         };
+        for policy in store.policies.values_mut() {
+            policy.enabled.entry(Feature::Power).or_insert(true);
+        }
         store.prune(now());
         let runtime = Arc::new(Self {
             store: Mutex::new(store),
@@ -463,7 +466,8 @@ impl Runtime {
         let feature = match kind {
             "notification_action" => Feature::Notifications,
             "clipboard" => Feature::Clipboard,
-            "battery_request" => Feature::Battery,
+            "battery_request" | "laptop_status_request" => Feature::Battery,
+            "power_profile" => Feature::Power,
             "ring" | "ring_stop" => Feature::Ring,
             "slumber_status" | "slumber_activate" | "slumber_lid" => Feature::Slumber,
             "folder_list" | "folder_read" => Feature::Folders,
@@ -710,6 +714,7 @@ impl Runtime {
                 let snapshot = packet.data["snapshot"].as_bool().unwrap_or(false);
                 if let Ok(mut notice) = serde_json::from_value::<Notice>(packet.data) {
                     notice.peer = id.into();
+                    let receipt = json!({"source":notice.source,"version":notice.version});
                     if let Ok(mut s) = self.store.lock() {
                         if s.receive(notice.clone(), now()) {
                             self.save(&s).ok();
@@ -717,6 +722,8 @@ impl Runtime {
                                 self.native(crate::native::Command::Notice(notice));
                             }
                         }
+                        drop(s);
+                        self.send(id, "notice_ack", receipt).ok();
                     }
                 }
             }
@@ -846,6 +853,21 @@ impl Runtime {
                     }
                 }
             }
+            "laptop_status_request" if self.permitted(id, Feature::Battery) => {
+                self.send(id, "laptop_status", crate::system::laptop_status())
+                    .ok();
+            }
+            "power_profile" if self.permitted(id, Feature::Power) => {
+                if let Some(value) = packet.data["value"]
+                    .as_str()
+                    .filter(|v| crate::system::valid_power_profile(v))
+                {
+                    let success = crate::system::set_power_profile(value);
+                    let mut status = crate::system::laptop_status();
+                    status["control_ok"] = json!(success);
+                    self.send(id, "laptop_status", status).ok();
+                }
+            }
             "slumber_status" if self.permitted(id, Feature::Slumber) => {
                 self.send(
                     id,
@@ -859,7 +881,7 @@ impl Runtime {
                     .as_str()
                     .filter(|v| matches!(*v, "sleep" | "slumber"))
                 {
-                    if crate::slumber_status().available {
+                    if crate::slumber_status().lid_control {
                         if let Some(home) = std::env::var_os("HOME") {
                             std::process::Command::new("/usr/bin/timeout")
                                 .args(["3s", "/usr/bin/qs", "-p"])

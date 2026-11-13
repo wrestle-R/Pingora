@@ -88,6 +88,7 @@ function SharingPeer({
             "battery",
             "ring",
             "slumber",
+            "power",
           ].map((feature) => (
             <CheckField
               key={feature}
@@ -109,7 +110,7 @@ function SharingPeer({
                   ? policy.paused
                   : feature === "show_locked"
                     ? policy.show_locked
-                    : !!policy.enabled[feature]
+                    : (policy.enabled[feature] ?? feature === "power")
               }
               disabled={busy}
               onChange={(checked) =>

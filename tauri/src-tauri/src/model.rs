@@ -13,6 +13,7 @@ pub enum Feature {
     Battery,
     Ring,
     Slumber,
+    Power,
 }
 #[derive(Clone, Deserialize, Serialize)]
 #[serde(default)]
@@ -35,6 +36,7 @@ impl Default for Policy {
                 Feature::Battery,
                 Feature::Ring,
                 Feature::Slumber,
+                Feature::Power,
             ]
             .into_iter()
             .map(|feature| (feature, true))

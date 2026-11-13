@@ -31,6 +31,7 @@ struct Slumber {
     active: bool,
     secure: bool,
     lid_ready: bool,
+    lid_control: bool,
     lid_action: String,
 }
 
@@ -42,6 +43,7 @@ fn slumber_status() -> Slumber {
         active: false,
         secure: false,
         lid_ready: false,
+        lid_control: false,
         lid_action: "unknown".into(),
     };
     let Some(config) = std::env::var_os("HOME").map(std::path::PathBuf::from) else {
@@ -78,8 +80,30 @@ fn slumber_status() -> Slumber {
         active,
         secure,
         lid_ready,
+        lid_control: slumber_lid_control(),
         lid_action: lid_action.into(),
     }
+}
+
+fn slumber_lid_control() -> bool {
+    let Some(home) = std::env::var_os("HOME") else {
+        return false;
+    };
+    let output = Command::new("/usr/bin/timeout")
+        .args(["2s", "/usr/bin/qs", "-p"])
+        .arg(std::path::PathBuf::from(home).join(".config/quickshell/ii"))
+        .args(["ipc", "show"])
+        .output();
+    let Ok(output) = output else {
+        return false;
+    };
+    if !output.status.success() || output.stdout.len() > 32768 {
+        return false;
+    }
+    let text = String::from_utf8_lossy(&output.stdout);
+    text.split("target ")
+        .find(|section| section.starts_with("slumber\n"))
+        .is_some_and(|section| section.contains("function setLidAction(value: string)"))
 }
 
 fn read_health() -> Health {

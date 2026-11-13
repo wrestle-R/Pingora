@@ -4,4 +4,5 @@
     <color name="pingora_surface">#11171C</color>
     <color name="pingora_background">#080B0E</color>
     <color name="pingora_widget_text">#EDF4F1</color>
+    <color name="pingora_widget_control">#21332E</color>
 </resources>

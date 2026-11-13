@@ -107,6 +107,16 @@ class HealthFragment : Fragment() {
             context, Manifest.permission.POST_NOTIFICATIONS
         ) == PackageManager.PERMISSION_GRANTED
         text(if (notifications) "App notifications: allowed." else "App notifications: blocked. Allow them to see connection and pairing notices.")
+        text(if(org.kde.kdeconnect.pingora.PingoraNotificationListener.instance!=null) "Notification listener: connected." else "Notification listener: not connected. Check notification access.")
+        if(Build.VERSION.SDK_INT>=24) action("Reconnect notification listener") {
+            val listener=org.kde.kdeconnect.pingora.PingoraNotificationListener.instance
+            if(listener!=null) listener.requestUnbind() else org.kde.kdeconnect.pingora.PingoraNotificationListener.ensureConnected(context)
+            text("Reconnecting notification listener. Refresh connection to check status.")
+        }
+        action("Copy harmless clipboard test") {
+            context.getSystemService(android.content.ClipboardManager::class.java).setPrimaryClip(android.content.ClipData.newPlainText("Pingora test","Pingora clipboard delivery check"))
+            android.widget.Toast.makeText(context,"Test text copied. Tap the clipboard widget to send it.",android.widget.Toast.LENGTH_LONG).show()
+        }
         action("Notification settings") { settings(Settings.ACTION_APP_NOTIFICATION_SETTINGS) }
         if (Build.VERSION.SDK_INT >= 37) {
             val localNetwork = ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_LOCAL_NETWORK) == PackageManager.PERMISSION_GRANTED

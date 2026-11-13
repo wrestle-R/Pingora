@@ -20,7 +20,14 @@ class ClipboardSendActivity : AppCompatActivity() {
     private fun done(message: String) { Toast.makeText(this, message, Toast.LENGTH_LONG).show(); finish() }
     override fun onCreate(state: Bundle?) {
         super.onCreate(state)
-        setContentView(android.widget.ProgressBar(this))
+        val row=android.widget.LinearLayout(this).apply {
+            orientation=android.widget.LinearLayout.HORIZONTAL;gravity=android.view.Gravity.CENTER_VERTICAL
+            val padding=(16*resources.displayMetrics.density).toInt();setPadding(padding,padding,padding,padding)
+            addView(android.widget.ProgressBar(this@ClipboardSendActivity),android.widget.LinearLayout.LayoutParams(padding*2,padding*2))
+            addView(android.widget.TextView(this@ClipboardSendActivity).apply {text="Sending clipboard…";setPadding(padding,0,0,0)})
+        }
+        setContentView(row)
+        window.setDimAmount(0f)
         title = "Sending clipboard"
     }
     override fun onResume() {
@@ -32,7 +39,8 @@ class ClipboardSendActivity : AppCompatActivity() {
         if(focus && !started) { started=true; handler.post(::send) }
     }
     private fun send() {
-        if(isFinishing || !hasWindowFocus()) return
+        if(isFinishing) return
+        if(!hasWindowFocus()) {done("Clipboard send cancelled. Tap the widget again.");return}
         if(getSystemService(KeyguardManager::class.java).isDeviceLocked) {done("Unlock your phone to send clipboard text.");return}
         val peers=KdeConnect.getInstance().devices.values.filter {it.isPaired && it.isReachable && it.getPlugin<BridgePlugin>()?.canSend("clipboard")==true}
         if(peers.isEmpty() && attempts++<75) {handler.postDelayed(::send,200);return}

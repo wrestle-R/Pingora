@@ -37,6 +37,12 @@ class BridgePlugin : Plugin() {
     )
 
     val files by lazy { FileTransfers(context,this) }
+    @Volatile var laptopStatus: JSONObject = JSONObject(); private set
+    @Volatile var laptopStatusAt: Long = 0; private set
+    fun requestLaptopStatus() {
+        if(canSend("battery")) send("laptop_status_request", JSONObject())
+        if(canSend("slumber")) send("slumber_status", JSONObject())
+    }
     @Volatile var laptopBattery:String="Laptop battery unavailable";private set
     @Volatile var slumberStatus: String = "Status unavailable"; private set
     @Volatile private var local = ""
@@ -60,8 +66,8 @@ class BridgePlugin : Plugin() {
         worker = Thread({
             try {
                 while (running.get()) {
-                    val packet = queue.poll(30, java.util.concurrent.TimeUnit.SECONDS)
-                    if (packet == null) { battery(); LocalInbox.flush(context,device.deviceId,this); continue }
+                    val packet = queue.poll(if(PingoraNotificationListener.instance?.hasPending(device.deviceId)==true) 5 else 30, java.util.concurrent.TimeUnit.SECONDS)
+                    if (packet == null) { battery(); if(LaptopWidget.hasWidgets(context)) requestLaptopStatus(); LaptopWidget.refresh(context); LocalInbox.flush(context,device.deviceId,this); PingoraNotificationListener.instance?.retry(this,device.deviceId); continue }
                     if (device.isPaired && device.isReachable) device.sendPacketBlocking(packet)
                 }
             } catch (_: InterruptedException) { Thread.currentThread().interrupt() }
@@ -73,6 +79,7 @@ class BridgePlugin : Plugin() {
         running.set(false); worker?.interrupt(); worker = null; queue.clear()
         synchronized(this) { local = ""; remote = ""; seen.clear(); remotePolicy = JSONObject() }
         files.close()
+        laptopStatusAt=0; LaptopWidget.refresh(context)
         handler.removeCallbacks(stopRing); handler.post(stopRing)
     }
 
@@ -140,6 +147,7 @@ class BridgePlugin : Plugin() {
             remote = token; policyChanged(); return true
         }
         when (kind) {
+            "notice_ack" -> PingoraNotificationListener.instance?.acknowledge(device.deviceId,data.optString("source"),data.optString("version"))
             "notice" -> if(allows("notifications"))LocalInbox.receive(context,device.deviceId,data)
             "notice_removed" -> if(allows("notifications"))LocalInbox.removed(context,device.deviceId,data.optString("source"),data.optString("version"))
             "action_result" -> LocalInbox.acknowledge(context,device.deviceId,data.optString("action_id"))
@@ -149,9 +157,17 @@ class BridgePlugin : Plugin() {
             }
             "file_offer", "file_next", "file_chunk", "file_done", "file_cancel" -> files.handle(kind,data)
             "folder_list", "folder_read" -> files.folders(kind,data)
-            "slumber" -> if (allows("slumber")) { slumberStatus=if(!data.optBoolean("available")) "Slumber unavailable on laptop" else if(data.optBoolean("active")) "Active · secure: ${data.optBoolean("secure")} · lid: ${data.optString("lid_action", "unknown")}" else "Available · inactive · lid: ${data.optString("lid_action", "unknown")}" }
+            "slumber" -> if (allows("slumber")) { laptopStatus=JSONObject(laptopStatus.toString()).put("slumber",data); LaptopWidget.refresh(context); slumberStatus=if(!data.optBoolean("available")) "Slumber unavailable on laptop" else if(data.optBoolean("active")) "Active · secure: ${data.optBoolean("secure")} · lid: ${data.optString("lid_action", "unknown")}" else "Available · inactive · lid: ${data.optString("lid_action", "unknown")}" }
 
-            "policy" -> { remotePolicy = data; ClipboardWidget.refresh(context); if(data.optBoolean("paused",true)||data.optJSONObject("enabled")?.optBoolean("files",false)!=true) files.close(); if (canSend("notifications")) PingoraNotificationListener.instance?.sync(this) }
+            "laptop_status" -> if(allows("battery")) {
+                val previous=laptopStatus.optJSONObject("slumber")
+                laptopStatus=JSONObject(data.toString());if(previous!=null) laptopStatus.put("slumber",previous)
+                laptopStatusAt=android.os.SystemClock.elapsedRealtime()
+                val battery=laptopStatus.optJSONObject("battery");val level=battery?.optInt("level",-1) ?: -1
+                if(level in 0..100) laptopBattery="Laptop battery: $level%${if(battery?.optBoolean("charging")==true) " · charging" else ""}"
+                LaptopWidget.refresh(context)
+            }
+            "policy" -> { remotePolicy = data; if(LaptopWidget.hasWidgets(context)) requestLaptopStatus(); LaptopWidget.refresh(context); ClipboardWidget.refresh(context); if(data.optBoolean("paused",true)||data.optJSONObject("enabled")?.optBoolean("files",false)!=true) files.close(); if (canSend("notifications")) PingoraNotificationListener.instance?.sync(this) }
             "sync" -> { if (canSend("notifications")) PingoraNotificationListener.instance?.sync(this); battery() }
             "battery_request" -> battery()
             "battery" -> if(allows("battery")) {val level=data.optInt("level",-1);if(level in 0..100) laptopBattery="Laptop battery: $level%${if(data.optBoolean("charging")) " · charging" else ""}"}

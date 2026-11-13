@@ -37,7 +37,11 @@ Pingora modification: build-path probe with no plugin components or broad permis
             <intent-filter><action android:name="android.service.notification.NotificationListenerService" /></intent-filter>
         </service>
         <service android:name="org.kde.kdeconnect.BackgroundService" android:foregroundServiceType="connectedDevice" android:icon="@drawable/ic_notification" android:enabled="true" />
-        <activity android:name="org.kde.kdeconnect.pingora.ClipboardSendActivity" android:exported="false" android:noHistory="true" android:excludeFromRecents="true" android:theme="@style/PingoraSendDialog" />
+        <receiver android:name="org.kde.kdeconnect.pingora.LaptopWidget" android:exported="false" android:label="Laptop status">
+            <intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /></intent-filter>
+            <meta-data android:name="android.appwidget.provider" android:resource="@xml/pingora_laptop_widget" />
+        </receiver>
+        <activity android:name="org.kde.kdeconnect.pingora.ClipboardSendActivity" android:taskAffinity="${applicationId}.clipboard" android:exported="false" android:noHistory="true" android:excludeFromRecents="true" android:theme="@style/PingoraSendDialog" />
         <activity android:name="org.kde.kdeconnect.pingora.ShareActivity" android:exported="true" android:label="Send with Pingora">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" /><category android:name="android.intent.category.DEFAULT" /><data android:mimeType="*/*" />

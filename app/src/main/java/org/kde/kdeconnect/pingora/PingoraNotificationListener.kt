@@ -14,16 +14,27 @@ import java.security.MessageDigest
 
 class PingoraNotificationListener : NotificationListenerService() {
     private val versions = LinkedHashMap<String, String>()
+    private val pending = java.util.concurrent.ConcurrentHashMap<String,NoticeOutbox<JSONObject>>()
+    fun acknowledge(peer: String, source: String, version: String) {pending[peer]?.acknowledge(source,version)}
+    fun hasPending(peer: String): Boolean = pending[peer]?.pending()?.isNotEmpty()==true
+    fun retry(bridge: BridgePlugin, peer: String) {
+        if(bridge.canSend("notifications")) pending[peer]?.pending()?.forEach {bridge.send("notice",it)}
+    }
     private fun bridges(): List<BridgePlugin> = KdeConnect.getInstance().devices.values.mapNotNull { it.getPlugin<BridgePlugin>() }
 
     override fun onListenerConnected() {
         instance = this
+        lastRebind=0
         bridges().forEach { sync(it) }
     }
-    override fun onListenerDisconnected() { instance = null; synchronized(versions) { versions.clear() } }
+    override fun onListenerDisconnected() {
+        instance = null; synchronized(versions) { versions.clear() }
+        ensureConnected(this)
+    }
     override fun onDestroy() { if (instance === this) instance = null; super.onDestroy() }
 
-    private fun allowed(sbn: StatusBarNotification): Boolean = sbn.packageName != packageName && sbn.packageName in SharingPolicy.apps(this) && sbn.notification.flags and Notification.FLAG_GROUP_SUMMARY == 0
+    private fun isProbe(sbn: StatusBarNotification): Boolean = sbn.packageName == packageName && sbn.tag == PROBE_TAG && sbn.id == PROBE_ID
+    private fun allowed(sbn: StatusBarNotification): Boolean = (isProbe(sbn) || (sbn.packageName != packageName && sbn.packageName in SharingPolicy.apps(this))) && sbn.notification.flags and Notification.FLAG_GROUP_SUMMARY == 0
 
     @Suppress("DEPRECATION")
     private fun record(sbn: StatusBarNotification): JSONObject? {
@@ -48,7 +59,7 @@ class PingoraNotificationListener : NotificationListenerService() {
             bigText=extras.getCharSequence(Notification.EXTRA_BIG_TEXT)?.toString(),
             messages=messages.map {MessageFields(if(Build.VERSION.SDK_INT>=28)it.senderPerson?.name?.toString().orEmpty() else it.sender?.toString().orEmpty(),it.text?.toString().orEmpty())},
             reply=reply,read=read
-        ),SharingPolicy.apps(this),packageName) ?: return null
+        ),if(isProbe(sbn)) setOf(packageName) else SharingPolicy.apps(this),if(isProbe(sbn)) "" else packageName) ?: return null
         return JSONObject().put("peer", "").put("source",item.source).put("version",item.version)
             .put("app",item.app).put("conversation",item.conversation).put("sender",item.sender).put("title",item.title).put("body",item.body)
             .put("received",0).put("active",true).put("reply",item.reply).put("read",item.read)
@@ -60,9 +71,17 @@ class PingoraNotificationListener : NotificationListenerService() {
             if (versions.size >= 500 && sbn.key !in versions) versions.remove(versions.keys.first())
             versions[sbn.key] = item.getString("version")
         }
-        bridges().filter { it.canSend("notifications") }.forEach { it.send("notice", item) }
+        KdeConnect.getInstance().devices.values.filter {it.isPaired}.forEach {peer ->
+            val bridge=peer.getPlugin<BridgePlugin>() ?: return@forEach
+            if(bridge.canSend("notifications")) {
+                if(pending.size<32 || pending.containsKey(peer.deviceId))
+                    pending.getOrPut(peer.deviceId) {NoticeOutbox({android.os.SystemClock.elapsedRealtime()})}.put(sbn.key,item.getString("version"),item)
+                bridge.send("notice",item)
+            }
+        }
     }
     override fun onNotificationRemoved(sbn: StatusBarNotification) {
+        pending.values.forEach {it.remove(sbn.key)}
         val version = synchronized(versions) { versions.remove(sbn.key) } ?: return
         val data = JSONObject().put("source",sbn.key).put("version",version)
         bridges().filter { it.canSend("notifications") }.forEach { it.send("notice_removed", data) }
@@ -104,5 +123,30 @@ class PingoraNotificationListener : NotificationListenerService() {
             return "requested"
         }catch(_:Exception){return "unavailable"}
     }
-    companion object { @Volatile var instance: PingoraNotificationListener? = null; private set }
+    companion object {
+        private const val PROBE_TAG = "pingora-forwarding-probe"
+        private const val PROBE_ID = 7151
+        @Volatile private var lastRebind=0L
+        @Synchronized fun ensureConnected(context: android.content.Context) {
+            if(Build.VERSION.SDK_INT<24 || instance!=null) return
+            val now=android.os.SystemClock.elapsedRealtime()
+            if(lastRebind!=0L && now-lastRebind<60_000) return
+            if(androidx.core.app.NotificationManagerCompat.getEnabledListenerPackages(context).contains(context.packageName)) {
+                lastRebind=now
+                runCatching {requestRebind(android.content.ComponentName(context,PingoraNotificationListener::class.java))}
+            }
+        }
+        @Volatile var instance: PingoraNotificationListener? = null; private set
+        fun postProbe(context: android.content.Context) {
+            val manager = context.getSystemService(android.app.NotificationManager::class.java)
+            val channel = "pingora_forwarding_test"
+            if(Build.VERSION.SDK_INT >= 26) manager.createNotificationChannel(android.app.NotificationChannel(channel,"Forwarding test",android.app.NotificationManager.IMPORTANCE_DEFAULT))
+            val notification = androidx.core.app.NotificationCompat.Builder(context,channel)
+                .setSmallIcon(org.kde.kdeconnect_tp.R.drawable.pingora_icon)
+                .setContentTitle("Pingora delivery check")
+                .setContentText("Harmless test notification. No message or clipboard content.")
+                .setTimeoutAfter(120_000).build()
+            manager.notify(PROBE_TAG,PROBE_ID,notification)
+        }
+    }
 }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="16dp" android:background="@drawable/pingora_widget_surface">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical">
+        <TextView android:id="@+id/laptop_widget_name" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Your laptop" android:textColor="@color/pingora_widget_text" android:textSize="17sp" android:textStyle="bold" android:maxLines="1" android:ellipsize="end" />
+        <ImageButton android:id="@+id/laptop_widget_refresh" android:layout_width="48dp" android:layout_height="48dp" android:src="@drawable/ic_refresh_24dp" android:contentDescription="Refresh laptop status" android:background="@android:color/transparent" android:tint="@color/pingora_primary" />
+    </LinearLayout>
+    <TextView android:id="@+id/laptop_widget_battery" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="—" android:textSize="32sp" android:textStyle="bold" android:textColor="@color/pingora_primary" />
+    <TextView android:id="@+id/laptop_widget_connection" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Waiting for laptop" android:textSize="12sp" android:textColor="@color/pingora_widget_text" />
+    <Chronometer android:id="@+id/laptop_widget_age" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="@color/pingora_widget_text" android:textSize="12sp" />
+    <TextView android:id="@+id/laptop_widget_internet" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Internet unknown" android:textSize="12sp" android:layout_marginTop="4dp" android:textColor="@color/pingora_widget_text" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp">
+        <Button android:id="@+id/laptop_widget_power" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:minHeight="48dp" android:text="Power —" android:textAllCaps="false" android:textSize="12sp" android:backgroundTint="@color/pingora_widget_control" android:textColor="@color/pingora_widget_text" />
+        <Button android:id="@+id/laptop_widget_lid" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:layout_marginStart="8dp" android:minHeight="48dp" android:text="Lid —" android:textAllCaps="false" android:textSize="12sp" android:backgroundTint="@color/pingora_widget_control" android:textColor="@color/pingora_widget_text" />
+    </LinearLayout>
+</LinearLayout>

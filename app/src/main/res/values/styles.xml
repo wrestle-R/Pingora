@@ -10,6 +10,13 @@ SPDX-License-Identifier: GPL-2.0-only OR GPL-3.0-only OR LicenseRef-KDE-Accepted
         <item name="colorPrimary">@color/pingora_primary</item>
         <item name="colorOnPrimary">@color/pingora_on_primary</item>
         <item name="colorSurface">@color/pingora_surface</item>
+        <item name="colorSurfaceContainer">@color/pingora_surface</item>
+        <item name="colorSurfaceContainerLow">@color/pingora_surface</item>
+        <item name="colorSurfaceContainerHigh">@color/pingora_widget_control</item>
+        <item name="colorSecondary">@color/pingora_primary</item>
+        <item name="colorOnSecondary">@color/pingora_on_primary</item>
+        <item name="colorSecondaryContainer">@color/pingora_widget_control</item>
+        <item name="colorOnSecondaryContainer">@color/pingora_widget_text</item>
         <item name="android:colorBackground">@color/pingora_background</item>
         <item name="android:windowBackground">@color/pingora_background</item>
         <!-- Drawable definitions and overrides -->
