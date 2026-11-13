@@ -96,3 +96,32 @@ icon=destination/'Pingora/brand/pingora.svg'
 icon_name=str(icon) if icon.is_file() else 'network-wireless'
 entry.write_text('[Desktop Entry]\nType=Application\nName=Pingora\nComment=Connect your Android phone and Linux laptop\nExec="'+quoted+'"\nIcon='+icon_name+'\nTerminal=false\nCategories=Network;Utility;\nX-Pingora-Installer=true\n')
 print('Desktop menu entry installed. Open Pingora from your application menu.')
+
+# Keep connectivity independent of the installer terminal and the visible window.
+# Isolated --home checks write configuration but never touch the owner's service manager.
+unit_dir=home/'.config/systemd/user';unit_dir.mkdir(parents=True,exist_ok=True)
+unit=unit_dir/'pingora.service'
+unit_text='''# Pingora managed background service
+[Unit]
+Description=Pingora phone connection
+After=graphical-session.target
+PartOf=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart="%h/.local/bin/pingora" --background
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target
+'''
+if unit.exists() and not unit.read_text().startswith('# Pingora managed background service'):
+ print('Existing user service retained. Enable background startup manually if desired.')
+else:
+ unit.write_text(unit_text)
+ if home==Path.home().resolve() and shutil.which('systemctl'):
+  result=subprocess.run(['systemctl','--user','daemon-reload'],capture_output=True)
+  if result.returncode==0:
+   result=subprocess.run(['systemctl','--user','enable','--now','pingora.service'],capture_output=True)
+  print('Background service enabled.' if result.returncode==0 else 'Background service could not start; open Pingora after logging into your desktop.')

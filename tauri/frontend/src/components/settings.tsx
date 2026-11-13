@@ -270,6 +270,9 @@ export function Settings() {
   const [diagnostics, setDiagnostics] = useState("");
   return (
     <div className="flex flex-col gap-6">
+      <Panel title="Background connection" description="Closing the window keeps sharing connected. Open Pingora again from your application menu. Quitting stops the connection until you reopen it.">
+        <Action action={async () => { if(window.confirm("Quit Pingora and disconnect this laptop?")) await invoke("quit_app"); }}>Quit Pingora</Action>
+      </Panel>
       <Updates />
       <Panel
         title="Connection diagnostics"
@@ -302,7 +305,7 @@ export function Settings() {
         <p className="text-sm leading-relaxed text-muted-foreground">
           Pingora is an independent app. Its native connectivity includes reused
           KDE Connect components, with their original licenses and credits
-          preserved. Version 0.1.2.
+          preserved.
         </p>
       </Panel>
     </div>

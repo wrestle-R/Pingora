@@ -157,7 +157,7 @@ class BridgePlugin : Plugin() {
             }
             "file_offer", "file_next", "file_chunk", "file_done", "file_cancel" -> files.handle(kind,data)
             "folder_list", "folder_read" -> files.folders(kind,data)
-            "slumber" -> if (allows("slumber")) { laptopStatus=JSONObject(laptopStatus.toString()).put("slumber",data); LaptopWidget.refresh(context); slumberStatus=if(!data.optBoolean("available")) "Slumber unavailable on laptop" else if(data.optBoolean("active")) "Active · secure: ${data.optBoolean("secure")} · lid: ${data.optString("lid_action", "unknown")}" else "Available · inactive · lid: ${data.optString("lid_action", "unknown")}" }
+            "slumber" -> if (allows("slumber")) { LaptopTelemetry.updateSlumber(context,device.deviceId,data); laptopStatus=JSONObject(laptopStatus.toString()).put("slumber",data); LaptopWidget.refresh(context); slumberStatus=if(!data.optBoolean("available")) "Slumber unavailable on laptop" else if(data.optBoolean("active")) "Active · secure: ${data.optBoolean("secure")} · lid: ${data.optString("lid_action", "unknown")}" else "Available · inactive · lid: ${data.optString("lid_action", "unknown")}" }
 
             "laptop_status" -> if(allows("battery")) {
                 val previous=laptopStatus.optJSONObject("slumber")
@@ -165,6 +165,7 @@ class BridgePlugin : Plugin() {
                 laptopStatusAt=android.os.SystemClock.elapsedRealtime()
                 val battery=laptopStatus.optJSONObject("battery");val level=battery?.optInt("level",-1) ?: -1
                 if(level in 0..100) laptopBattery="Laptop battery: $level%${if(battery?.optBoolean("charging")==true) " · charging" else ""}"
+                LaptopTelemetry.save(context,device.deviceId,laptopStatus)
                 LaptopWidget.refresh(context)
             }
             "policy" -> { remotePolicy = data; if(LaptopWidget.hasWidgets(context)) requestLaptopStatus(); LaptopWidget.refresh(context); ClipboardWidget.refresh(context); if(data.optBoolean("paused",true)||data.optJSONObject("enabled")?.optBoolean("files",false)!=true) files.close(); if (canSend("notifications")) PingoraNotificationListener.instance?.sync(this) }
@@ -201,6 +202,7 @@ class BridgePlugin : Plugin() {
         (SharingPolicy.features + "paused").forEach { editor.remove("$deviceId.$it") }
         editor.apply()
         LocalInbox.forget(context,deviceId)
+        LaptopTelemetry.forget(context,deviceId)
     }
 
     private fun unlocked(): Boolean = !context.getSystemService(KeyguardManager::class.java).isDeviceLocked

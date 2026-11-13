@@ -373,6 +373,11 @@ async fn install_update(
         .map_err(|_| "Could not install update")?
 }
 
+#[tauri::command]
+fn quit_app(app: tauri::AppHandle) {
+    app.exit(0);
+}
+
 fn main() {
     // A CLI probe exercises exactly the native boundary used by the webview without
     // launching a second notification daemon, changing settings or locking the session.
@@ -384,8 +389,28 @@ fn main() {
         return;
     }
     tauri::Builder::default()
+        .plugin(tauri_plugin_single_instance::init(|app, args, _| {
+            if !args.iter().any(|arg| arg == "--background") {
+                if let Some(window) = app.get_webview_window("main") {
+                    window.show().ok();
+                    window.set_focus().ok();
+                }
+            }
+        }))
+        .on_window_event(|window, event| {
+            if let tauri::WindowEvent::CloseRequested { api, .. } = event {
+                api.prevent_close();
+                window.hide().ok();
+            }
+        })
         .manage(Arc::new(service::NativeService::default()))
         .setup(|app| {
+            system::start_metrics();
+            if std::env::args().any(|arg| arg == "--background") {
+                if let Some(window) = app.get_webview_window("main") {
+                    window.hide().ok();
+                }
+            }
             let lan = app.state::<Arc<service::NativeService>>().inner().clone();
             std::thread::spawn(move || {
                 let _ = lan.start();
@@ -406,6 +431,7 @@ fn main() {
         })
         .invoke_handler(tauri::generate_handler![
             health,
+            quit_app,
             device_list,
             pairing,
             start_lan,

@@ -64,6 +64,9 @@ class InstallerBoundary(unittest.TestCase):
         old, new = self.assets('0.0.1'), self.assets('0.0.2')
         result = self.install(old)
         self.assertEqual(result.returncode, 0, result.stderr)
+        service = self.home / '.config/systemd/user/pingora.service'
+        self.assertIn('Restart=on-failure', service.read_text())
+        self.assertIn('--background', service.read_text())
         marker = self.home / '.config/pingora/synthetic-policy'
         marker.parent.mkdir(parents=True)
         marker.write_text('keep this policy')

@@ -28,7 +28,7 @@ class SharingFragment : Fragment() {
     private var advanced = false
     private var showActivity = false
     private val back = object : androidx.activity.OnBackPressedCallback(false) {
-        override fun handleOnBackPressed() {page=0;advanced=false;render()}
+        override fun handleOnBackPressed() {page=0;advanced=false;showActivity=false;render()}
     }
     private val linkDrafts = mutableMapOf<String, String>()
     private var snackbar: com.google.android.material.snackbar.Snackbar? = null
@@ -36,21 +36,31 @@ class SharingFragment : Fragment() {
     private var connectionLabel: TextView? = null
     private var batteryLabel: TextView? = null
     private var slumberLabel: TextView? = null
+    private var telemetryLabel: TextView? = null
+    private var syncLabel: TextView? = null
+    private var profileLabel: TextView? = null
     private val handler = android.os.Handler(android.os.Looper.getMainLooper())
     private val refreshStatus = object : Runnable {
         override fun run() {
             val bridge = selectedPeer?.let { KdeConnect.getInstance().devices[it]?.getPlugin<BridgePlugin>() }
             val peer=selectedPeer?.let {KdeConnect.getInstance().devices[it]}
             connectionLabel?.text=when {
-                peer==null -> "Pair with Pingora on your laptop to start sharing."
-                peer?.isReachable!=true -> "Offline · Open Pingora on your laptop and use the same network."
+                peer==null -> "No laptop paired"
+                peer?.isReachable!=true -> "Offline · Showing saved readings"
                 SharingPolicy.preferences(requireContext()).getBoolean("${peer.deviceId}.paused",false) -> "Sharing paused · Resume in Settings."
-                bridge?.isReady != true -> "Connecting · Waiting for the laptop feature channel"
-                else -> "Connected · Sharing over your local network"
+                bridge?.isReady != true -> "Connecting to laptop…"
+                else -> "Connected"
             }
             val liveState=liveState()
             if(page!=3 && lastLiveState!=liveState) render()
-            batteryLabel?.text = bridge?.laptopBattery?.removePrefix("Laptop battery: ") ?: "Battery status unavailable"
+            selectedPeer?.let {id ->
+                val saved=org.kde.kdeconnect.pingora.LaptopTelemetry.read(requireContext(),id)
+                val level=saved.data.optJSONObject("battery")?.optInt("level",-1) ?: -1
+                batteryLabel?.text=if(level in 0..100) "$level%" else "—"
+                telemetryLabel?.text=org.kde.kdeconnect.pingora.LaptopWidget.metrics(saved.data).replace(" · ","\n")
+                syncLabel?.text=saved.age()+if(peer?.isReachable==true && bridge?.isReady==true && bridge.laptopStatusAt>0 && android.os.SystemClock.elapsedRealtime()-bridge.laptopStatusAt in 0..90_000) " · Live reading" else " · Saved reading"
+                profileLabel?.text=org.kde.kdeconnect.pingora.LaptopWidget.profileLabel(saved.data.optString("power_profile"))
+            }
             slumberLabel?.text = bridge?.slumberStatus ?: "Slumber is not connected"
             if (content != null) handler.postDelayed(this, 2000)
         }
@@ -117,7 +127,7 @@ class SharingFragment : Fragment() {
     override fun onResume() { super.onResume(); org.kde.kdeconnect.pingora.PingoraNotificationListener.ensureConnected(requireContext()); render(); selectedPeer?.let {KdeConnect.getInstance().devices[it]?.getPlugin<BridgePlugin>()?.apply {if(canSend("battery")) send("battery_request",JSONObject());requestLaptopStatus()}}; handler.removeCallbacks(refreshStatus); handler.post(refreshStatus) }
     override fun onPause() { handler.removeCallbacks(refreshStatus); super.onPause() }
     private fun render() {
-        val context=requireContext(); val layout=content ?: return; back.isEnabled=page==2; layout.removeAllViews(); batteryLabel=null; slumberLabel=null
+        val context=requireContext(); val layout=content ?: return; back.isEnabled=page==2 || showActivity; layout.removeAllViews(); batteryLabel=null; slumberLabel=null;telemetryLabel=null;syncLabel=null;profileLabel=null
         fun text(value:String, heading:Boolean=false): TextView {
             return TextView(context).apply {
                 text=value; textSize=if(heading) 20f else 15f
@@ -138,6 +148,7 @@ class SharingFragment : Fragment() {
         val devices=KdeConnect.getInstance().devices.values.filter {it.isPaired}.toList()
         val current=devices.firstOrNull { it.deviceId==selectedPeer } ?: devices.firstOrNull {it.isReachable} ?: devices.firstOrNull()
         selectedPeer=current?.deviceId
+        if((page==0 && !showActivity) || page==2) {renderDashboard(layout,current,page==2);lastLiveState=liveState();return}
         if(page==0 || page==2) {
             val card=com.google.android.material.card.MaterialCardView(context).apply {
                 radius=24*resources.displayMetrics.density
@@ -158,11 +169,11 @@ class SharingFragment : Fragment() {
             }
             cardContent.addView(batteryLabel)
         connectionLabel=text(when {
-            current==null -> "Pair with Pingora on your laptop to start sharing."
-            !current.isReachable -> "Offline · Open Pingora on your laptop and use the same network."
+            current==null -> "No laptop paired"
+            !current.isReachable -> "Offline · Showing saved readings"
             SharingPolicy.preferences(context).getBoolean("${current.deviceId}.paused",false) -> "Sharing paused · Resume in Settings."
-            current.getPlugin<BridgePlugin>()?.isReady != true -> "Connecting · Waiting for the laptop feature channel"
-            else -> "Connected · Sharing over your local network"
+            current.getPlugin<BridgePlugin>()?.isReady != true -> "Connecting to laptop…"
+            else -> "Connected"
         })
             layout.removeView(connectionLabel)
             cardContent.addView(connectionLabel)
@@ -186,6 +197,7 @@ class SharingFragment : Fragment() {
                         .setPositiveButton("Forget") {_,_->saved.unpair();selectedPeer=null;render()}.setNegativeButton("Cancel",null).show()
                 }.show()
         }
+        text("Home screen widgets",true)
         if(android.os.Build.VERSION.SDK_INT>=26) {
             button("Add laptop status widget") { android.appwidget.AppWidgetManager.getInstance(context).requestPinAppWidget(android.content.ComponentName(context,org.kde.kdeconnect.pingora.LaptopWidget::class.java),null,null) }
             button("Add clipboard widget") { android.appwidget.AppWidgetManager.getInstance(context).requestPinAppWidget(android.content.ComponentName(context,org.kde.kdeconnect.pingora.ClipboardWidget::class.java),null,null) }
@@ -302,5 +314,88 @@ class SharingFragment : Fragment() {
         if(page==2) button("Reconnect") {org.kde.kdeconnect.BackgroundService.ForceRefreshConnections(context);render()}
         if(current!=null && !current.isReachable) button("Connection help") {(activity as? MainActivity)?.openPingoraPage("health")}
     }
-    override fun onDestroyView() { handler.removeCallbacks(refreshStatus); snackbar?.dismiss(); snackbar=null; connectionLabel=null; batteryLabel=null; slumberLabel=null; content=null; super.onDestroyView() }
+    override fun onDestroyView() { handler.removeCallbacks(refreshStatus); snackbar?.dismiss(); snackbar=null; connectionLabel=null; batteryLabel=null; slumberLabel=null;telemetryLabel=null;syncLabel=null;profileLabel=null; content=null; super.onDestroyView() }
+    private fun renderDashboard(root: LinearLayout, peer: org.kde.kdeconnect.Device?, details: Boolean) {
+        val context=requireContext()
+        val bridge=peer?.getPlugin<BridgePlugin>()
+        val saved=peer?.let {org.kde.kdeconnect.pingora.LaptopTelemetry.read(context,it.deviceId)}
+            ?: org.kde.kdeconnect.pingora.LaptopTelemetry.Snapshot(JSONObject(),0)
+        fun label(parent: LinearLayout,value: String,size: Float=15f,bold: Boolean=false): TextView = TextView(context).apply {
+            text=value;textSize=size;if(bold)setTypeface(typeface,android.graphics.Typeface.BOLD)
+            setPadding(0,6.dp(),0,6.dp());parent.addView(this)
+        }
+        fun action(parent: LinearLayout,title: String,enabled: Boolean=true,primary: Boolean=false,run:()->Unit) {
+            parent.addView(Button(context).apply {
+                text=title;isAllCaps=false;isEnabled=enabled;minimumHeight=48.dp();cornerRadius=14.dp()
+                if(!primary) {backgroundTintList=android.content.res.ColorStateList.valueOf(android.graphics.Color.TRANSPARENT);setTextColor(com.google.android.material.color.MaterialColors.getColor(this,androidx.appcompat.R.attr.colorPrimary))}
+                layoutParams=LinearLayout.LayoutParams(-1,-2).apply {topMargin=4.dp()};setOnClickListener {run()}
+            })
+        }
+        label(root,if(details) "Laptop controls" else "Your workspace",24f,true)
+        val card=com.google.android.material.card.MaterialCardView(context).apply {
+            radius=20.dp().toFloat();strokeWidth=0;cardElevation=0f
+            setCardBackgroundColor(com.google.android.material.color.MaterialColors.getColor(root,com.google.android.material.R.attr.colorSurfaceContainer))
+            layoutParams=LinearLayout.LayoutParams(-1,-2).apply {topMargin=12.dp();bottomMargin=12.dp()}
+        }
+        val inner=LinearLayout(context).apply {orientation=LinearLayout.VERTICAL;setPadding(20.dp(),16.dp(),20.dp(),16.dp())}
+        root.addView(card);card.addView(inner)
+        label(inner,peer?.name ?: "Connect your laptop",20f,true)
+        connectionLabel=label(inner,if(peer?.isReachable==true && bridge?.isReady==true) "Connected" else "Offline · Last saved status",13f)
+        val level=saved.data.optJSONObject("battery")?.optInt("level",-1) ?: -1
+        batteryLabel=label(inner,if(level in 0..100) "$level%" else "—",42f,true).apply {
+            setTextColor(com.google.android.material.color.MaterialColors.getColor(this,androidx.appcompat.R.attr.colorPrimary))
+        }
+        val metricsRow=LinearLayout(context).apply {orientation=LinearLayout.HORIZONTAL;gravity=android.view.Gravity.CENTER_VERTICAL}
+        inner.removeView(batteryLabel)
+        metricsRow.addView(batteryLabel,LinearLayout.LayoutParams(0,-2,1f))
+        telemetryLabel=TextView(context).apply {
+            text=org.kde.kdeconnect.pingora.LaptopWidget.metrics(saved.data).replace(" · ","\n")
+            textSize=16f;setTypeface(typeface,android.graphics.Typeface.BOLD)
+            metricsRow.addView(this,LinearLayout.LayoutParams(0,-2,1f))
+        }
+        inner.addView(metricsRow)
+        label(inner,"Laptop battery · System usage",12f)
+        syncLabel=label(inner,saved.age()+if(peer?.isReachable==true) "" else " · Saved reading",12f)
+        profileLabel=label(inner,org.kde.kdeconnect.pingora.LaptopWidget.profileLabel(saved.data.optString("power_profile")),14f)
+        action(root,"Refresh status",peer?.isReachable==true) {bridge?.requestLaptopStatus();message("Requesting a fresh laptop reading…")}
+        if(peer==null) {action(root,"Pair a laptop",primary=true) {(activity as? MainActivity)?.openPingoraPage("devices")};return}
+        if(!details) {
+            label(root,"Send to ${peer.name}",17f,true)
+            val sendActions=LinearLayout(context).apply {orientation=LinearLayout.HORIZONTAL;root.addView(this)}
+            action(sendActions,"Send clipboard",bridge?.canSend("clipboard")==true && peer.isReachable,true) {
+                startActivity(Intent(context,org.kde.kdeconnect.pingora.ClipboardSendActivity::class.java))
+            }
+            action(sendActions,"Send file",bridge?.canSend("files")==true && peer.isReachable,true) {filePicker.launch(arrayOf("*/*"))}
+            for(index in 0 until sendActions.childCount) sendActions.getChildAt(index).layoutParams=LinearLayout.LayoutParams(0,60.dp(),1f).apply {setMargins(if(index==0)0 else 4.dp(),0,if(index==0)4.dp() else 0,0)}
+            action(root,"Transfers & received links") {showActivity=true;render()}
+            action(root,"Power & lid controls") {page=2;render()}
+            action(root,"Connection help") {(activity as? MainActivity)?.openPingoraPage("health")}
+        } else {
+            action(root,"Back to Home") {page=0;render()}
+            label(root,"Power profile",18f,true)
+            label(root,"Applies to the laptop. The profile icon appears on your widget.",13f)
+            val fresh=bridge?.isReady==true && bridge.laptopStatusAt>0 && android.os.SystemClock.elapsedRealtime()-bridge.laptopStatusAt in 0..90_000
+            val profiles=saved.data.optJSONArray("power_profiles")
+            val available=(0 until (profiles?.length() ?: 0)).map {profiles!!.optString(it)}
+            for(value in listOf("power-saver","balanced","performance")) {
+                action(root,org.kde.kdeconnect.pingora.LaptopWidget.profileLabel(value),fresh && bridge?.canSend("power")==true && value in available) {
+                    if(bridge?.send("power_profile",JSONObject().put("value",value))==true) message("Requested profile. Waiting for the laptop to confirm.")
+                }
+            }
+            label(root,"Device actions",18f,true)
+            action(root,"Ring laptop",bridge?.canSend("ring")==true && peer.isReachable) {bridge?.send("ring",JSONObject())}
+            action(root,"Stop ringing") {bridge?.send("ring_stop",JSONObject())}
+            action(root,"Activate Slumber",fresh && bridge?.canSend("slumber")==true) {
+                com.google.android.material.dialog.MaterialAlertDialogBuilder(context).setTitle("Activate Slumber?")
+                    .setMessage("This locks your laptop and switches its displays off.")
+                    .setPositiveButton("Activate") {_,_->bridge?.send("slumber_activate",JSONObject())}.setNegativeButton("Cancel",null).show()
+            }
+            label(root,"When the lid closes",18f,true)
+            label(root,"Change the lid preference. This does not sleep or lock the laptop now.",13f)
+            for(value in listOf("sleep","slumber")) action(root,value.replaceFirstChar {it.uppercase()},fresh && bridge?.canSend("slumber")==true && saved.data.optJSONObject("slumber")?.optBoolean("lid_control")==true) {
+                bridge?.send("slumber_lid",JSONObject().put("value",value));message("Requested lid mode: $value")
+            }
+        }
+    }
+
 }
